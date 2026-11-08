@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>中文複句小達人</title>
+<style>
+:root{--bg:#f4f8ff;--card:#fff;--tx:#223;--sub:#667;--ln:#d8e0ee;--ac:#3b6fe0;--mk:#ffe58a;--tbg:90%;--tfg:30%;--okc:#d9f5e1;--nog:#fde2e2;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#141a26;--card:#1e2636;--tx:#eef1f8;--sub:#9aa5bd;--ln:#34405a;--ac:#7aa2ff;--mk:#6b5a10;--tbg:25%;--tfg:85%;--okc:#1d4a2c;--nog:#5a2424}}
+:root[data-theme="dark"]{--bg:#141a26;--card:#1e2636;--tx:#eef1f8;--sub:#9aa5bd;--ln:#34405a;--ac:#7aa2ff;--mk:#6b5a10;--tbg:25%;--tfg:85%;--okc:#1d4a2c;--nog:#5a2424}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tx);font-family:"Noto Sans TC","PingFang TC","Microsoft JhengHei",system-ui,sans-serif;font-size:18px;line-height:1.7}
+.w{max-width:760px;margin:0 auto;padding:16px}
+h1{margin:6px 0 0;font-size:28px}
+.sub{color:var(--sub);font-size:15px;margin:0 0 12px}
+.tabs{display:flex;gap:8px;margin:12px 0}
+.tabs button{flex:1;padding:10px 4px;font:inherit;font-weight:700;border:2px solid var(--ln);background:var(--card);color:var(--tx);border-radius:14px;cursor:pointer}
+.tabs button.on{background:var(--ac);border-color:var(--ac);color:#fff}
+.card{background:var(--card);border:1px solid var(--ln);border-radius:18px;padding:18px;margin-bottom:14px}
+label{display:block;margin:10px 0 4px;font-weight:700}
+select,textarea,input{width:100%;font:inherit;padding:10px;border-radius:12px;border:2px solid var(--ln);background:var(--bg);color:var(--tx)}
+.go{margin-top:14px;width:100%;min-height:48px;font:inherit;font-weight:700;border:0;border-radius:14px;background:var(--ac);color:#fff;cursor:pointer}
+.sent{font-size:22px;padding:14px;border-radius:14px;background:var(--bg);border:2px dashed var(--ln);margin:10px 0}
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+@media(max-width:520px){.opts{grid-template-columns:1fr}}
+.opt{min-height:52px;padding:10px;font:inherit;border:2px solid var(--ln);border-radius:14px;background:var(--card);color:var(--tx);cursor:pointer;text-align:left}
+.opt.ok{background:var(--okc);border-color:#3aa356}.opt.no{background:var(--nog);border-color:#d55}
+.fb{margin-top:14px;padding:12px 14px;border-radius:14px}.fb.g{background:var(--okc)}.fb.b{background:var(--nog)}.fb p{margin:6px 0}
+mark{background:var(--mk);color:inherit;border-radius:4px;padding:0 2px}
+.bar{height:10px;background:var(--ln);border-radius:9px;overflow:hidden}.bar i{display:block;height:100%;background:var(--ac)}
+.meta{color:var(--sub);font-size:15px;margin:6px 0}
+h2{font-size:20px;margin:8px 0}
+.tag{display:inline-block;padding:2px 12px;border-radius:99px;font-weight:700;background:hsl(var(--h) 80% var(--tbg));color:hsl(var(--h) 55% var(--tfg))}
+.chip{display:inline-block;margin:4px 6px 4px 0;padding:4px 12px;border-radius:99px;border:1px solid var(--ln);background:var(--bg);font-size:16px}
+button.chip{cursor:pointer;color:var(--tx);font-family:inherit;text-align:left}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:12px}
+@media(max-width:520px){.grid{grid-template-columns:repeat(2,1fr)}}
+.grid button{min-height:46px;font:inherit;font-weight:700;border-radius:12px;cursor:pointer;border:2px solid hsl(var(--h) 60% 60%);background:hsl(var(--h) 80% var(--tbg));color:hsl(var(--h) 55% var(--tfg))}
+.big{font-size:44px;text-align:center}
+</style>
+</head>
+<body>
+<div class="w">
+<h1>📚 中文複句小達人</h1>
+<p class="sub" id="cnt"></p>
+<div class="tabs"><button class="on" onclick="tab(0)">✏️ 練習題庫</button><button onclick="tab(1)">🔍 問句子</button><button onclick="tab(2)">📖 問定義</button></div>
+
+<section id="t0">
+<div class="card" id="setup">
+<label>題目種類</label><select id="k"><option value="">全部混合</option><option value="s">句子辨認（這句是哪種複句？）</option><option value="d">認識說明（定義題）</option><option value="c">關聯詞辨認</option></select>
+<label>複句類別</label><select id="ty"></select>
+<label>題數</label><select id="n"><option>10</option><option selected>20</option><option>30</option><option>50</option><option value="9999">全部</option></select>
+<button class="go" onclick="start()">開始練習 🚀</button>
+</div>
+<div class="card" id="qa" hidden></div>
+</section>
+
+<section id="t1" hidden>
+<div class="card">
+<label>輸入一個句子，我來判斷是哪一種複句</label>
+<textarea id="inp" rows="3" placeholder="例如：因為下大雨，所以比賽取消了。"></textarea>
+<button class="go" onclick="ask()">判斷 🔍</button>
+<p class="sub" style="margin-top:12px">試試看：</p><div id="eg"></div>
+</div>
+<div id="res"></div>
+</section>
+
+<section id="t2" hidden>
+<div class="card">
+<div class="grid" id="dg"></div>
+<label>也可以輸入名稱或關聯詞</label>
+<input id="dq" placeholder="例如：因果、雖然…但是、只要…就">
+</div>
+<div id="dr"></div>
+</section>
+</div>
+
+<script>
+const D=[
+{n:"並列複句",e:"🤝",h:215,d:"句子裡的幾件事、幾個情況「地位一樣」，沒有誰比較重要，像小朋友並排站好。",tip:"想一想：兩句能不能調換順序？調換後意思差不多，常是這一類。",p:[
+["…一方面…，另一方面…。","弟弟/想吃冰/怕蛀牙;媽媽/要上班/要照顧我們;小美/想參加比賽/擔心準備不夠;老師/稱讚我們進步/提醒我們不要驕傲;我/想出去玩/怕功課寫不完;哥哥/想買新球鞋/想存錢旅行"],
+["…一邊…，一邊…。","小華/吃早餐/看報紙;妹妹/跳舞/唱歌;爸爸/開車/聽廣播;我們/走路/聊天;姊姊/洗碗/哼著歌;哥哥/寫功課/聽音樂"],
+["…既…又…。","這朵花/漂亮/芳香;弟弟/聰明/勤勞;這道菜/好看/好吃;小明/有禮貌/有愛心;公園裡/安靜/舒適"],
+["…又…又…。","小狗/可愛/聽話;這間教室/寬敞/明亮;他的字/大/工整;夏天的西瓜/甜/多汁"],
+["…一下子…，一下子…。","天氣/下雨/放晴;弟弟/哭/笑;他的心情/高興/難過;湖面/平靜/起了波浪"],
+["…，不是…，而是…。","我哭/因為痛/因為感動;他遲到/睡過頭/車子壞了;小明/不會唱/不敢唱;我們要的/玩具/朋友的陪伴"],
+["…是…，也是…。","王老師/我們的導師/我們的朋友;公園/孩子的樂園/老人的休閒去處;這座山/登山客的天堂/攝影家的最愛;圖書館/學習的地方/休息的好去處"]]},
+{n:"承接複句",e:"🚶",h:25,d:"幾件事「一件接著一件」依照先後順序發生，像排隊走樓梯。",tip:"看有沒有「先…再…」「首先…然後…」「一…就…」這些表示順序的詞。",p:[
+["…首先…，然後…。","我們/到博物館參觀/去吃午餐;媽媽/洗菜/下鍋炒;爸爸/打開地圖/出發;他/寫完作業/出去玩;老師/點名/開始上課"],
+["…一…就…。","弟弟/回到家/開始玩遊戲;我/聽到鬧鐘/立刻起床;他/看見老師/馬上問好;妹妹/躺到床上/睡著了;小狗/聞到香味/跑了過來;爸爸/下班回家/準備晚餐"],
+["…先…，再…。","我/洗手/吃飯;他/想清楚/回答;小美/整理房間/出門;農夫/播種/澆水;弟弟/刷牙/洗臉;姊姊/寫完作業/看漫畫"],
+["…先是…，接著…，後來…。","天空/下起小雨/颳起大風/出現了彩虹;他/學游泳/學騎車/學溜冰;小樹/長出嫩芽/開滿白花/結出果實"],
+["…起先…，後來…。","他/不敢說話/漸漸開朗起來;我/討厭跑步/愛上了運動;同學們/不熟悉/成為好朋友;這裡/是一片稻田/蓋滿了高樓"],
+["…，於是…。","天氣變冷了/我穿上外套;他發現寫錯了/馬上擦掉重寫;天色漸暗/我們決定回家;手機沒電了/他向同學借電話;媽媽生病了/我主動幫忙做家事"],
+["…，便…。","他吃完飯/去洗碗;太陽下山了/農夫收工回家;鈴聲響了/同學們走進教室;雨停了/我們出發"],
+["…，然後…。","我們先去圖書館/去公園;小明做完功課/幫媽媽煮飯;大家打完球/一起去吃冰"]]},
+{n:"遞進複句",e:"🪜",h:145,d:"後面的意思比前面「更進一步」，在程度、數量或範圍上越來越多、越來越強。",tip:"後句常有「還」「更」「甚至」，像爬樓梯，一階比一階高。",p:[
+["…不但…，還…。","小志/會說中文/會說日文;老師/教我們知識/教我們做人的道理;這本書/很有趣/很有教育意義;姊姊/成績好/樂於助人;這家店/東西好吃/服務很親切"],
+["…不但…，而且…。","妹妹/聰明/很有禮貌;這部電影/好看/很有意義;他/跑得快/跳得高;春天的公園/空氣清新/花開滿地"],
+["…除了…，還…。","爸爸/做飯/洗衣服;我/喜歡畫畫/喜歡寫書法;動物園/有獅子/有大象;他/會游泳/會潛水;老師/批改作業/準備教材"],
+["…不僅…，也…。","詠雯/是樂團成員/是游泳隊員;這座城市/有美食/有美景;志明/是班長/是風紀隊長;媽媽/會煮菜/會做點心"],
+["…不單…，更…。","哥哥/喜歡文學/熱愛科學;他/關心家人/關心社會;這個計畫/幫助了學生/幫助了社區;小林/愛看書/愛寫作"],
+["…不僅…，連…也…。","展覽會/吸引本地人參觀/外國遊客/慕名而來;這隻小狗/受小孩歡迎/爺爺/很愛親近;他/忘了帶書/鉛筆盒/沒帶;這題/同學們不會/老師/想了很久"],
+["…不但…，也…，甚至…。","弟弟/愛看書/愛運動/愛下廚;小明/會唱歌/會跳舞/會作曲;他/幫我拿書包/幫我買早餐/陪我回家"],
+["…，並…。","校長前往教室巡視/與老師討論;小玲完成了作業/檢查了一遍;志工們打掃公園/種下新的花草;市長參觀學校/和學生交談"],
+["…，更…。","這座山很高/玉山更高;玫瑰很香/茉莉花更香;這題很難/下一題更難"]]},
+{n:"選擇複句",e:"🔀",h:275,d:"列出兩種以上的可能，要從裡面「挑一個」。",tip:"「是…還是…」是問你挑哪個；「不是…就是…」表示只有兩種可能；「與其…不如…」「寧願…也不…」是挑比較好的那一個。",p:[
+["是…，還是…？","你想喝茶/喝果汁;去海邊/去山上;先吃飯/先寫功課;他在說真話/在開玩笑;靜儀選中文系/選歷史系;我們搭公車/騎單車"],
+["或者…，或者…。","你努力讀書順利升班/留級重讀;你留下來幫忙/現在就回家;我們搭公車/走路去;你自己動手做/請別人幫忙;你選擇道歉/保持沉默"],
+["…不是…，就是…。","倩婷做事/忘了寫日期/忘了加價錢;弟弟/在看電視/在打電動;他放學後/去打球/去游泳;他說話/太大聲/太小聲;週末的車站/人擠人/排長隊"],
+["要不…，要不就…。","你離開家自己生活/聽父母的話;你好好道歉/接受處罰;我們現在出發/等明天再去;你自己整理房間/讓媽媽幫你"],
+["…寧願…，也不…。","哥哥/辭職創業/留在這間公司;我/餓肚子/吃不乾淨的東西;他/走路上學/遲到;阿嬤/自己走路/麻煩別人;小英/輸掉比賽/作弊"],
+["與其…，不如…。","抱怨/動手改變;看電視/出去運動;後悔/及早補救;等別人幫忙/自己試試看;吵架/好好溝通;搭車/走路上學"]]},
+{n:"因果複句",e:"🔗",h:345,d:"前面說「為什麼」，後面說「結果怎麼樣」，兩句真的有 原因→結果 的關係。",tip:"一定要檢查前後真的有關係！「因為我喜歡運動，所以我不喜歡畫畫」就是錯的句子。",p:[
+["因為…，所以…。","他欠交功課/被老師責罰;下大雨/比賽取消了;妹妹快上小學/媽媽辭職在家照顧她;我昨晚沒睡好/今天一直打瞌睡;他每天練習/進步很多;路面結冰/車子開得很慢;弟弟感冒了/今天請假在家"],
+["由於…，因此…。","地震頻繁/大家備妥防災物資;小華家改用省電暖爐/省下不少電費;天氣太熱/學校提早放學;他勤於運動/身體很健康;下大雨/運動會取消了;颱風接近/航班全部取消"],
+["由於…，因而…。","疫情嚴重/小食店結業了;工廠排放廢水/河川受到污染;他努力不懈/獲得冠軍;水源缺乏/農作物枯死了;書本太舊/字跡模糊不清"],
+["…，以致…。","叔叔常常吸菸/患上了肺病;他熬夜打電動/上課常常打瞌睡;他粗心大意/考試失了很多分;弟弟偷懶/成績一落千丈;她吃太多零食/吃不下晚餐"],
+["既然…，…就…。","你不願意/我們/不勉強了;你已經來了/大家/一起吃飯吧;天氣這麼冷/我們/待在家裡吧;事情已經發生了/大家/想辦法解決;你答應了/你/要做到"],
+["…，因此…。","他生病了/請假一天;圖書館整修/暫停開放;颱風來襲/停班停課;天色已晚/我們提早回家"]]},
+{n:"轉折複句",e:"🔄",h:50,d:"後面的意思和前面「相反或不同」，像走路時突然轉了個彎，後句才是重點。",tip:"關鍵詞常有「但是」「卻」「不過」「然而」；「雖然…但是…」最常見。",p:[
+["雖然…，但是…。","今天下雨/我們仍然出門;我和姊姊分隔兩地/感情很好;他個子矮/籃球打得很棒;這題很難/我還是做出來了;小狗很小/膽子很大;他準備得很充分/還是沒考好"],
+["儘管…，…還是…。","天氣很冷/小明/穿短袖出門;工作很累/爸爸/陪我們玩;路途遙遠/他/準時到達;比賽暫時中斷/同學們/很期待;大家都反對/她/堅持自己的想法"],
+["…，不過…。","這件衣服很漂亮/價錢太貴;我很想去/要先寫完功課;蛋糕很好吃/太甜了;這家店很有名/排隊的人太多"],
+["…，卻…。","他準備得很充分/沒考好;弟弟明明知道答案/不肯說;他很有錢/從不浪費;外面下著大雨/他沒帶傘"],
+["…，然而…。","大家都以為會下雨/一整天都是晴天;我努力練習了很久/比賽時還是很緊張;他說會準時/到了十點還沒出現"],
+["…，只是…。","這個方法不錯/需要花很多時間;他人很好/有點害羞;我很想幫忙/力氣不夠"],
+["固然…，卻…。","他很聰明/不夠努力;這裡風景優美/交通不便;這份工作辛苦/很有意義"],
+["雖說…，可是…。","天氣轉涼了/他還是穿短褲;他年紀小/懂得很多事"],
+["從前…，如今…。","這裡是一片荒地/高樓林立;他很害羞/很大方;村子交通不便/道路四通八達"]]},
+{n:"假設複句",e:"💭",h:180,d:"先「想像」一個情況，再說如果這個情況發生，會有什麼結果。",tip:"句子裡的情況還沒發生，或不一定發生，常有「如果」「要是」「假如」「即使」。",p:[
+["如果…，就…。","明天下雨/取消野餐;你再說謊/沒有人會相信你;你想留在田徑隊/要加緊練習;小明注意梯級/不會絆倒;天氣放晴/我們去爬山;你有問題/舉手發問"],
+["假如…，就…。","我有一百萬/環遊世界;時間可以倒流/好好讀書;明天不用上課/睡到中午;我會飛/飛到雲端看看"],
+["要是…，就…。","我努力溫習/能考好成績;他早點出門/不會遲到;你喜歡這本書/送給你;天太黑/打開電燈"],
+["若…，…。","雨勢持續/比賽就會取消;你在冬天穿太少/很容易生病;你忘了帶錢/可以先向我借;你多喝水/身體會更健康"],
+["倘若…，…。","明天放晴/我們就出發;你堅持/我也不反對;地球沒有水/就不會有生命"],
+["即使…，…也…。","所有人都不看好/父母/會支持我們;考試很難/他/會努力應對;下大雨/我/要去上學;失敗了/你/不要灰心;路再遠/我/要走完"],
+["要不是…，…。","你提醒我/我差點忘記交作業;他幫忙/我不可能完成;媽媽叫我起床/我一定遲到了"]]},
+{n:"條件複句",e:"🔑",h:305,d:"前面提出「條件」，後面說符合條件才會得到的結果。",tip:"和假設不同：假設是「想像」，條件是「必須做到」。看到「只要」「只有」「除非」「無論」就想到它。",p:[
+["只要…，就…。","你努力/一定能成功;有陽光和水/植物會成長;大家喜歡/隨時歡迎來玩;天氣好/我去運動;多讀書/會進步;你肯學/老師願意教"],
+["只有…，才…。","每天運動/能擁有健康的身體;努力練習/能進步;團結合作/能贏得比賽;認真聽講/能弄懂;持之以恆/能成功"],
+["除非…，否則…。","你努力讀書/不可能考好;你道歉/我不跟你說話;下雪/我天天騎車;他答應/計畫不能進行"],
+["除非…，才…。","得到允許/可以進去;天氣轉好/會舉行比賽;付了錢/能拿走商品"],
+["無論…，…都…。","發生什麼事/媽媽/守護著我;天氣好壞/他/去跑步;考得如何/我/不氣餒;路有多遠/他/準時出席"],
+["不管…，…都…。","你怎麼辯解/這件事/改變不了;爸爸多忙/他/陪我吃晚餐;下不下雨/運動會/照常舉行;天氣多熱/小明/堅持運動"],
+["沒有…，就…。","陽光/沒有植物;努力/沒有成就;水/沒有生命;辛苦/沒有收穫"],
+["不管…，反正…。","爸爸工作多忙/每天放工都去跑步;天氣怎樣/我們都要出發;路有多遠/我走得到"]]},
+{n:"目的複句",e:"🎯",h:95,d:"前面說「做了什麼事」，後面說「為什麼這樣做」，也就是想達到的目的。",tip:"常見詞有「為了」「以便」「省得」「免得」；「省得、免得」是為了避開不好的結果。",p:[
+["為了…，…必須…。","考上好學校/我/用功;身體健康/我們/多運動;大家的安全/所有人/遵守交通規則;比賽成功/我們/天天練習;保護環境/我們/做好垃圾分類"],
+["…，省得…。","出門前帶把傘/被雨淋濕;你先把話說清楚/大家誤會;早點出門/趕車;把玩具收好/被人踩到;先看地圖/迷路"],
+["…，以便…。","請留下電話/我們聯絡你;我們提早到場/做好準備;老師把重點寫在黑板上/同學記筆記;先查好路線/不會迷路"],
+["…，免得…。","穿厚一點/著涼;小心一點/跌倒;先寫完功課再玩/媽媽生氣;先寫備忘錄/忘記;把門鎖好/小偷進來"],
+["為了…，…才…。","考上好學校/他/每天讀到很晚;趕上第一班車/我/五點就起床;讓媽媽開心/弟弟/主動洗碗;買到新書/我/存了三個月的零用錢"]]}
+];
+// 輔助判斷用的其他常見寫法
+const X=[[1,"首先|接著"],[1,"先|然後"],[1,"先|接著"],[2,"不但|更"],[2,"不但|也"],[2,"不僅|還"],[2,"不僅|而且"],[2,"不只|還"],[2,"非但|而且"],[4,"因為|因此"],[4,"由於|所以"],[4,"之所以|是因為"],[5,"雖然|但"],[5,"雖然|卻"],[5,"雖然|可是"],[5,"雖然|然而"],[5,"雖然|不過"],[5,"雖然|還是"],[5,"儘管|卻"],[5,"儘管|但"],[6,"如果|那麼"],[6,"如果|的話"],[6,"假如|的話"],[6,"要是|那麼"],[6,"假使|就"],[6,"要是|的話"],[7,"只要|便"],[7,"不論|都"],[8,"為了"],[8,"好讓"],[8,"以免"],[0,"既|也"]];
+const $=s=>document.querySelector(s),sh=a=>[...a].sort(()=>Math.random()-.5);
+const sp=t=>t.split(/[…，。？]/).filter(Boolean),lab=p=>p.length>1?p.join("…"):"…"+p[0]+"…";
+const esc=s=>s.replace(/[&<>]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]));
+const tag=t=>`<span class="tag" style="--h:${D[t].h}">${D[t].e} ${D[t].n}</span>`;
+const S=[],P=[];
+D.forEach((y,t)=>y.p.forEach(([tp,it])=>{const pc=sp(tp);P.push({t,p:pc,l:lab(pc)});it.split(";").forEach(x=>{const a=x.split("/");let i=0;S.push({t,p:pc,l:lab(pc),s:tp.replace(/…/g,()=>a[i++])})})}));
+X.forEach(([t,s])=>{const pc=s.split("|");P.push({t,p:pc,l:lab(pc),x:1})});
+function find(s,pc){let i=0,r=[];for(const p of pc){const j=s.indexOf(p,i);if(j<0)return null;r.push([j,j+p.length]);i=j+p.length}return r}
+function hl(s,pc){const r=find(s,pc);if(!r)return esc(s);let o="",k=0;r.forEach(([a,b])=>{o+=esc(s.slice(k,a))+"<mark>"+esc(s.slice(a,b))+"</mark>";k=b});return o+esc(s.slice(k))}
+// 題庫
+const B=[];
+S.forEach(x=>B.push({k:"s",ty:x.t,q:"這句話屬於哪一種複句？",s:x.s,p:x.p}));
+D.forEach((y,t)=>{B.push({k:"d",ty:t,q:`下列哪一個是「${y.n}」的說明？`,defs:1});B.push({k:"d",ty:t,q:`「${y.d}」這段說明的是哪一種複句？`})});
+P.filter(x=>!x.x).forEach(x=>B.push({k:"c",ty:x.t,q:`關聯詞「${x.l}」常用在哪一種複句？`}));
+$("#cnt").textContent=`題庫共 ${B.length} 題｜句子辨認 ${B.filter(b=>b.k=="s").length}・認識說明 ${B.filter(b=>b.k=="d").length}・關聯詞 ${B.filter(b=>b.k=="c").length}`;
+$("#ty").innerHTML='<option value="">全部類別</option>'+D.map((y,i)=>`<option value="${i}">${y.e} ${y.n}</option>`).join("");
+let Q=[],qi=0,sc=0,wrong=[],cur,op,ans;
+function opts(b){if(b.defs){const o=[{t:D[b.ty].d,ok:1}];sh(D.filter((_,i)=>i!=b.ty)).slice(0,3).forEach(y=>o.push({t:y.d}));return sh(o)}
+const o=[{t:D[b.ty].n,i:b.ty,ok:1}];sh(D.map((_,i)=>i).filter(i=>i!=b.ty)).slice(0,3).forEach(i=>o.push({t:D[i].n,i}));return sh(o)}
+function tab(n){["t0","t1","t2"].forEach((id,i)=>{$("#"+id).hidden=i!=n;document.querySelectorAll(".tabs button")[i].classList.toggle("on",i==n)})}
+function start(){const k=$("#k").value,t=$("#ty").value;let pool=B.filter(b=>(!k||b.k==k)&&(t===""||b.ty==t));if(!pool.length){alert("這個組合沒有題目，換一個試試看！");return}
+Q=sh(pool).slice(0,+$("#n").value);run()}
+function run(){qi=0;sc=0;wrong=[];$("#setup").hidden=true;$("#qa").hidden=false;show()}
+function show(){const b=Q[qi];cur=b;op=opts(b);ans=0;
+let h=`<div class="bar"><i style="width:${qi/Q.length*100}%"></i></div><div class="meta">第 ${qi+1} / ${Q.length} 題　答對 ${sc} 題</div><h2>${esc(b.q)}</h2>`;
+if(b.k=="s")h+=`<div class="sent">${esc(b.s)}</div>`;
+h+=`<div class="opts">`+op.map((o,i)=>`<button class="opt" onclick="pick(${i})">${o.i!=null?D[o.i].e+" ":""}${esc(o.t)}</button>`).join("")+`</div><div id="fb"></div>`;
+$("#qa").innerHTML=h}
+function pick(i){if(ans)return;ans=1;const o=op[i],b=cur,y=D[b.ty],bs=document.querySelectorAll(".opt");
+bs.forEach((e,j)=>{e.disabled=true;if(op[j].ok)e.classList.add("ok")});
+if(o.ok)sc++;else{bs[i].classList.add("no");wrong.push(b)}
+let f=`<div class="fb ${o.ok?"g":"b"}"><b>${o.ok?"🎉 答對了！":"💡 再想想～答案是「"+y.n+"」"}</b>`;
+if(b.k=="s")f+=`<p>${hl(b.s,b.p)}</p><p>關聯詞：<b>${lab(b.p)}</b></p>`;
+f+=`<p>${esc(y.d)}</p><p>小提醒：${esc(y.tip)}</p></div><button class="go" onclick="nx()">${qi+1<Q.length?"下一題 ➜":"看成績 🏆"}</button>`;
+$("#fb").innerHTML=f}
+function nx(){qi++;qi>=Q.length?end():show()}
+function end(){const r=Math.round(sc/Q.length*100);
+let h=`<div class="big">${r>=90?"🏆":r>=70?"🌟":r>=50?"👍":"💪"}</div><h2 style="text-align:center">答對 ${sc} / ${Q.length} 題（${r} 分）</h2>`;
+if(wrong.length){h+=`<h2>答錯的題目</h2>`+wrong.map(b=>`<p>${b.k=="s"?hl(b.s,b.p):esc(b.q)}<br>→ ${tag(b.ty)}</p>`).join("")+`<button class="go" onclick="Q=sh(wrong);run()">只重做答錯的 🔁</button>`}
+else h+=`<p style="text-align:center">全部答對，太厲害了！</p>`;
+h+=`<button class="go" onclick="$('#qa').hidden=true;$('#setup').hidden=false">回到設定 ⚙️</button>`;$("#qa").innerHTML=h}
+// 問句子
+function judge(s){const out=[],ex=S.find(x=>x.s===s);if(ex)out.push({t:ex.t,p:ex.p,l:ex.l,sc:99});
+P.forEach(q=>{if(find(s,q.p))out.push({t:q.t,p:q.p,l:q.l,sc:q.p.join("").length})});
+out.sort((a,b)=>b.sc-a.sc);const seen=new Set();return out.filter(o=>{const k=o.t+o.l;if(seen.has(k))return false;seen.add(k);return true})}
+function ask(){const s=$("#inp").value.trim();if(!s)return;const r=judge(s);let h="";
+if(!r.length){h=`<div class="card"><h2>🤔 找不到明顯的關聯詞</h2><p>先找找句子裡有沒有「因為…所以」「雖然…但是」「如果…就」這類成對的詞。如果句子很短、沒有關聯詞，可能不是複句，或關聯詞被省略了。</p></div>`}
+else{const m=r[0],y=D[m.t],weak=m.sc<2;
+h=`<div class="card"><h2>這句話是：${tag(m.t)}</h2>${weak?`<p>⚠️ 只找到很短的關聯詞，把握度比較低，請再檢查一下。</p>`:""}<div class="sent">${hl(s,m.p)}</div><p>關聯詞：<b>${esc(m.l)}</b></p><p>📖 ${esc(y.d)}</p><p>💡 ${esc(y.tip)}</p></div>`;
+const alt=r.slice(1).filter(o=>o.t!=m.t&&o.sc>=2).slice(0,2);
+if(alt.length)h+=`<div class="card"><b>也有可能是：</b><br>`+alt.map(o=>`${tag(o.t)} 關聯詞 ${esc(o.l)}`).join("<br>")+`</div>`}
+$("#res").innerHTML=h}
+function eg(){$("#eg").innerHTML=sh(S).slice(0,4).map(x=>`<button class="chip" onclick="$('#inp').value=this.textContent;ask()">${esc(x.s)}</button>`).join("")+`<button class="chip" onclick="eg()">🔄 換一批</button>`}
+eg();
+// 問定義
+$("#dg").innerHTML=D.map((y,i)=>`<button style="--h:${y.h}" onclick="def(${i})">${y.e} ${y.n}</button>`).join("");
+function def(t,note){const y=D[t],ex=sh(S.filter(x=>x.t==t)).slice(0,3),ls=[...new Set(P.filter(x=>x.t==t&&!x.x).map(x=>x.l))];
+$("#dr").innerHTML=`<div class="card"><h2>${tag(t)}</h2>${note?`<p>🔎 ${esc(note)}</p>`:""}<p>📖 ${esc(y.d)}</p><p>💡 ${esc(y.tip)}</p><b>常見關聯詞</b><br>${ls.map(l=>`<span class="chip">${esc(l)}</span>`).join("")}<p><b>例句</b></p>${ex.map(x=>`<p>• ${hl(x.s,x.p)}</p>`).join("")}<button class="chip" onclick="def(${t})">🔄 換一組例句</button></div>`}
+$("#dq").addEventListener("input",e=>{const q=e.target.value.replace(/[…，。\s.．,]/g,"");if(!q)return;
+const i=D.findIndex(y=>y.n.includes(q)||q.includes(y.n.slice(0,2)));if(i>=0)return def(i);
+const m=P.find(x=>x.p.join("")==q)||P.find(x=>x.p.join("").includes(q));
+if(m)def(m.t,`「${m.l}」是這一類常用的關聯詞`);else $("#dr").innerHTML=`<div class="card">找不到「${esc(q)}」，試試輸入「因果」或「雖然…但是」。</div>`});
+</script>
+</body>
+</html>
