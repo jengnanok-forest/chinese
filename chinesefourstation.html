@@ -1,0 +1,2101 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>墨韻小書院修煉記｜國小國語文 RPG 闖關殿堂</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts: Noto Serif TC & Noto Sans TC -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=Noto+Serif+TC:wght@600;700;900&display=swap" rel="stylesheet" />
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            serif: ['"Noto Serif TC"', 'serif'],
+            sans: ['"Noto Sans TC"', 'system-ui', '-apple-system', 'sans-serif'],
+          },
+          colors: {
+            paper: {
+              50: '#FDFBF7',
+              100: '#FAF5E8',
+              200: '#F2E8D0',
+              300: '#E5D4B0',
+            },
+            ink: {
+              700: '#334155',
+              800: '#1E293B',
+              900: '#0F172A',
+            },
+            indigoInk: {
+              600: '#2B4C7E',
+              700: '#1E3A5F',
+              800: '#152A45',
+            },
+            cinnabar: {
+              500: '#DC2626',
+              600: '#C83E3B',
+              700: '#A62C29',
+            },
+            gold: {
+              400: '#FBBF24',
+              500: '#F59E0B',
+              600: '#D97706',
+              700: '#B45309',
+            }
+          }
+        }
+      }
+    };
+  </script>
+
+  <style>
+    /* 基礎宣紙紋理與全域字體設定 */
+    :root {
+      --safe-top: env(safe-area-inset-top, 0px);
+      --safe-bottom: env(safe-area-inset-bottom, 0px);
+      --safe-left: env(safe-area-inset-left, 0px);
+      --safe-right: env(safe-area-inset-right, 0px);
+    }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      min-height: 100dvh;
+      background-color: #FAF5E8;
+      color: #1E293B;
+      font-family: "Noto Sans TC", system-ui, -apple-system, sans-serif;
+      overflow-x: hidden;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    /* 宣紙細微纖維背景（強制 pointer-events: none 絕不阻擋點擊） */
+    .xuan-paper-bg {
+      background-color: #FAF5E8;
+      background-image:
+        radial-gradient(at 15% 15%, rgba(217, 119, 6, 0.08) 0px, transparent 50%),
+        radial-gradient(at 85% 20%, rgba(30, 58, 95, 0.07) 0px, transparent 50%),
+        radial-gradient(at 50% 85%, rgba(200, 62, 59, 0.06) 0px, transparent 55%),
+        repeating-linear-gradient(0deg, rgba(180, 150, 100, 0.03) 0px, rgba(180, 150, 100, 0.03) 1px, transparent 1px, transparent 4px);
+    }
+
+    /* 裝飾性層級全部禁止攔截滑鼠與觸控事件 */
+    .deco-layer {
+      pointer-events: none !important;
+      user-select: none !important;
+    }
+
+    /* 確保所有互動按鈕在任何裝置上都具備即時觸控反應 */
+    .interactive-btn {
+      position: relative;
+      z-index: 30;
+      touch-action: manipulation;
+      cursor: pointer;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+
+    /* 橫放 iPad Safari 求籤賜名彈窗：一屏完美顯示（100dvh 動態視口） */
+    #naming-modal {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100dvh;
+      max-height: 100dvh;
+      z-index: 9999;
+      padding-top: max(10px, var(--safe-top));
+      padding-bottom: max(10px, var(--safe-bottom));
+      padding-left: max(12px, var(--safe-left));
+      padding-right: max(12px, var(--safe-right));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(15, 23, 42, 0.78);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+    }
+
+    #naming-modal.hidden-modal {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    #naming-card {
+      width: 100%;
+      max-width: 920px;
+      max-height: calc(100dvh - max(20px, var(--safe-top) + var(--safe-bottom)));
+      overflow: hidden;
+    }
+
+    /* 抽籤名字切換輕快彈跳動畫（非阻塞式純 CSS 效果） */
+    @keyframes namePop {
+      0% {
+        transform: scale(0.92) translateY(6px);
+        opacity: 0.4;
+      }
+      60% {
+        transform: scale(1.03) translateY(-2px);
+        opacity: 1;
+      }
+      100% {
+        transform: scale(1) translateY(0);
+        opacity: 1;
+      }
+    }
+
+    .animate-name-pop {
+      animation: namePop 0.32s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    }
+
+    /* 籤筒輕微搖晃呼吸動畫 */
+    @keyframes floatSlow {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(-4px) rotate(2deg); }
+    }
+
+    .animate-float-slow {
+      animation: floatSlow 3.6s ease-in-out infinite;
+    }
+
+    /* 靈珠發光效果 */
+    .spirit-orb-active {
+      background: radial-gradient(circle at 35% 35%, #FEF08A, #F59E0B 65%, #B45309);
+      box-shadow: 0 0 10px rgba(245, 158, 11, 0.85), inset 0 1px 2px rgba(255, 255, 255, 0.8);
+      border-color: #FEF3C7;
+      transform: scale(1.05);
+    }
+
+    .spirit-orb-used {
+      background: #CBD5E1;
+      box-shadow: inset 0 2px 4px rgba(15, 23, 42, 0.25);
+      border-color: #94A3B8;
+      transform: scale(0.92);
+      opacity: 0.65;
+    }
+
+    /* 書院古典邊框陰影 */
+    .academy-card {
+      background: linear-gradient(180deg, #FFFDF9 0%, #FAF3E3 100%);
+      border: 2px solid #D6C39C;
+      box-shadow: 0 10px 25px -5px rgba(30, 41, 59, 0.1), 0 4px 10px -2px rgba(180, 130, 60, 0.08);
+    }
+
+    /* 玉璽印章質感 */
+    .jade-seal {
+      background: linear-gradient(135deg, #059669 0%, #047857 100%);
+      border: 2px solid #A7F3D0;
+      box-shadow: 0 4px 12px rgba(5, 150, 105, 0.35);
+    }
+
+    /* 自訂捲軸（主畫面與題庫解析用） */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: rgba(214, 195, 156, 0.2);
+      border-radius: 9999px;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: rgba(180, 145, 90, 0.5);
+      border-radius: 9999px;
+    }
+  </style>
+</head>
+<body class="xuan-paper-bg selection:bg-amber-200 selection:text-ink-900">
+
+  <!-- ===================================================================== -->
+  <!-- 一、求籤賜名儀式彈窗（橫放 iPad Safari 一屏完整顯示、最多換 3 次機制） -->
+  <!-- ===================================================================== -->
+  <div id="naming-modal" role="dialog" aria-modal="true" aria-labelledby="naming-modal-title">
+    <div id="naming-card" class="relative rounded-3xl border-2 border-amber-400/80 bg-gradient-to-br from-[#FFFDF8] via-[#FAF2DF] to-[#F3E5C8] shadow-2xl">
+      <!-- 背景裝飾紋理（嚴格設定 deco-layer 與 pointer-events: none，絕不擋住按鈕） -->
+      <div class="deco-layer absolute -top-16 -left-16 w-48 h-48 rounded-full bg-amber-300/20 blur-2xl"></div>
+      <div class="deco-layer absolute -bottom-16 -right-16 w-56 h-56 rounded-full bg-indigo-400/15 blur-2xl"></div>
+      <div class="deco-layer absolute inset-2 rounded-2xl border border-amber-600/20"></div>
+
+      <!-- 雙欄響應式佈局：手機直放單欄緊湊、橫放 iPad (>= 640px) 左右雙欄一屏完整呈現 -->
+      <div class="relative z-10 grid grid-cols-1 sm:grid-cols-[1fr_1.28fr] items-stretch h-full">
+
+        <!-- 左欄：星月籤筒視覺徽章、書院歡迎詞與 3 次換名規則 -->
+        <div class="flex flex-col justify-between p-3.5 sm:p-5 lg:p-6 bg-gradient-to-b from-indigoInk-800 via-indigoInk-700 to-[#1A3152] text-paper-50 sm:rounded-l-[22px] border-b sm:border-b-0 sm:border-r border-amber-400/40">
+          <!-- 頂部：星月籤筒徽章 + 標題 -->
+          <div class="flex sm:flex-col items-center sm:text-center gap-3 sm:gap-2">
+            <!-- 動態星月籤筒 SVG 徽章 -->
+            <div class="animate-float-slow shrink-0 w-14 h-14 sm:w-20 sm:h-20 rounded-2xl bg-gradient-to-br from-amber-400/25 to-amber-600/10 border border-amber-300/50 flex items-center justify-center shadow-lg">
+              <svg viewBox="0 0 80 80" class="w-11 h-11 sm:w-16 sm:h-16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <!-- 星月光環 -->
+                <circle cx="40" cy="40" r="34" stroke="#FBBF24" stroke-width="1.5" stroke-dasharray="4 3" opacity="0.7" />
+                <path d="M58 14C55 18 55 23 58 27C53 27 49 23 49 18C49 14 53 11 58 14Z" fill="#FDE68A" />
+                <circle cx="22" cy="18" r="2" fill="#FDE68A" />
+                <circle cx="63" cy="34" r="1.5" fill="#FDE68A" />
+                <!-- 籤支 -->
+                <rect x="27" y="15" width="5" height="26" rx="2" transform="rotate(-14 27 15)" fill="#FDE68A" stroke="#B45309" stroke-width="1.2" />
+                <rect x="37" y="12" width="5.5" height="28" rx="2" fill="#FEF3C7" stroke="#B45309" stroke-width="1.2" />
+                <rect x="47" y="15" width="5" height="26" rx="2" transform="rotate(13 47 15)" fill="#FCD34D" stroke="#B45309" stroke-width="1.2" />
+                <!-- 紅金籤筒身 -->
+                <path d="M23 34H57L53 65C52.6 67.8 50.2 70 47.4 70H32.6C29.8 70 27.4 67.8 27 65L23 34Z" fill="#C83E3B" stroke="#FBBF24" stroke-width="2" />
+                <rect x="22" y="33" width="36" height="5" rx="2" fill="#F59E0B" />
+                <rect x="26" y="61" width="28" height="4" rx="1.5" fill="#F59E0B" />
+                <!-- 籤筒中央「文」字印 -->
+                <circle cx="40" cy="49" r="8" fill="#FEF3C7" stroke="#D97706" stroke-width="1.2" />
+                <text x="40" y="53" text-anchor="middle" font-size="11" font-weight="900" fill="#991B1B" font-family="Noto Serif TC, serif">文</text>
+              </svg>
+            </div>
+
+            <div class="text-left sm:text-center">
+              <span class="inline-block px-2.5 py-0.5 rounded-full text-[11px] sm:text-xs font-bold tracking-wider bg-amber-400/20 text-amber-200 border border-amber-300/40 mb-0.5">
+                ✨ 入學拜師．求籤賜名 ✨
+              </span>
+              <h1 id="naming-modal-title" class="font-serif text-xl sm:text-2xl lg:text-[26px] font-black tracking-wide text-amber-100 leading-tight">
+                墨韻小書院修煉記
+              </h1>
+            </div>
+          </div>
+
+          <!-- 中段：書院歡迎詞與規則說明（小螢幕精簡、平板完整清晰） -->
+          <div class="my-2 sm:my-2.5 rounded-2xl bg-white/10 border border-amber-200/25 p-2.5 sm:p-3.5 text-xs sm:text-[13px] leading-relaxed text-paper-100">
+            <p class="font-bold text-amber-200 mb-1 flex items-center gap-1.5">
+              <span>🏮</span>
+              <span>歡迎踏入《墨韻小書院修煉記》！</span>
+            </p>
+            <p class="text-paper-100/95">
+              文曲星君已為你搖出一支專屬跨界靈籤！若想另覓良名，每人最多可<strong class="text-amber-300 underline decoration-amber-400/60">重抽 3 次</strong>天命稱號；<strong class="text-amber-300">第 3 次換名後將自動鎖定</strong>並護送你進入書院修煉！
+            </p>
+          </div>
+
+          <!-- 底部：三大跨界名號庫預覽標籤 -->
+          <div class="hidden sm:flex flex-wrap items-center justify-center gap-1.5 text-[11px] font-bold">
+            <span class="px-2 py-1 rounded-lg bg-amber-500/20 text-amber-200 border border-amber-400/30">📜 國學書院 180名</span>
+            <span class="px-2 py-1 rounded-lg bg-sky-500/20 text-sky-200 border border-sky-400/30">🚀 星際科幻 180名</span>
+            <span class="px-2 py-1 rounded-lg bg-pink-500/20 text-pink-200 border border-pink-400/30">🧚 奇幻童話 180名</span>
+          </div>
+        </div>
+
+        <!-- 右欄：角色頭像、主題徽章、大字名號、3顆靈珠與兩顆高觸控按鈕 -->
+        <div class="flex flex-col justify-between p-3.5 sm:p-5 lg:p-6">
+          <!-- 頂部：頭像 + 主題徽章 -->
+          <div class="flex items-center justify-between gap-2">
+            <div class="flex items-center gap-2.5 sm:gap-3">
+              <div id="ceremony-avatar" class="w-12 h-12 sm:w-16 sm:h-16 rounded-2xl bg-gradient-to-br from-amber-100 to-amber-200 border-2 border-amber-500 shadow-md flex items-center justify-center text-3xl sm:text-4xl shrink-0 transition-transform duration-300">
+                📜
+              </div>
+              <div>
+                <div class="text-[11px] sm:text-xs font-bold text-ink-700/80 mb-0.5">文曲星賜予你的修煉名號</div>
+                <span id="ceremony-theme-badge" class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs sm:text-sm font-extrabold bg-amber-100 text-amber-900 border border-amber-400">
+                  📜 國學書院
+                </span>
+              </div>
+            </div>
+            <div class="text-right shrink-0">
+              <span id="ceremony-draw-seq" class="inline-block px-2 py-0.5 rounded-lg bg-ink-800/5 text-ink-700 text-[11px] font-bold">
+                第 1 籤
+              </span>
+            </div>
+          </div>
+
+          <!-- 中央大字展示區：目前抽出的稱號 -->
+          <div class="my-2 sm:my-3 rounded-2xl bg-white/95 border-2 border-amber-500/70 shadow-inner px-3 py-3 sm:px-4 sm:py-4 text-center flex flex-col items-center justify-center min-h-[76px] sm:min-h-[96px]">
+            <div id="ceremony-name-display" class="font-serif text-xl sm:text-2xl lg:text-[28px] font-black text-indigoInk-800 tracking-wide leading-snug break-keep">
+              愛吃包子的小李白
+            </div>
+          </div>
+
+          <!-- 3 顆換名靈珠指示燈 + 自動進入倒數提示 -->
+          <div class="mb-2 sm:mb-3">
+            <div class="flex items-center justify-between bg-amber-900/5 rounded-xl px-3 py-1.5 sm:py-2 border border-amber-800/15">
+              <span class="text-xs sm:text-sm font-bold text-ink-800 flex items-center gap-1.5">
+                <span>🔮 換名靈珠：</span>
+                <span id="ceremony-orb-text" class="text-cinnabar-600 font-extrabold">還剩 3 次機會</span>
+              </span>
+              <div class="flex items-center gap-2" aria-label="換名靈珠指示燈">
+                <span id="orb-1" class="w-4 h-4 sm:w-5 sm:h-5 rounded-full border-2 spirit-orb-active transition-all duration-300"></span>
+                <span id="orb-2" class="w-4 h-4 sm:w-5 sm:h-5 rounded-full border-2 spirit-orb-active transition-all duration-300"></span>
+                <span id="orb-3" class="w-4 h-4 sm:w-5 sm:h-5 rounded-full border-2 spirit-orb-active transition-all duration-300"></span>
+              </div>
+            </div>
+
+            <!-- 狀態提示區（預留固定高度避免畫面跳動） -->
+            <div id="ceremony-status-msg" class="min-h-[24px] mt-1.5 text-center text-xs sm:text-sm font-extrabold text-cinnabar-600 flex items-center justify-center">
+              點擊下方按鈕可重抽名號，或直接接受稱號開始闖關！
+            </div>
+          </div>
+
+          <!-- 底部雙按鈕區（大尺寸觸控、明確高層級 z-index） -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-3">
+            <button
+              type="button"
+              id="btn-reroll-name"
+              class="interactive-btn w-full min-h-[48px] sm:min-h-[52px] px-3 py-2.5 rounded-2xl font-extrabold text-sm sm:text-base text-indigoInk-800 bg-gradient-to-b from-amber-200 to-amber-300 hover:from-amber-300 hover:to-amber-400 active:scale-[0.98] border-2 border-amber-500 shadow-md transition-all flex items-center justify-center gap-1.5"
+            >
+              <span id="btn-reroll-label">🎲 換一個名字（還剩 3 次）</span>
+            </button>
+
+            <button
+              type="button"
+              id="btn-accept-name"
+              class="interactive-btn w-full min-h-[48px] sm:min-h-[52px] px-3 py-2.5 rounded-2xl font-extrabold text-sm sm:text-base text-white bg-gradient-to-b from-cinnabar-500 to-cinnabar-700 hover:from-cinnabar-600 hover:to-cinnabar-700 active:scale-[0.98] border-2 border-amber-300/80 shadow-lg transition-all flex items-center justify-center gap-1.5"
+            >
+              <span>✨ 接受稱號，進入書院</span>
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================================================================== -->
+  <!-- 二、書院主畫面頂部角色狀態列                                          -->
+  <!-- ===================================================================== -->
+  <header class="sticky top-0 z-40 bg-indigoInk-800/95 backdrop-blur-md text-paper-50 border-b-2 border-amber-500/70 shadow-lg">
+    <div class="max-w-6xl mx-auto px-3 sm:px-5 py-2.5 flex flex-wrap items-center justify-between gap-2.5">
+      <!-- 左側：書院徽章與主標題 -->
+      <div class="flex items-center gap-2.5">
+        <div class="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-gradient-to-br from-amber-400 to-amber-600 text-indigoInk-900 font-serif font-black text-xl sm:text-2xl flex items-center justify-center shadow-md border border-amber-200 shrink-0">
+          墨
+        </div>
+        <div>
+          <div class="flex items-center gap-2">
+            <h2 class="font-serif text-lg sm:text-xl font-black tracking-wide text-amber-200 leading-none">
+              墨韻小書院修煉記
+            </h2>
+            <span class="hidden md:inline-block px-2 py-0.5 rounded-md bg-amber-400/20 text-amber-200 text-[11px] font-bold border border-amber-300/30">
+              國小國語文 RPG
+            </span>
+          </div>
+          <!-- 玩家稱號、主題徽章與頂部換名控制 -->
+          <div class="flex flex-wrap items-center gap-1.5 mt-1">
+            <span id="hud-avatar" class="text-base leading-none">📜</span>
+            <span id="hud-player-name" class="text-xs sm:text-sm font-extrabold text-white">
+              愛吃包子的小李白
+            </span>
+            <span id="hud-theme-badge" class="px-1.5 py-0.5 rounded text-[10px] sm:text-[11px] font-bold bg-amber-500/25 text-amber-200 border border-amber-400/40">
+              📜 國學書院
+            </span>
+            <button
+              type="button"
+              id="btn-hud-reroll"
+              class="interactive-btn px-2 py-0.5 rounded-lg text-[11px] font-extrabold bg-amber-400 text-indigoInk-900 hover:bg-amber-300 active:scale-95 transition-all shadow-sm"
+              title="使用剩餘換名靈珠微調稱號"
+            >
+              🎲 換名 (剩 3 次)
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 右側：等級經驗條、積分與功能按鈕 -->
+      <div class="flex items-center gap-2 sm:gap-3 ml-auto">
+        <!-- 八階修煉等級卡片 -->
+        <div class="bg-white/10 border border-amber-300/30 rounded-xl px-2.5 py-1.5 min-w-[135px] sm:min-w-[175px]">
+          <div class="flex items-center justify-between text-[11px] sm:text-xs font-extrabold">
+            <span id="hud-rank-title" class="text-amber-300">Lv.1 啟蒙小書僮</span>
+            <span id="hud-xp-text" class="text-paper-200">0 / 125 XP</span>
+          </div>
+          <div class="w-full h-2 bg-ink-900/60 rounded-full overflow-hidden mt-1 border border-amber-300/20">
+            <div id="hud-xp-bar" class="h-full bg-gradient-to-r from-amber-400 to-yellow-300 rounded-full transition-all duration-500" style="width: 0%;"></div>
+          </div>
+        </div>
+
+        <!-- 總積分徽章 -->
+        <div class="bg-amber-500/20 border border-amber-400/50 rounded-xl px-2.5 py-1.5 text-center">
+          <div class="text-[10px] font-bold text-amber-200 leading-none">修煉積分</div>
+          <div id="hud-score" class="text-sm sm:text-base font-black text-amber-300 leading-tight mt-0.5">0</div>
+        </div>
+
+        <!-- 榮譽證書與重新拜師按鈕 -->
+        <div class="flex items-center gap-1.5">
+          <button
+            type="button"
+            id="btn-open-certificate"
+            class="interactive-btn px-2.5 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-extrabold border border-emerald-300/50 shadow transition-all flex items-center gap-1"
+            title="查看修煉晉級證書"
+          >
+            <span>📜</span>
+            <span class="hidden sm:inline">晉級證書</span>
+          </button>
+
+          <button
+            type="button"
+            id="btn-restart-ceremony"
+            class="interactive-btn px-2.5 py-2 rounded-xl bg-white/15 hover:bg-white/25 text-paper-100 text-xs font-extrabold border border-white/25 shadow transition-all flex items-center gap-1"
+            title="重啟求籤賜名儀式"
+          >
+            <span>🔄</span>
+            <span class="hidden sm:inline">重新拜師</span>
+          </button>
+
+          <button
+            type="button"
+            id="btn-toggle-sound"
+            class="interactive-btn px-2.5 py-2 rounded-xl bg-white/15 hover:bg-white/25 text-paper-100 text-xs font-extrabold border border-white/25 shadow transition-all"
+            title="切換古風音效"
+          >
+            🔊
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===================================================================== -->
+  <!-- 三、書院修煉主舞台（關卡地圖視圖 / 闖關答題視圖）                     -->
+  <!-- ===================================================================== -->
+  <main class="max-w-6xl mx-auto px-3 sm:px-5 py-5 sm:py-7 pb-16">
+
+    <!-- 【視圖 A：四大修煉關卡地圖 & 錯題修練場】 -->
+    <section id="view-map" class="space-y-6">
+      <!-- 書院迎賓橫幅與進度摘要 -->
+      <div class="academy-card rounded-3xl p-4 sm:p-6 relative overflow-hidden">
+        <div class="deco-layer absolute right-0 top-0 bottom-0 w-48 bg-gradient-to-l from-amber-300/15 to-transparent"></div>
+        <div class="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-4">
+          <div>
+            <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-indigoInk-800 text-amber-200 text-xs font-extrabold mb-2">
+              <span>🏯 墨韻小書院修煉殿堂</span>
+              <span>•</span>
+              <span id="map-seal-count">已點亮通關玉璽：0 / 4</span>
+            </div>
+            <h3 class="font-serif text-xl sm:text-2xl font-black text-ink-900">
+              敬愛的 <span id="map-greeting-name" class="text-cinnabar-600 underline decoration-amber-400 decoration-2 underline-offset-4">愛吃包子的小李白</span>，請選擇今日修煉秘境！
+            </h3>
+            <p class="text-xs sm:text-sm text-ink-700 mt-1.5 leading-relaxed">
+              每回合挑戰 <strong class="text-ink-900">5 道精選國語文試煉</strong>，單回合答對 <strong class="text-emerald-700">4 題以上</strong> 即可點亮該關卡「通關玉璽」並獲得豐厚經驗值，從 <span class="font-bold text-indigoInk-700">Lv.1 啟蒙小書僮</span> 一路晉升至 <span class="font-bold text-amber-700">Lv.8 文曲星小宗師</span>！
+            </p>
+          </div>
+
+          <!-- 八階晉級路徑預覽 -->
+          <div class="shrink-0 bg-white/80 border border-amber-300 rounded-2xl p-3 sm:p-3.5 min-w-[230px]">
+            <div class="text-xs font-extrabold text-ink-700 mb-1.5 flex items-center justify-between">
+              <span>🎖️ 下一階晉升目標</span>
+              <span id="map-streak-badge" class="px-2 py-0.5 rounded-full bg-amber-100 text-amber-800 text-[11px]">最高連勝：0 題</span>
+            </div>
+            <div id="map-next-rank-info" class="text-sm font-black text-indigoInk-800">
+              距離「Lv.2 翰林小學士」還需 125 XP
+            </div>
+            <div class="mt-2 flex items-center gap-1" id="map-rank-dots">
+              <!-- 由 JS 動態渲染 8 顆階級星點 -->
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 四大修煉關卡卡片網格 -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-5">
+        <!-- 第一關：成語迷蹤林 -->
+        <article class="academy-card rounded-3xl p-5 flex flex-col justify-between hover:border-amber-500 transition-all group">
+          <div>
+            <div class="flex items-start justify-between gap-3">
+              <div class="flex items-center gap-3">
+                <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-emerald-100 to-teal-200 border-2 border-emerald-500 flex items-center justify-center text-3xl shadow-sm shrink-0">
+                  🌲
+                </div>
+                <div>
+                  <span class="inline-block px-2 py-0.5 rounded-md bg-emerald-100 text-emerald-800 text-[11px] font-extrabold">
+                    第一關 • 內建 45 題庫
+                  </span>
+                  <h4 class="font-serif text-xl font-black text-ink-900 mt-0.5">成語迷蹤林</h4>
+                </div>
+              </div>
+              <div id="seal-idioms" class="px-2.5 py-1 rounded-xl bg-ink-800/5 border border-ink-800/15 text-xs font-extrabold text-ink-700 shrink-0">
+                ⚪ 未獲玉璽
+              </div>
+            </div>
+            <p class="text-xs sm:text-sm text-ink-700 mt-3 leading-relaxed">
+              穿越千年成語古林，破解典故真義與情境填空！每題附有詳盡成語釋義與生活造句，讓你出口成章、妙語如珠。
+            </p>
+          </div>
+          <div class="mt-4 pt-3 border-t border-amber-800/10 flex items-center justify-between">
+            <span id="stat-idioms" class="text-xs font-bold text-ink-700">通關次數：0 次</span>
+            <button
+              type="button"
+              data-stage="idioms"
+              class="btn-start-stage interactive-btn px-4 py-2.5 rounded-2xl font-extrabold text-sm text-white bg-gradient-to-r from-emerald-600 to-teal-700 hover:from-emerald-500 hover:to-teal-600 active:scale-95 shadow-md transition-all flex items-center gap-1.5"
+            >
+              <span>⚔️ 進入修煉</span>
+            </button>
+          </div>
+        </article>
+
+        <!-- 第二關：修辭幻境塔 -->
+        <article class="academy-card rounded-3xl p-5 flex flex-col justify-between hover:border-amber-500 transition-all group">
+          <div>
+            <div class="flex items-start justify-between gap-3">
+              <div class="flex items-center gap-3">
+                <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-purple-100 to-indigo-200 border-2 border-purple-500 flex items-center justify-center text-3xl shadow-sm shrink-0">
+                  🗼
+                </div>
+                <div>
+                  <span class="inline-block px-2 py-0.5 rounded-md bg-purple-100 text-purple-800 text-[11px] font-extrabold">
+                    第二關 • 內建 45 題庫
+                  </span>
+                  <h4 class="font-serif text-xl font-black text-ink-900 mt-0.5">修辭幻境塔</h4>
+                </div>
+              </div>
+              <div id="seal-rhetoric" class="px-2.5 py-1 rounded-xl bg-ink-800/5 border border-ink-800/15 text-xs font-extrabold text-ink-700 shrink-0">
+                ⚪ 未獲玉璽
+              </div>
+            </div>
+            <p class="text-xs sm:text-sm text-ink-700 mt-3 leading-relaxed">
+              登臨雲端修辭高塔，識破明喻、隱喻、略喻、借喻、擬人、誇飾、排比、設問、五感摹寫、對偶、頂真與回文奧秘！
+            </p>
+          </div>
+          <div class="mt-4 pt-3 border-t border-amber-800/10 flex items-center justify-between">
+            <span id="stat-rhetoric" class="text-xs font-bold text-ink-700">通關次數：0 次</span>
+            <button
+              type="button"
+              data-stage="rhetoric"
+              class="btn-start-stage interactive-btn px-4 py-2.5 rounded-2xl font-extrabold text-sm text-white bg-gradient-to-r from-purple-600 to-indigo-700 hover:from-purple-500 hover:to-indigo-600 active:scale-95 shadow-md transition-all flex items-center gap-1.5"
+            >
+              <span>⚔️ 進入修煉</span>
+            </button>
+          </div>
+        </article>
+
+        <!-- 第三關：複句連環陣 -->
+        <article class="academy-card rounded-3xl p-5 flex flex-col justify-between hover:border-amber-500 transition-all group">
+          <div>
+            <div class="flex items-start justify-between gap-3">
+              <div class="flex items-center gap-3">
+                <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-sky-100 to-blue-200 border-2 border-sky-500 flex items-center justify-center text-3xl shadow-sm shrink-0">
+                  🧭
+                </div>
+                <div>
+                  <span class="inline-block px-2 py-0.5 rounded-md bg-sky-100 text-sky-800 text-[11px] font-extrabold">
+                    第三關 • 內建 42 題庫
+                  </span>
+                  <h4 class="font-serif text-xl font-black text-ink-900 mt-0.5">複句連環陣</h4>
+                </div>
+              </div>
+              <div id="seal-sentences" class="px-2.5 py-1 rounded-xl bg-ink-800/5 border border-ink-800/15 text-xs font-extrabold text-ink-700 shrink-0">
+                ⚪ 未獲玉璽
+              </div>
+            </div>
+            <p class="text-xs sm:text-sm text-ink-700 mt-3 leading-relaxed">
+              破解九大複句連環陣法！精準掌握並列、承接、遞進、選擇、因果、轉折、假設、條件與目的複句的關聯詞邏輯。
+            </p>
+          </div>
+          <div class="mt-4 pt-3 border-t border-amber-800/10 flex items-center justify-between">
+            <span id="stat-sentences" class="text-xs font-bold text-ink-700">通關次數：0 次</span>
+            <button
+              type="button"
+              data-stage="sentences"
+              class="btn-start-stage interactive-btn px-4 py-2.5 rounded-2xl font-extrabold text-sm text-white bg-gradient-to-r from-sky-600 to-blue-700 hover:from-sky-500 hover:to-blue-600 active:scale-95 shadow-md transition-all flex items-center gap-1.5"
+            >
+              <span>⚔️ 進入修煉</span>
+            </button>
+          </div>
+        </article>
+
+        <!-- 第四關：古文聖賢殿 -->
+        <article class="academy-card rounded-3xl p-5 flex flex-col justify-between hover:border-amber-500 transition-all group">
+          <div>
+            <div class="flex items-start justify-between gap-3">
+              <div class="flex items-center gap-3">
+                <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-amber-100 to-orange-200 border-2 border-amber-500 flex items-center justify-center text-3xl shadow-sm shrink-0">
+                  🏛️
+                </div>
+                <div>
+                  <span class="inline-block px-2 py-0.5 rounded-md bg-amber-100 text-amber-900 text-[11px] font-extrabold">
+                    第四關 • 內建 42 題庫
+                  </span>
+                  <h4 class="font-serif text-xl font-black text-ink-900 mt-0.5">古文聖賢殿</h4>
+                </div>
+              </div>
+              <div id="seal-classics" class="px-2.5 py-1 rounded-xl bg-ink-800/5 border border-ink-800/15 text-xs font-extrabold text-ink-700 shrink-0">
+                ⚪ 未獲玉璽
+              </div>
+            </div>
+            <p class="text-xs sm:text-sm text-ink-700 mt-3 leading-relaxed">
+              恭聆先賢智慧箴言！涵蓋修身律己、勤學篤行、待人處世與家國情懷經典名句，附白話釋義與出處典籍。
+            </p>
+          </div>
+          <div class="mt-4 pt-3 border-t border-amber-800/10 flex items-center justify-between">
+            <span id="stat-classics" class="text-xs font-bold text-ink-700">通關次數：0 次</span>
+            <button
+              type="button"
+              data-stage="classics"
+              class="btn-start-stage interactive-btn px-4 py-2.5 rounded-2xl font-extrabold text-sm text-white bg-gradient-to-r from-amber-600 to-orange-700 hover:from-amber-500 hover:to-orange-600 active:scale-95 shadow-md transition-all flex items-center gap-1.5"
+            >
+              <span>⚔️ 進入修煉</span>
+            </button>
+          </div>
+        </article>
+      </div>
+
+      <!-- 特別修練：📕 錯題修練場 -->
+      <div class="rounded-3xl border-2 border-cinnabar-500/50 bg-gradient-to-r from-[#FFF5F5] via-[#FFFDF9] to-[#FEF2F2] p-4 sm:p-5 shadow-md flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+        <div class="flex items-center gap-3.5">
+          <div class="w-14 h-14 rounded-2xl bg-cinnabar-600 text-white flex items-center justify-center text-3xl shadow-md shrink-0">
+            📕
+          </div>
+          <div>
+            <div class="flex items-center gap-2">
+              <h4 class="font-serif text-lg sm:text-xl font-black text-cinnabar-700">特別修練：錯題修練場</h4>
+              <span id="mistake-count-badge" class="px-2.5 py-0.5 rounded-full bg-cinnabar-600 text-white text-xs font-extrabold">
+                目前累積 0 題
+              </span>
+            </div>
+            <p class="text-xs sm:text-sm text-ink-700 mt-1">
+              系統自動收錄修煉時答錯的題目，隨時進入重練並答對即可「淨化消除錯題」並賺取額外經驗值！
+            </p>
+          </div>
+        </div>
+        <button
+          type="button"
+          id="btn-start-mistakes"
+          class="interactive-btn w-full sm:w-auto px-5 py-3 rounded-2xl font-extrabold text-sm text-white bg-gradient-to-r from-cinnabar-600 to-rose-700 hover:from-cinnabar-500 hover:to-rose-600 active:scale-95 shadow-md transition-all shrink-0 flex items-center justify-center gap-1.5"
+        >
+          <span>🔥 淨化錯題修練</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- 【視圖 B：闖關答題試煉場】 -->
+    <section id="view-quiz" class="hidden space-y-4 sm:space-y-5">
+      <!-- 試煉頂部進度導航 -->
+      <div class="academy-card rounded-2xl p-3.5 sm:p-4 flex flex-wrap items-center justify-between gap-3">
+        <div class="flex items-center gap-2.5">
+          <button
+            type="button"
+            id="btn-quit-quiz"
+            class="interactive-btn px-3 py-2 rounded-xl bg-ink-800/10 hover:bg-ink-800/20 text-ink-800 text-xs sm:text-sm font-extrabold transition-all"
+          >
+            ← 返回書院地圖
+          </button>
+          <div>
+            <span id="quiz-stage-badge" class="text-xs font-bold text-amber-700">第一關</span>
+            <h3 id="quiz-stage-title" class="font-serif text-lg sm:text-xl font-black text-ink-900 leading-tight">
+              成語迷蹤林
+            </h3>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-3">
+          <!-- 連勝火苗顯示 -->
+          <div id="quiz-streak-pill" class="px-3 py-1 rounded-full bg-amber-100 border border-amber-400 text-amber-900 text-xs sm:text-sm font-extrabold">
+            🔥 連勝：0 題
+          </div>
+          <!-- 5 題進度圓點 -->
+          <div id="quiz-progress-dots" class="flex items-center gap-1.5" aria-label="本回合答題進度">
+            <!-- 由 JS 渲染 5 顆進度燈 -->
+          </div>
+        </div>
+      </div>
+
+      <!-- 題目主卡片 -->
+      <div class="academy-card rounded-3xl p-5 sm:p-7">
+        <div class="flex items-center justify-between gap-2 mb-3">
+          <span id="quiz-q-number" class="px-3 py-1 rounded-full bg-indigoInk-800 text-amber-200 text-xs sm:text-sm font-extrabold">
+            第 1 / 5 題
+          </span>
+          <span id="quiz-q-tag" class="px-2.5 py-1 rounded-lg bg-amber-100 text-amber-900 text-xs font-bold border border-amber-300">
+            成語辨析
+          </span>
+        </div>
+
+        <!-- 題幹文字 -->
+        <div id="quiz-question-text" class="font-serif text-lg sm:text-2xl font-bold text-ink-900 leading-relaxed bg-white/80 rounded-2xl p-4 sm:p-5 border border-amber-800/15 mb-5">
+          題目載入中...
+        </div>
+
+        <!-- 四選一選項網格 -->
+        <div id="quiz-options-grid" class="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-3.5">
+          <!-- 由 JS 動態產生 4 個選項按鈕 -->
+        </div>
+
+        <!-- 答題解析反饋面板（作答後展開） -->
+        <div id="quiz-feedback-box" class="hidden mt-5 rounded-2xl p-4 sm:p-5 border-2 transition-all">
+          <div class="flex flex-wrap items-center justify-between gap-2 mb-2">
+            <div id="quiz-feedback-header" class="text-base sm:text-lg font-black flex items-center gap-2">
+              ✅ 答對了！
+            </div>
+            <div id="quiz-feedback-reward" class="px-2.5 py-0.5 rounded-full text-xs font-extrabold bg-amber-200 text-amber-950">
+              +100 積分 • +25 XP
+            </div>
+          </div>
+          <div id="quiz-feedback-detail" class="text-xs sm:text-sm text-ink-800 leading-relaxed space-y-1">
+            <!-- 解析內容 -->
+          </div>
+          <div class="mt-4 flex justify-end">
+            <button
+              type="button"
+              id="btn-next-question"
+              class="interactive-btn px-6 py-3 rounded-2xl font-extrabold text-sm sm:text-base text-white bg-gradient-to-r from-indigoInk-700 to-indigoInk-800 hover:from-indigoInk-600 hover:to-indigoInk-700 active:scale-95 shadow-lg transition-all"
+            >
+              下一題 →
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 【視圖 C：回合結算與通關玉璽頒發】 -->
+    <section id="view-summary" class="hidden">
+      <div class="academy-card rounded-3xl p-6 sm:p-8 max-w-2xl mx-auto text-center">
+        <div id="summary-badge-icon" class="w-20 h-20 mx-auto rounded-3xl bg-gradient-to-br from-amber-300 to-amber-500 border-2 border-amber-200 shadow-lg flex items-center justify-center text-4xl mb-3">
+          🏆
+        </div>
+        <div class="text-xs font-extrabold tracking-widest text-amber-700 uppercase">
+          墨韻小書院修煉記 • 試煉結算
+        </div>
+        <h3 id="summary-title" class="font-serif text-2xl sm:text-3xl font-black text-ink-900 mt-1">
+          試煉圓滿完成！
+        </h3>
+        <p id="summary-subtitle" class="text-sm text-ink-700 mt-1.5">
+          表現優異，成功點亮本關「通關玉璽」！
+        </p>
+
+        <!-- 成績統計四宮格 -->
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 my-6">
+          <div class="bg-white/90 rounded-2xl p-3 border border-amber-300">
+            <div class="text-xs font-bold text-ink-700">答對題數</div>
+            <div id="summary-correct" class="text-xl sm:text-2xl font-black text-emerald-700 mt-0.5">5 / 5</div>
+          </div>
+          <div class="bg-white/90 rounded-2xl p-3 border border-amber-300">
+            <div class="text-xs font-bold text-ink-700">本局得分</div>
+            <div id="summary-score" class="text-xl sm:text-2xl font-black text-amber-600 mt-0.5">+500</div>
+          </div>
+          <div class="bg-white/90 rounded-2xl p-3 border border-amber-300">
+            <div class="text-xs font-bold text-ink-700">獲得經驗</div>
+            <div id="summary-xp" class="text-xl sm:text-2xl font-black text-indigoInk-700 mt-0.5">+175 XP</div>
+          </div>
+          <div class="bg-white/90 rounded-2xl p-3 border border-amber-300">
+            <div class="text-xs font-bold text-ink-700">通關玉璽</div>
+            <div id="summary-seal-status" class="text-sm sm:text-base font-black text-cinnabar-600 mt-1">已獲得玉璽</div>
+          </div>
+        </div>
+
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-3">
+          <button
+            type="button"
+            id="btn-summary-retry"
+            class="interactive-btn w-full sm:w-auto px-6 py-3 rounded-2xl font-extrabold text-sm sm:text-base text-indigoInk-900 bg-gradient-to-b from-amber-200 to-amber-300 hover:from-amber-300 hover:to-amber-400 border-2 border-amber-500 shadow transition-all"
+          >
+            🔄 再次挑戰本關
+          </button>
+          <button
+            type="button"
+            id="btn-summary-home"
+            class="interactive-btn w-full sm:w-auto px-6 py-3 rounded-2xl font-extrabold text-sm sm:text-base text-white bg-gradient-to-r from-cinnabar-600 to-cinnabar-700 hover:from-cinnabar-500 hover:to-cinnabar-600 shadow-lg transition-all"
+          >
+            🏯 返回書院地圖
+          </button>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ===================================================================== -->
+  <!-- 四、八階晉級慶祝彈窗（Level Up Modal）                                -->
+  <!-- ===================================================================== -->
+  <div id="levelup-modal" class="hidden fixed inset-0 z-50 bg-ink-900/75 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="academy-card rounded-3xl max-w-md w-full p-6 text-center border-2 border-amber-400 shadow-2xl animate-name-pop">
+      <div class="text-5xl mb-2">🎊</div>
+      <span class="inline-block px-3 py-1 rounded-full bg-amber-400/30 text-amber-900 text-xs font-extrabold">
+        墨韻小書院修煉記 • 境界突破
+      </span>
+      <h3 class="font-serif text-2xl font-black text-cinnabar-600 mt-2">
+        恭喜稱號晉升！
+      </h3>
+      <p class="text-xs sm:text-sm text-ink-700 mt-1">
+        經文曲星君鑑察，你的學識修為已更上一層樓：
+      </p>
+      <div class="my-4 py-3 px-4 rounded-2xl bg-gradient-to-r from-indigoInk-800 to-indigoInk-700 text-amber-200 font-serif text-xl sm:text-2xl font-black border border-amber-400 shadow-inner">
+        <span id="levelup-new-rank">Lv.2 翰林小學士</span>
+      </div>
+      <button
+        type="button"
+        id="btn-close-levelup"
+        class="interactive-btn w-full py-3 rounded-2xl font-extrabold text-base text-white bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 shadow-lg transition-all"
+      >
+        ✨ 謝過星君，繼續修煉！
+      </button>
+    </div>
+  </div>
+
+  <!-- ===================================================================== -->
+  <!-- 五、《墨韻小書院修煉記》修煉晉級證書彈窗                              -->
+  <!-- ===================================================================== -->
+  <div id="certificate-modal" class="hidden fixed inset-0 z-50 bg-ink-900/75 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="relative rounded-3xl max-w-lg w-full p-6 sm:p-7 bg-gradient-to-b from-[#FFFDF8] to-[#F5E8C8] border-4 border-double border-amber-600 shadow-2xl text-center">
+      <div class="deco-layer absolute inset-2 rounded-2xl border border-amber-500/40"></div>
+      <div class="relative z-10">
+        <div class="text-xs font-extrabold tracking-widest text-cinnabar-700">
+          文曲星殿御賜 • 學習成就憑證
+        </div>
+        <h3 class="font-serif text-2xl sm:text-3xl font-black text-indigoInk-900 mt-1">
+          《墨韻小書院修煉記》晉級證書
+        </h3>
+        <div class="my-4 p-4 rounded-2xl bg-white/85 border border-amber-400/70">
+          <div id="cert-avatar" class="text-4xl mb-1">📜</div>
+          <div class="text-xs font-bold text-ink-700">茲證明書院弟子</div>
+          <div id="cert-player-name" class="font-serif text-xl sm:text-2xl font-black text-cinnabar-600 my-1">
+            愛吃包子的小李白
+          </div>
+          <div id="cert-theme-badge" class="inline-block px-2.5 py-0.5 rounded-full bg-amber-100 text-amber-900 text-xs font-bold mb-2">
+            📜 國學書院
+          </div>
+          <div class="text-xs sm:text-sm text-ink-800 leading-relaxed">
+            勤修國語文四大秘境，榮登<br />
+            <strong id="cert-rank-title" class="text-base sm:text-lg text-indigoInk-800">Lv.1 啟蒙小書僮</strong>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-3 gap-2 text-center mb-4">
+          <div class="bg-white/80 rounded-xl p-2 border border-amber-300">
+            <div class="text-[11px] font-bold text-ink-700">累積積分</div>
+            <div id="cert-score" class="text-base font-black text-amber-700">0</div>
+          </div>
+          <div class="bg-white/80 rounded-xl p-2 border border-amber-300">
+            <div class="text-[11px] font-bold text-ink-700">累積經驗</div>
+            <div id="cert-xp" class="text-base font-black text-indigoInk-700">0 XP</div>
+          </div>
+          <div class="bg-white/80 rounded-xl p-2 border border-amber-300">
+            <div class="text-[11px] font-bold text-ink-700">通關玉璽</div>
+            <div id="cert-seals" class="text-base font-black text-emerald-700">0 / 4</div>
+          </div>
+        </div>
+
+        <div class="flex items-center justify-between gap-3">
+          <div class="text-left text-[11px] text-ink-700 font-bold">
+            頒發殿堂：墨韻小書院<br />
+            守護星君：文曲星君 印
+          </div>
+          <button
+            type="button"
+            id="btn-close-certificate"
+            class="interactive-btn px-5 py-2.5 rounded-2xl font-extrabold text-sm text-white bg-indigoInk-800 hover:bg-indigoInk-700 shadow transition-all"
+          >
+            關閉證書
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================================================================== -->
+  <!-- 六、輕量提示 Toast（取代任何 alert/confirm）                          -->
+  <!-- ===================================================================== -->
+  <div id="toast-box" class="fixed bottom-5 left-1/2 -translate-x-1/2 z-[10000] pointer-events-none opacity-0 transition-all duration-300">
+    <div id="toast-text" class="px-4 py-2.5 rounded-2xl bg-ink-900/95 text-amber-200 text-xs sm:text-sm font-extrabold border border-amber-400/60 shadow-xl whitespace-nowrap">
+      提示訊息
+    </div>
+  </div>
+
+  <!-- ===================================================================== -->
+  <!-- 七、完整遊戲邏輯、540 個跨界名號庫與四大內建題庫                      -->
+  <!-- ===================================================================== -->
+  <script>
+    (function () {
+      'use strict';
+
+      /* -------------------------------------------------------------------
+       * 1. 古風五聲音階音效引擎（無外部音檔 URL，支援 iPad Safari 解鎖）
+       * ------------------------------------------------------------------- */
+      let audioCtx = null;
+      let soundEnabled = true;
+
+      function playTone(freq, duration = 0.16, type = 'sine', volume = 0.12, delay = 0) {
+        if (!soundEnabled) return;
+        try {
+          const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+          if (!AudioContextClass) return;
+          if (!audioCtx) audioCtx = new AudioContextClass();
+          if (audioCtx.state === 'suspended') audioCtx.resume();
+
+          const now = audioCtx.currentTime + delay;
+          const osc = audioCtx.createOscillator();
+          const gain = audioCtx.createGain();
+          osc.type = type;
+          osc.frequency.setValueAtTime(freq, now);
+
+          gain.gain.setValueAtTime(0.001, now);
+          gain.gain.exponentialRampToValueAtTime(volume, now + 0.02);
+          gain.gain.exponentialRampToValueAtTime(0.0001, now + duration);
+
+          osc.connect(gain);
+          gain.connect(audioCtx.destination);
+          osc.start(now);
+          osc.stop(now + duration + 0.02);
+        } catch (e) {
+          // 靜默忽略音訊限制錯誤
+        }
+      }
+
+      const SFX = {
+        reroll() {
+          playTone(523.25, 0.12, 'triangle', 0.12, 0);
+          playTone(659.25, 0.14, 'triangle', 0.12, 0.07);
+          playTone(783.99, 0.18, 'triangle', 0.14, 0.14);
+        },
+        accept() {
+          playTone(523.25, 0.15, 'sine', 0.14, 0);
+          playTone(659.25, 0.15, 'sine', 0.14, 0.08);
+          playTone(783.99, 0.18, 'sine', 0.14, 0.16);
+          playTone(1046.5, 0.32, 'sine', 0.16, 0.24);
+        },
+        correct() {
+          playTone(587.33, 0.14, 'sine', 0.14, 0);
+          playTone(880.0, 0.26, 'sine', 0.16, 0.09);
+        },
+        wrong() {
+          playTone(329.63, 0.18, 'sawtooth', 0.08, 0);
+          playTone(261.63, 0.25, 'sawtooth', 0.08, 0.12);
+        },
+        levelUp() {
+          [523.25, 659.25, 783.99, 1046.5, 1318.5].forEach((f, idx) => {
+            playTone(f, 0.24, 'triangle', 0.15, idx * 0.09);
+          });
+        }
+      };
+
+      /* -------------------------------------------------------------------
+       * 2. 內建 540 個小學生專屬跨界趣味名號庫（國學 180 × 科幻 180 × 童話 180）
+       * ------------------------------------------------------------------- */
+      const NAME_THEMES = {
+        classical: {
+          key: 'classical',
+          badge: '📜 國學書院',
+          badgeClass: 'bg-amber-100 text-amber-900 border-amber-400',
+          hudBadgeClass: 'bg-amber-500/25 text-amber-200 border-amber-400/40',
+          avatars: ['📜', '🖌️', '🏮', '📖', '🎋', '🍵', '🎓', '🐉'],
+          prefixes: [
+            '愛吃包子的', '墨水沾鼻頭的', '騎毛筆飛天的', '偷背唐詩的', '愛喝珍珠茶的', '抱著竹簡打瞌睡的',
+            '拿戒尺當寶劍的', '把硯台當鏡子的', '邊吃糖葫蘆邊吟詩的', '書包塞滿線裝書的', '在竹林裡捉迷藏的', '搖著羽毛扇裝大人的',
+            '寫字龍飛鳳舞的', '愛吃東坡肉的', '把宣紙折成紙飛機的', '半夜點燈籠背古文的', '在書院屋頂看月亮的', '一出口就成章的'
+          ],
+          roles: [
+            '小李白', '小狀元', '小諸葛', '小書僮', '小蘇軾',
+            '小孔子', '小杜甫', '小花木蘭', '小包青天', '小唐伯虎'
+          ]
+        },
+        scifi: {
+          key: 'scifi',
+          badge: '🚀 星際科幻',
+          badgeClass: 'bg-sky-100 text-sky-900 border-sky-400',
+          hudBadgeClass: 'bg-sky-500/25 text-sky-200 border-sky-400/40',
+          avatars: ['🚀', '🛸', '🤖', '🪐', '🔭', '⚡', '🛰️', '🌌'],
+          prefixes: [
+            '駕著飛碟背成語的', '拿光劍寫書法的', '穿太空衣吟詩的', '騎著機械麒麟的', '量子電腦腦袋的', '開著曲速引擎找修辭的',
+            '在火星基地背唐詩的', '帶著機器貓讀古文的', '用雷射筆練毛筆字的', '從蟲洞穿越來考試的', '穿著噴射背包上學的', '和外星人比賽接龍的',
+            '坐在隕石上寫日記的', '啟動超光速背書模式的', '操縱機甲去圖書館的', '收集銀河系好詞佳句的', '戴著全息眼鏡讀書的', '在月球表面練輕功的'
+          ],
+          roles: [
+            '星際小艦長', '銀河小武士', '月球小探險家', '時空小博士', '超能小書生',
+            '宇宙小領航員', '火星小詩仙', '量子小學霸', '光年小遊俠', '星雲小狀元'
+          ]
+        },
+        fairytale: {
+          key: 'fairytale',
+          badge: '🧚 奇幻童話',
+          badgeClass: 'bg-pink-100 text-pink-900 border-pink-400',
+          hudBadgeClass: 'bg-pink-500/25 text-pink-200 border-pink-400/40',
+          avatars: ['🧚', '🧙‍♂️', '🦄', '🏰', '🪄', '🐉', '🎃', '🌈'],
+          prefixes: [
+            '騎著掃帚找修辭的', '住在糖果屋讀古文的', '跟著愛麗絲闖迷宮的', '召喚文曲星龍的', '提著南瓜燈夜讀的', '穿著水晶鞋背成語的',
+            '和獨角獸一起寫作業的', '打開魔法書變出彩虹的', '在雲端城堡練書法的', '拿著仙女棒點石成金的', '躲在蘑菇屋背唐詩的', '和會說話的貓頭鷹聊天的',
+            '坐著飛天魔毯去書院的', '把鉛筆變成魔法杖的', '在精靈森林尋找好句的', '餵食噴火龍吃錯別字的', '戴著尖尖巫師帽考試的', '乘著熱氣球環遊書海的'
+          ],
+          roles: [
+            '魔法小巫師', '精靈小王子', '夢境小騎士', '森林小勇者', '童話小學士',
+            '彩虹小仙子', '糖果小法師', '星光小精靈', '龍族小馴獸師', '奇幻小吟遊詩人'
+          ]
+        }
+      };
+
+      // 動態組裝 3 大主題各 180 個（共 540 個）不重複跨界名號庫
+      const NAME_POOLS = { classical: [], scifi: [], fairytale: [] };
+      Object.keys(NAME_THEMES).forEach((themeKey) => {
+        const cfg = NAME_THEMES[themeKey];
+        cfg.prefixes.forEach((prefix, pIdx) => {
+          cfg.roles.forEach((role, rIdx) => {
+            const avatar = cfg.avatars[(pIdx + rIdx) % cfg.avatars.length];
+            NAME_POOLS[themeKey].push({
+              name: prefix + role,
+              themeKey: themeKey,
+              themeBadge: cfg.badge,
+              badgeClass: cfg.badgeClass,
+              hudBadgeClass: cfg.hudBadgeClass,
+              avatar: avatar
+            });
+          });
+        });
+      });
+
+      /* -------------------------------------------------------------------
+       * 3. 八階修煉晉級制度設定
+       * ------------------------------------------------------------------- */
+      const RANKS = [
+        { level: 1, title: 'Lv.1 啟蒙小書僮', minXp: 0 },
+        { level: 2, title: 'Lv.2 翰林小學士', minXp: 125 },
+        { level: 3, title: 'Lv.3 妙筆小秀才', minXp: 275 },
+        { level: 4, title: 'Lv.4 博學小舉人', minXp: 450 },
+        { level: 5, title: 'Lv.5 錦繡小貢士', minXp: 650 },
+        { level: 6, title: 'Lv.6 御賜小探花', minXp: 900 },
+        { level: 7, title: 'Lv.7 殿試小狀元', minXp: 1200 },
+        { level: 8, title: 'Lv.8 文曲星小宗師', minXp: 1550 }
+      ];
+
+      /* -------------------------------------------------------------------
+       * 4. 四大書院修煉內建完整題庫（成語 45 題 / 修辭 45 題 / 複句 42 題 / 古文 42 題）
+       * ------------------------------------------------------------------- */
+      const QUESTION_BANKS = {
+        idioms: [
+          { id: 'id_01', tag: '成語典故', q: '做事情多此一舉，反而把原本做好的事情弄糟了，最適合用哪個成語形容？', options: ['畫蛇添足', '畫龍點睛', '錦上添花', '如虎添翼'], ans: 0, detail: '【畫蛇添足】比喻多此一舉，反而不恰當。例句：這幅畫已經很生動了，再加幾筆反而是畫蛇添足。' },
+          { id: 'id_02', tag: '成語辨析', q: '犯了錯之後及時想辦法補救，還不算太晚，應該用哪一個成語？', options: ['亡羊補牢', '守株待兔', '刻舟求劍', '掩耳盜鈴'], ans: 0, detail: '【亡羊補牢】比喻犯錯後及時更正，尚能補救。例句：這次測驗沒考好沒關係，只要現在努力複習，亡羊補牢猶未晚矣。' },
+          { id: 'id_03', tag: '成語應用', q: '他明明自己把鈴鐺偷走了，卻摀住耳朵以為別人也聽不見，這真是「＿＿」。', options: ['掩耳盜鈴', '自相矛盾', '杯弓蛇影', '杞人憂天'], ans: 0, detail: '【掩耳盜鈴】比喻自己欺騙自己，明明掩蓋不住的事情偏要想法子掩蓋。' },
+          { id: 'id_04', tag: '成語釋義', q: '形容人見識短淺，就像住在井底下的青蛙只能看到井口那麼大的天空，是哪個成語？', options: ['井底之蛙', '對牛彈琴', '盲人摸象', '黔驢技窮'], ans: 0, detail: '【井底之蛙】比喻見識狹隘、眼界不寬的人。例句：我們要多閱讀、多旅行，才不會成為井底之蛙。' },
+          { id: 'id_05', tag: '成語情境', q: '說話或做事前後不一致、互相抵觸，最適合用下列哪個成語？', options: ['自相矛盾', '言行一致', '表裡如一', '名副其實'], ans: 0, detail: '【自相矛盾】比喻言語或行為前後互相抵觸。出自《韓非子》賣矛與盾的故事。' },
+          { id: 'id_06', tag: '成語典故', q: '沒有真才實學卻混在行家裡面充數，是哪一個成語的意思？', options: ['濫竽充數', '實至名歸', '出類拔萃', '鶴立雞群'], ans: 0, detail: '【濫竽充數】比喻沒有真才實學的人混在行家中充數，或以次貨充好貨。' },
+          { id: 'id_07', tag: '成語辨析', q: '只看重華麗的外表，卻忽略了真正有價值的內涵，就像買了精緻的盒子卻退還珍珠，這是「＿＿」。', options: ['買櫝還珠', '珠聯璧合', '視如珍寶', '明珠暗投'], ans: 0, detail: '【買櫝還珠】比喻沒有眼光，取捨不當，只重外表而捨棄實質。' },
+          { id: 'id_08', tag: '成語應用', q: '整天擔心天會塌下來而睡不著覺，形容人為不必要的事過分擔憂，叫做「＿＿」。', options: ['杞人憂天', '未雨綢繆', '居安思危', '深謀遠慮'], ans: 0, detail: '【杞人憂天】比喻缺乏根據和不必要的憂慮。' },
+          { id: 'id_09', tag: '成語精神', q: '只要有恆心、有毅力，堅持不懈地努力，再大的困難也能克服，可用哪個成語鼓勵自己？', options: ['愚公移山', '半途而廢', '一曝十寒', '淺嘗輒止'], ans: 0, detail: '【愚公移山】比喻做事有毅力，不怕困難，堅持到底。' },
+          { id: 'id_10', tag: '成語精神', q: '形容意志堅決，不畏艱難、百折不撓的奮鬥精神，下列何者最貼切？', options: ['精衛填海', '隨波逐流', '知難而退', '畏首畏尾'], ans: 0, detail: '【精衛填海】比喻深仇大恨，立志報復；也比喻不畏艱難，努力奮鬥的堅強意志。' },
+          { id: 'id_11', tag: '成語典故', q: '越王勾踐刻苦自勵、發憤圖強，最終復國的故事，演變為哪一個成語？', options: ['臥薪嘗膽', '紙上談兵', '樂不思蜀', '風聲鶴唳'], ans: 0, detail: '【臥薪嘗膽】形容刻苦自勵，發憤圖強。' },
+          { id: 'id_12', tag: '成語情境', q: '做事下定決心，不留退路、奮戰到底，最適合用哪個成語形容？', options: ['破釜沉舟', '猶豫不決', '舉棋不定', '瞻前顧後'], ans: 0, detail: '【破釜沉舟】比喻下定決心，不顧一切幹到底。出自項羽鉅鹿之戰。' },
+          { id: 'id_13', tag: '成語應用', q: '只會空談理論，卻缺乏實際解決問題的能力，叫做「＿＿」。', options: ['紙上談兵', '腳踏實地', '身體力行', '學以致用'], ans: 0, detail: '【紙上談兵】比喻空談理論，不能解決實際問題。出自戰國趙括的故事。' },
+          { id: 'id_14', tag: '成語典故', q: '藺相如憑藉機智與勇氣，把和氏璧完整無缺地帶回趙國，這個成語是「＿＿」。', options: ['完璧歸趙', '功虧一簣', '殘缺不全', '支離破碎'], ans: 0, detail: '【完璧歸趙】本指藺相如將和氏璧完好帶回趙國，後比喻把原物完好無損地歸還本人。' },
+          { id: 'id_15', tag: '成語情境', q: '廉頗知道自己誤會藺相如後，背著荊條登門道歉，這就是著名的「＿＿」。', options: ['負荊請罪', '盛氣凌人', '趾高氣揚', '耀武揚威'], ans: 0, detail: '【負荊請罪】表示向人認錯賠罪。' },
+          { id: 'id_16', tag: '成語典故', q: '劉備三次親自前往茅廬拜訪諸葛亮，形容誠心誠意地邀請賢才，是哪個成語？', options: ['三顧茅廬', '不請自來', '過門不入', '閉門謝客'], ans: 0, detail: '【三顧茅廬】比喻真心誠意，一再邀請、拜訪有專長的人。' },
+          { id: 'id_17', tag: '成語應用', q: '在作文或演講的關鍵處加上一兩句精闢的話，使整篇文章瞬間生動起來，稱為「＿＿」。', options: ['畫龍點睛', '平淡無奇', '索然無味', '老生常談'], ans: 0, detail: '【畫龍點睛】比喻寫文章或講話時，在關鍵處用幾句話點明實質，使內容生動有力。' },
+          { id: 'id_18', tag: '成語釋義', q: '文與可畫竹子前，心裡早已有了完整的竹子形象，形容做事之前已經有十足把握，稱為「＿＿」。', options: ['胸有成竹', '手足無措', '慌張失措', '心亂如麻'], ans: 0, detail: '【胸有成竹】比喻在做事之前已經拿定主意，有了周全的考慮與把握。' },
+          { id: 'id_19', tag: '成語情境', q: '在別人最困難、最需要幫助的時候給予及時的關懷與援助，叫做「＿＿」。', options: ['雪中送炭', '錦上添花', '落井下石', '袖手旁觀'], ans: 0, detail: '【雪中送炭】比喻在別人急需時給以物質上或精神上的幫助。' },
+          { id: 'id_20', tag: '成語情境', q: '對不懂道理的人講深奧的道理，白費口舌，可以用哪個成語形容？', options: ['對牛彈琴', '知音難覓', '心領神會', '一點就通'], ans: 0, detail: '【對牛彈琴】比喻對不懂道理的人講道理，對外行人說內行話。' },
+          { id: 'id_21', tag: '成語辨析', q: '做一件事同時得到兩方面的好處，最適合用哪一個成語？', options: ['一舉兩得', '得不償失', '兩敗俱傷', '因小失大'], ans: 0, detail: '【一舉兩得】做一件事得到兩方面的好處。' },
+          { id: 'id_22', tag: '成語學習', q: '學習任何技藝都要按部就班、逐步深入，不可急躁，這叫做「＿＿」。', options: ['循序漸進', '揠苗助長', '急功近利', '一步登天'], ans: 0, detail: '【循序漸進】指學習工作等按照一定的步驟逐漸深入或提高。' },
+          { id: 'id_23', tag: '成語學習', q: '形容讀書或工作非常專心投入，連睡覺和吃飯都忘記了，是哪個成語？', options: ['廢寢忘食', '遊手好閒', '無所事事', '漫不經心'], ans: 0, detail: '【廢寢忘食】顧不得睡覺，忘記了吃飯。形容專心努力。' },
+          { id: 'id_24', tag: '成語學習', q: '手裡總是拿著書本不肯放下，形容非常勤奮好學，是哪個成語？', options: ['手不釋卷', '束之高閣', '不學無術', '目不識丁'], ans: 0, detail: '【手不釋卷】書本不離手，形容勤奮好學。' },
+          { id: 'id_25', tag: '成語典故', q: '孔子晚年勤讀《易經》，把編聯竹簡的牛皮繩都磨斷了好幾次，這個成語是「＿＿」。', options: ['韋編三絕', '洛陽紙貴', '汗牛充棟', '學富五車'], ans: 0, detail: '【韋編三絕】形容讀書勤奮刻苦。' },
+          { id: 'id_26', tag: '成語學習', q: '晉代車胤抓螢火蟲照明讀書，孫康利用雪地反光讀書，合稱為「＿＿」。', options: ['囊螢映雪', '鑿壁偷光', '程門立雪', '懸梁刺股'], ans: 0, detail: '【囊螢映雪】形容家境貧寒仍刻苦讀書。' },
+          { id: 'id_27', tag: '成語典故', q: '楊時與游酢在雪地裡靜候老師程頤醒來，用來形容學生對老師極為尊敬，叫做「＿＿」。', options: ['程門立雪', '尊師重道', '青出於藍', '教學相長'], ans: 0, detail: '【程門立雪】舊指學生恭敬受教，現指尊敬師長，誠心求教。' },
+          { id: 'id_28', tag: '成語態度', q: '做事情非常認真仔細，連一點兒都不馬虎，最適合用哪個成語讚美？', options: ['一絲不苟', '馬馬虎虎', '粗心大意', '敷衍了事'], ans: 0, detail: '【一絲不苟】形容做事十分認真，連最細微的地方也不馬虎。' },
+          { id: 'id_29', tag: '成語學習', q: '老師教導一個道理，聰明的學生就能推想到其他許多類似的道理，叫做「＿＿」。', options: ['舉一反三', '墨守成規', '生搬硬套', '死記硬背'], ans: 0, detail: '【舉一反三】從一件事情類推而知道其他許多事情。' },
+          { id: 'id_30', tag: '成語情境', q: '經過老師的點撥，他原本想不通的難題一下子全明白了，頓時感到「＿＿」。', options: ['豁然開朗', '百思不解', '一頭霧水', '如墜五里霧中'], ans: 0, detail: '【豁然開朗】形容由狹窄幽暗突然變得開闊明亮，也比喻一下子明白了某個道理。' },
+          { id: 'id_31', tag: '成語辨析', q: '因為一點小事就自己嚇自己，就像看到酒杯裡的弓影以為是毒蛇，這是「＿＿」。', options: ['杯弓蛇影', '草木皆兵', '驚弓之鳥', '膽戰心驚'], ans: 0, detail: '【杯弓蛇影】比喻因疑神疑鬼而引起恐懼。' },
+          { id: 'id_32', tag: '成語情境', q: '船已經往前開了，他卻在船舷上刻記號想找回掉進水裡的寶劍，比喻拘泥不知變通，叫做「＿＿」。', options: ['刻舟求劍', '隨機應變', '通權達變', '因地制宜'], ans: 0, detail: '【刻舟求劍】比喻死守教條，拘泥成法，固執不知變通。' },
+          { id: 'id_33', tag: '成語應用', q: '比喻事情的真相終於完全顯露出來，就像潮水退去石頭自然露出一樣，叫做「＿＿」。', options: ['水落石出', '真相大白', '霧裡看花', '撲朔迷離'], ans: 0, detail: '【水落石出】水落下去，水底的石頭就露出來。比喻事情的真相完全顯露出來。' },
+          { id: 'id_34', tag: '成語情境', q: '在原本已經很美好的事物上再增添美好，使它更加完美，稱為「＿＿」。', options: ['錦上添花', '畫蛇添足', '雪中送炭', '美中不足'], ans: 0, detail: '【錦上添花】在錦上再繡花。比喻好上加好，美上添美。' },
+          { id: 'id_35', tag: '成語態度', q: '做事情只做了一半就停止不前，沒能堅持到底，叫做「＿＿」。', options: ['半途而廢', '持之以恆', '貫徹始終', '鍥而不捨'], ans: 0, detail: '【半途而廢】比喻事情沒做完就停止，不能善始善終。' },
+          { id: 'id_36', tag: '成語辨析', q: '形容文章寫得非常精彩，大家爭相傳抄，使得紙張價格都上漲了，稱為「＿＿」。', options: ['洛陽紙貴', '無人問津', '門可羅雀', '乏善可陳'], ans: 0, detail: '【洛陽紙貴】比喻著作有價值，流傳很廣。出自左思《三都賦》。' },
+          { id: 'id_37', tag: '成語釋義', q: '形容藏書非常多，搬運時能讓牛累出汗、堆起來能頂到屋樑，是哪個成語？', options: ['汗牛充棟', '家徒四壁', '一貧如洗', '捉襟見肘'], ans: 0, detail: '【汗牛充棟】形容藏書極多。' },
+          { id: 'id_38', tag: '成語應用', q: '把各方面的知識融合在一起，徹底理解並靈活運用，叫做「＿＿」。', options: ['融會貫通', '一知半解', '不求甚解', '囫圇吞棗'], ans: 0, detail: '【融會貫通】把各方面的知識和道理融化匯合，得到全面透徹的理解。' },
+          { id: 'id_39', tag: '成語學習', q: '比喻讀書不加分析思考，籠統地接受，就像把整個棗子吞下去一樣，叫做「＿＿」。', options: ['囫圇吞棗', '細嚼慢嚥', '字斟句酌', '含英咀華'], ans: 0, detail: '【囫圇吞棗】比喻對事物不加分析思考，籠統接受。' },
+          { id: 'id_40', tag: '成語典故', q: '漢代匡衡家裡買不起蠟燭，鑿穿牆壁借鄰居的燈光讀書，這個成語是「＿＿」。', options: ['鑿壁偷光', '囊螢映雪', '懸梁刺股', '聞雞起舞'], ans: 0, detail: '【鑿壁偷光】形容家貧而讀書刻苦。' },
+          { id: 'id_41', tag: '成語精神', q: '晉代祖逖聽到雞啼就起床舞劍練武，比喻有志氣的人及時奮發努力，叫做「＿＿」。', options: ['聞雞起舞', '高枕無憂', '醉生夢死', '虛度光陰'], ans: 0, detail: '【聞雞起舞】比喻有志報國的人及時奮起。' },
+          { id: 'id_42', tag: '成語典故', q: '曹操行軍時士兵口渴難耐，他謊稱前方有梅林，使士兵口水直流解渴，演變為「＿＿」。', options: ['望梅止渴', '畫餅充飢', '飲鴆止渴', '杯水車薪'], ans: 0, detail: '【望梅止渴】比喻願望無法實現，用空想安慰自己。' },
+          { id: 'id_43', tag: '成語情境', q: '比喻用一點點微薄的力量去解決巨大的困難，根本無濟於事，就像用一杯水去撲滅一車著火的柴薪，叫做「＿＿」。', options: ['杯水車薪', '立竿見影', '藥到病除', '手到擒來'], ans: 0, detail: '【杯水車薪】比喻力量太小，解決不了問題。' },
+          { id: 'id_44', tag: '成語態度', q: '已經做得很好了，還要追求更加完美、更進一步，叫做「＿＿」。', options: ['精益求精', '得過且過', '故步自封', '自滿自足'], ans: 0, detail: '【精益求精】好了還求更好。' },
+          { id: 'id_45', tag: '成語情境', q: '形容對某件事非常有把握，不費吹灰之力就能輕易辦到，稱為「＿＿」。', options: ['手到擒來', '千辛萬苦', '費盡九牛二虎之力', '難如登天'], ans: 0, detail: '【手到擒來】比喻做事有把握，不費力就能做好。' }
+        ],
+
+        rhetoric: [
+          { id: 'rh_01', tag: '譬喻修辭', q: '「天上的白雲好像一團團香甜的棉花糖。」這句話運用了哪一種譬喻修辭？', options: ['明喻', '隱喻', '借喻', '擬人'], ans: 0, detail: '【明喻】本體（白雲）、喻詞（好像）、喻體（棉花糖）三者俱全，屬於明喻。' },
+          { id: 'rh_02', tag: '譬喻修辭', q: '「老師是辛勤的園丁，細心灌溉著我們這群小幼苗。」這句話運用了哪一種修辭？', options: ['隱喻（暗喻）', '明喻', '誇飾', '設問'], ans: 0, detail: '【隱喻】使用「是」作為喻詞連接本體（老師）與喻體（園丁），屬於隱喻（暗喻）。' },
+          { id: 'rh_03', tag: '譬喻修辭', q: '「時間就是金錢，我們要好好珍惜每一分每一秒。」這句話屬於哪一種修辭？', options: ['隱喻（暗喻）', '明喻', '借喻', '對偶'], ans: 0, detail: '【隱喻】用「就是」將本體「時間」比喻為「金錢」。' },
+          { id: 'rh_04', tag: '譬喻修辭', q: '「歲月不饒人，爺爺的頭上早已蓋滿了白雪。」句中的「白雪」比喻白髮，沒有出現本體和喻詞，這是哪種修辭？', options: ['借喻', '明喻', '隱喻', '排比'], ans: 0, detail: '【借喻】直接用喻體（白雪）代替本體（白髮），不出現本體和喻詞。' },
+          { id: 'rh_05', tag: '轉化修辭', q: '「春風溫柔地撫摸著我的臉龐，小草也開心地點頭微笑。」這句話運用了什麼修辭？', options: ['擬人', '擬物', '誇飾', '回文'], ans: 0, detail: '【擬人】賦予春風「撫摸」、小草「點頭微笑」等人類的動作與情感。' },
+          { id: 'rh_06', tag: '轉化修辭', q: '「他氣得渾身炸毛，對著大家咆哮吼叫。」把人當成動物來描寫，屬於轉化修辭中的哪一種？', options: ['擬物', '擬人', '明喻', '頂真'], ans: 0, detail: '【擬物】把人比擬成動物或無生物來描寫（炸毛、咆哮），稱為擬物。' },
+          { id: 'rh_07', tag: '誇飾修辭', q: '「我餓得可以吞下一整頭大象了！」這句話主要運用了哪一種修辭技巧？', options: ['誇飾', '擬人', '對偶', '設問'], ans: 0, detail: '【誇飾】故意言過其實，用「吞下一整頭大象」極度誇張地形容非常飢餓。' },
+          { id: 'rh_08', tag: '誇飾修辭', q: '李白詩句「白髮三千丈，緣愁似個長。」運用了哪一種修辭手法？', options: ['誇飾', '頂真', '回文', '聽覺摹寫'], ans: 0, detail: '【誇飾】白髮不可能真的有三千丈長，詩人用誇飾法極力形容內心的深重憂愁。' },
+          { id: 'rh_09', tag: '排比修辭', q: '「愛心是一片照射在冬日的陽光，愛心是一泓出現在沙漠裡的泉水，愛心是一首飄蕩在夜空的歌謠。」這句話運用了什麼修辭？', options: ['排比', '頂真', '回文', '設問'], ans: 0, detail: '【排比】用三個結構相似、語氣一致的句子（愛心是……）並列排開，增強氣勢。' },
+          { id: 'rh_10', tag: '設問修辭', q: '「什麼是真正的快樂？助人為快樂之本。」自問自答，引起讀者思考，這是哪種修辭？', options: ['設問（提問）', '排比', '誇飾', '擬物'], ans: 0, detail: '【設問】故意提出問題並自己回答（提問），能吸引讀者注意並加深印象。' },
+          { id: 'rh_11', tag: '設問修辭', q: '「難道我們遇到一點小挫折就要輕言放棄嗎？」答案其實就在問題的反面，這是設問中的哪一種？', options: ['激問（反問）', '懸問', '提問', '頂真'], ans: 0, detail: '【激問】不直接說出答案，而是用疑問句表達肯定的「不應該輕言放棄」，語氣強烈。' },
+          { id: 'rh_12', tag: '摹寫修辭', q: '「夕陽把天空染成一片橘紅，金色的光芒灑在波光粼粼的海面上。」這主要屬於哪一種感官摹寫？', options: ['視覺摹寫', '聽覺摹寫', '嗅覺摹寫', '味覺摹寫'], ans: 0, detail: '【視覺摹寫】細膩描寫「橘紅」、「金色光芒」、「波光粼粼」等眼睛看到的色彩與景象。' },
+          { id: 'rh_13', tag: '摹寫修辭', q: '「清晨的森林裡，清脆的鳥鳴聲此起彼落，溪水潺潺地唱著歌。」這句話運用了哪一種感官摹寫？', options: ['聽覺摹寫', '視覺摹寫', '嗅覺摹寫', '觸覺摹寫'], ans: 0, detail: '【聽覺摹寫】描寫「清脆的鳥鳴聲」、「溪水潺潺」等耳朵聽到的聲音。' },
+          { id: 'rh_14', tag: '摹寫修辭', q: '「剛出爐的麵包散發出濃郁的奶油香氣，令人忍不住深吸一口氣。」這屬於哪一種摹寫？', options: ['嗅覺摹寫', '味覺摹寫', '聽覺摹寫', '視覺摹寫'], ans: 0, detail: '【嗅覺摹寫】描寫鼻子聞到的「濃郁的奶油香氣」。' },
+          { id: 'rh_15', tag: '摹寫修辭', q: '「咬一口剛採下的水蜜桃，清甜的汁液在舌尖化開，滿嘴都是幸福的滋味。」這屬於哪種摹寫？', options: ['味覺摹寫', '嗅覺摹寫', '視覺摹寫', '聽覺摹寫'], ans: 0, detail: '【味覺摹寫】描寫舌頭品嘗到的「清甜汁液」與滋味。' },
+          { id: 'rh_16', tag: '摹寫修辭', q: '「冬天的寒風像冰冷的刀子刺在臉上，讓人忍不住打了个哆嗦。」這句話包含了哪一種感官摹寫？', options: ['觸覺摹寫', '味覺摹寫', '聽覺摹寫', '嗅覺摹寫'], ans: 0, detail: '【觸覺摹寫】描寫皮膚感受到的「冰冷」觸感。' },
+          { id: 'rh_17', tag: '對偶修辭', q: '「兩個黃鸝鳴翠柳，一行白鷺上青天。」字數相等、詞性相對、平仄協調，這是哪種修辭？', options: ['對偶', '頂真', '回文', '設問'], ans: 0, detail: '【對偶】「兩個」對「一行」、「黃鸝」對「白鷺」、「鳴翠柳」對「上青天」，工整對仗。' },
+          { id: 'rh_18', tag: '對偶修辭', q: '「海內存知己，天涯若比鄰。」這兩句詩運用了下列哪一種修辭？', options: ['對偶', '誇飾', '擬物', '借喻'], ans: 0, detail: '【對偶】「海內」對「天涯」，「存知己」對「若比鄰」，屬於工整的對偶句。' },
+          { id: 'rh_19', tag: '頂真修辭', q: '「歸來見天子，天子坐明堂。」上一句的結尾詞語作為下一句的開頭，這是哪種修辭？', options: ['頂真', '回文', '對偶', '排比'], ans: 0, detail: '【頂真】用前一句的結尾「天子」作為後一句的開頭，首尾相接，產生連貫的節奏感。' },
+          { id: 'rh_20', tag: '頂真修辭', q: '「少年不識愁滋味，愛上層樓；愛上層樓，為賦新詞強說愁。」這首詞運用了什麼修辭？', options: ['頂真', '回文', '誇飾', '借喻'], ans: 0, detail: '【頂真】「愛上層樓」首尾相接，增強詞句的迴環美感。' },
+          { id: 'rh_21', tag: '回文修辭', q: '「我為人人，人人為我。」把詞語順序顛倒過來讀，意思依然通順且富有哲理，這是哪種修辭？', options: ['回文', '頂真', '對偶', '設問'], ans: 0, detail: '【回文】詞序正讀、倒讀皆能成文，呈現循環往復的關係。' },
+          { id: 'rh_22', tag: '回文修辭', q: '「讀書好，好讀書，讀好書。」巧妙調整字詞順序表達不同含意，屬於哪種修辭？', options: ['回文', '誇飾', '擬人', '借喻'], ans: 0, detail: '【回文】利用詞序排列變化（讀書好／好讀書／讀好書），趣味橫生。' },
+          { id: 'rh_23', tag: '譬喻修辭', q: '「彎彎的月亮像一艘金色的小船，掛在深藍色的夜空中。」這句話運用了什麼修辭？', options: ['明喻', '隱喻', '借喻', '對偶'], ans: 0, detail: '【明喻】本體（月亮）、喻詞（像）、喻體（金色的小船）完整呈現。' },
+          { id: 'rh_24', tag: '轉化修辭', q: '「夜深了，路燈靜靜地站在街角，守護著每一位晚歸的行人。」這句話運用了哪種修辭？', options: ['擬人', '擬物', '誇飾', '頂真'], ans: 0, detail: '【擬人】把無生命的路燈寫得像人一樣「靜靜地站著」、「守護」行人。' },
+          { id: 'rh_25', tag: '排比修辭', q: '「閱讀能開拓我們的視野，閱讀能豐富我們的心靈，閱讀能啟發我們的智慧。」這屬於哪種修辭？', options: ['排比', '對偶', '頂真', '回文'], ans: 0, detail: '【排比】連續使用三個「閱讀能……我們的……」相同句型，語氣層層推進。' },
+          { id: 'rh_26', tag: '誇飾修辭', q: '「教室裡安靜得連一根針掉在地上都聽得見。」這句話運用了哪一種修辭？', options: ['誇飾', '擬人', '設問', '回文'], ans: 0, detail: '【誇飾】用「連一根針掉在地上都聽得見」誇張地描寫教室非常安靜。' },
+          { id: 'rh_27', tag: '譬喻修辭', q: '「書籍是人類進步的階梯。」高爾基的這句名言運用了哪一種修辭？', options: ['隱喻（暗喻）', '明喻', '借喻', '頂真'], ans: 0, detail: '【隱喻】用「是」把「書籍」比喻成「人類進步的階梯」。' },
+          { id: 'rh_28', tag: '設問修辭', q: '「是誰把大地裝扮得如此五彩繽紛？原來是勤勞的春姑娘啊！」這句話運用了什麼修辭？', options: ['設問（提問）', '激問', '對偶', '回文'], ans: 0, detail: '【設問】一問一答，引出「春姑娘」的答案，生動活潑。' },
+          { id: 'rh_29', tag: '轉化修辭', q: '「太陽公公伸了個懶腰，慢悠悠地從山頭探出頭來。」這句話運用了哪種修辭？', options: ['擬人', '擬物', '誇飾', '對偶'], ans: 0, detail: '【擬人】賦予太陽「伸懶腰」、「探出頭」的擬人化動作。' },
+          { id: 'rh_30', tag: '對偶修辭', q: '「欲窮千里目，更上一層樓。」這兩句詩句式整齊、詞性相對，屬於哪種修辭？', options: ['對偶', '頂真', '回文', '借喻'], ans: 0, detail: '【對偶】「欲窮」對「更上」，「千里目」對「一層樓」，結構工整。' },
+          { id: 'rh_31', tag: '譬喻修辭', q: '「平靜的湖面宛如一面巨大的明鏡，映照出藍天白雲。」句中的「宛如」表示這是哪種修辭？', options: ['明喻', '隱喻', '借喻', '擬物'], ans: 0, detail: '【明喻】「宛如」是明喻的喻詞，將湖面比喻成明鏡。' },
+          { id: 'rh_32', tag: '譬喻修辭', q: '「知識的海洋無邊無際，等待著我們揚帆去探索。」這裡不直接用喻詞，直接說「知識的海洋」，屬於哪種修辭？', options: ['隱喻（略喻）', '明喻', '聽覺摹寫', '頂真'], ans: 0, detail: '【略喻／隱喻】省略了「像、是」等喻詞，直接將「知識」與「海洋」並列連結。' },
+          { id: 'rh_33', tag: '誇飾修辭', q: '「桃花潭水深千尺，不及汪倫送我情。」李白用「深千尺」來襯托友誼深厚，運用了什麼修辭？', options: ['誇飾', '擬人', '回文', '設問'], ans: 0, detail: '【誇飾】桃花潭水並沒有真的深達千尺，詩人用誇飾法突出汪倫情誼之深。' },
+          { id: 'rh_34', tag: '頂真修辭', q: '「竹葉燒了還有竹枝，竹枝斷了還有竹鞭，竹鞭砍了還有深埋在地下的竹根。」這段話運用了什麼修辭？', options: ['頂真（兼排比）', '回文', '設問', '借喻'], ans: 0, detail: '【頂真】「竹枝」接「竹枝」，「竹鞭」接「竹鞭」，層層遞進展現竹子的頑強生命力。' },
+          { id: 'rh_35', tag: '摹寫修辭', q: '「轟隆隆！一聲震耳欲聾的雷響劃破了寂靜的夜空。」這句話運用了哪種感官摹寫？', options: ['聽覺摹寫', '嗅覺摹寫', '味覺摹寫', '觸覺摹寫'], ans: 0, detail: '【聽覺摹寫】「轟隆隆」、「震耳欲聾的雷響」生動描繪了聲音的震撼。' },
+          { id: 'rh_36', tag: '轉化修辭', q: '「海浪憤怒地拍打著礁石，發出陣陣怒吼。」這句話把海浪寫得像有情緒的人，屬於哪種修辭？', options: ['擬人', '擬物', '回文', '對偶'], ans: 0, detail: '【擬人】賦予海浪「憤怒」、「怒吼」等人類的情緒與行為。' },
+          { id: 'rh_37', tag: '譬喻修辭', q: '「母愛是一把大傘，為我們遮風擋雨。」這句話運用了哪一種修辭？', options: ['隱喻（暗喻）', '明喻', '借喻', '設問'], ans: 0, detail: '【隱喻】使用「是」將「母愛」比喻成「一把大傘」。' },
+          { id: 'rh_38', tag: '設問修辭', q: '「成功是靠運氣嗎？不，成功是靠百分之九十九的汗水加上百分之一的靈感。」這運用了什麼修辭？', options: ['設問（提問）', '對偶', '頂真', '回文'], ans: 0, detail: '【設問】先提出疑問再自行解答，強調努力的重要性。' },
+          { id: 'rh_39', tag: '排比修辭', q: '「山朗潤起來了，水漲起來了，太陽的臉紅起來了。」朱自清《春》的這句話運用了什麼修辭？', options: ['排比（兼擬人）', '回文', '頂真', '設問'], ans: 0, detail: '【排比】三個「……起來了」結構相同的短句並列，寫出春天萬物復甦的生機。' },
+          { id: 'rh_40', tag: '對偶修辭', q: '「白日依山盡，黃河入海流。」字數相同、詞性對稱，屬於哪一種修辭？', options: ['對偶', '頂真', '誇飾', '設問'], ans: 0, detail: '【對偶】「白日」對「黃河」，「依山盡」對「入海流」，是千古傳誦的對偶名句。' },
+          { id: 'rh_41', tag: '轉化修辭', q: '「我們要像海綿一樣，貪婪地吸取知識的水分。」把人當成海綿來描寫「吸取水分」，屬於哪種轉化？', options: ['擬物（兼明喻）', '擬人', '對偶', '回文'], ans: 0, detail: '【擬物】將人比擬為會「吸取水分」的海綿，使抽象的學習變得具體形象。' },
+          { id: 'rh_42', tag: '誇飾修辭', q: '「飛流直下三千尺，疑是銀河落九天。」形容瀑布從極高處傾瀉而下，運用了什麼修辭？', options: ['誇飾', '頂真', '回文', '設問'], ans: 0, detail: '【誇飾】「三千尺」、「落九天」極力誇張瀑布之高與氣勢之磅礴。' },
+          { id: 'rh_43', tag: '摹寫修辭', q: '「微風吹過桂花樹，陣陣清甜幽雅的芬芳撲鼻而來。」這運用了哪一種感官摹寫？', options: ['嗅覺摹寫', '視覺摹寫', '聽覺摹寫', '味覺摹寫'], ans: 0, detail: '【嗅覺摹寫】「清甜幽雅的芬芳撲鼻而來」細膩描寫了桂花的香氣。' },
+          { id: 'rh_44', tag: '回文修辭', q: '「信言不美，美言不信。」老子的這句名言透過字詞順序顛倒形成對比哲理，這是哪種修辭？', options: ['回文', '頂真', '誇飾', '設問'], ans: 0, detail: '【回文】「信言／美言」順序互換，精練地表達真實的話不華麗、華麗的話不真實。' },
+          { id: 'rh_45', tag: '頂真修辭', q: '「軍書十二卷，卷卷有爺名。」前句末字「卷」與後句首字「卷」相接，屬於哪種修辭？', options: ['頂真', '回文', '對偶', '設問'], ans: 0, detail: '【頂真】「十二卷」接「卷卷有爺名」，突出軍情緊急與徵兵名單之多。' }
+        ],
+
+        sentences: [
+          { id: 'st_01', tag: '複句辨識', q: '「因為今天下起了傾盆大雨，所以運動會只好延期舉行。」這屬於哪一種複句？', options: ['因果複句', '轉折複句', '假設複句', '並列複句'], ans: 0, detail: '【因果複句】關聯詞「因為……所以……」，前句說明原因，後句說明結果。' },
+          { id: 'st_02', tag: '複句辨識', q: '「雖然這次比賽沒有拿到第一名，但是我們全隊都發揮了最佳的團隊精神。」這是哪一種複句？', options: ['轉折複句', '因果複句', '遞進複句', '選擇複句'], ans: 0, detail: '【轉折複句】關聯詞「雖然……但是……」，前後兩個分句的意思相反或相對。' },
+          { id: 'st_03', tag: '複句辨識', q: '「如果明天放晴，我們就一起去郊外野餐吧！」這屬於哪一種複句？', options: ['假設複句', '因果複句', '並列複句', '承接複句'], ans: 0, detail: '【假設複句】關聯詞「如果……就……」，前句提出假設的情況，後句說明在此假設下產生的結果。' },
+          { id: 'st_04', tag: '複句辨識', q: '「只要你肯下定決心努力練習，就一定能學會騎腳踏車。」這屬於哪一種複句？', options: ['條件複句', '轉折複句', '選擇複句', '並列複句'], ans: 0, detail: '【條件複句】關聯詞「只要……就……」，前句提出充分條件，後句說明在該條件下產生的結果。' },
+          { id: 'st_05', tag: '複句辨識', q: '「小美不僅功課名列前茅，而且非常熱心幫助同學。」這屬於哪一種複句？', options: ['遞進複句', '並列複句', '選擇複句', '轉折複句'], ans: 0, detail: '【遞進複句】關聯詞「不僅……而且……」，後句的意思比前句更進一層。' },
+          { id: 'st_06', tag: '複句辨識', q: '「弟弟一邊聽著輕快的音樂，一邊開心地畫水彩畫。」這屬於哪一種複句？', options: ['並列複句', '承接複句', '因果複句', '假設複句'], ans: 0, detail: '【並列複句】關聯詞「一邊……一邊……」，表示兩件事情同時進行、地位平等。' },
+          { id: 'st_07', tag: '複句辨識', q: '「週末的下午，你打算去圖書館看書，還是去公園打籃球？」這屬於哪一種複句？', options: ['選擇複句', '並列複句', '遞進複句', '因果複句'], ans: 0, detail: '【選擇複句】關聯詞「……還是……」，提出兩種情況供人從中選擇其一。' },
+          { id: 'st_08', tag: '複句辨識', q: '「爸爸下班回到家，先洗了個熱水澡，接著就走進廚房準備晚餐。」這屬於哪一種複句？', options: ['承接複句', '並列複句', '轉折複句', '條件複句'], ans: 0, detail: '【承接複句】關聯詞「先……接著……」，幾個動作按照時間先後順序連續發生。' },
+          { id: 'st_09', tag: '複句辨識', q: '「為了讓地球環境變得更美好，大家應該隨手做好垃圾分類。」這屬於哪一種複句？', options: ['目的複句', '因果複句', '假設複句', '轉折複句'], ans: 0, detail: '【目的複句】關聯詞「為了……」，表明採取某種行動所要達到的目的。' },
+          { id: 'st_10', tag: '關聯詞填空', q: '「＿＿遇到多大的困難，我們＿＿不能輕言放棄。」空格中最適合填入哪組關聯詞？', options: ['無論……都……', '因為……所以……', '不是……而是……', '與其……不如……'], ans: 0, detail: '【條件複句】「無論……都……」表示在任何條件下結果都不會改變。' },
+          { id: 'st_11', tag: '關聯詞填空', q: '「這件工藝品＿＿做工精巧，＿＿富有濃厚的傳統文化氣息。」最適合填入哪組關聯詞？', options: ['不但……而且……', '雖然……但是……', '如果……就……', '寧可……也不……'], ans: 0, detail: '【遞進複句】「不但……而且……」使句意層層加深。' },
+          { id: 'st_12', tag: '關聯詞填空', q: '「＿＿整天羨慕別人的好成績，＿＿現在就開始腳踏實地用功讀書。」最適合填入哪組關聯詞？', options: ['與其……不如……', '既然……就……', '即使……也……', '一邊……一邊……'], ans: 0, detail: '【選擇複句】「與其……不如……」表示權衡利弊後，捨棄前者而選擇後者。' },
+          { id: 'st_13', tag: '複句辨識', q: '「只有平時多閱讀課外讀物，寫作時才能文思泉湧。」這屬於哪一種複句？', options: ['條件複句', '假設複句', '並列複句', '承接複句'], ans: 0, detail: '【條件複句】關聯詞「只有……才……」，指出達成結果所必須具備的唯一條件。' },
+          { id: 'st_14', tag: '複句辨識', q: '「這座花園裡既有嬌豔欲滴的玫瑰，也有清香撲鼻的百合。」這屬於哪一種複句？', options: ['並列複句', '遞進複句', '轉折複句', '目的複句'], ans: 0, detail: '【並列複句】關聯詞「既……也……」，並列列舉花園裡的兩種花卉。' },
+          { id: 'st_15', tag: '複句辨識', q: '「即使明天下大雨，我也會準時到達書院參加朗讀比賽。」這屬於哪一種複句？', options: ['假設複句（讓步假設）', '因果複句', '承接複句', '選擇複句'], ans: 0, detail: '【假設複句】關聯詞「即使……也……」，先承認某種假設情況，再指出結果不受影響。' },
+          { id: 'st_16', tag: '關聯詞填空', q: '「＿＿你已經答應了同學的請求，＿＿應該信守承諾把事情辦好。」最適合填入哪組關聯詞？', options: ['既然……就……', '雖然……但是……', '寧可……也不……', '不是……就是……'], ans: 0, detail: '【因果複句】「既然……就……」先提出已成為事實的前提，再推論出應有的行動。' },
+          { id: 'st_17', tag: '複句辨識', q: '「他寧可自己多花點時間檢查，也不願意交出一份粗心大意的考卷。」這屬於哪一種複句？', options: ['選擇複句', '因果複句', '承接複句', '並列複句'], ans: 0, detail: '【選擇複句】關聯詞「寧可……也不……」，表示經過比較後堅決選擇前者。' },
+          { id: 'st_18', tag: '複句辨識', q: '「放學鈴聲一響，同學們便背起書包，井然有序地走出教室。」這屬於哪一種複句？', options: ['承接複句', '轉折複句', '假設複句', '目的複句'], ans: 0, detail: '【承接複句】關聯詞「一……便……」，表示兩個動作緊接著先後發生。' },
+          { id: 'st_19', tag: '複句辨識', q: '「我們每天認真做眼保健操，以免視力越來越差。」這屬於哪一種複句？', options: ['目的複句', '因果複句', '轉折複句', '並列複句'], ans: 0, detail: '【目的複句】關聯詞「……以免……」，表示採取行動是為了避免發生某種不良後果。' },
+          { id: 'st_20', tag: '關聯詞填空', q: '「這道數學題看起來很複雜，＿＿只要找對解題方法，＿＿能迎刃而解。」最適合填入哪組關聯詞？', options: ['其實……就……', '因為……所以……', '不但……而且……', '或者……或者……'], ans: 0, detail: '【轉折＋條件】「其實」轉折語氣，「只要……就……」點出解題條件。' },
+          { id: 'st_21', tag: '複句辨識', q: '「要是沒有太陽的光和熱，地球上就不會有五彩繽紛的生命。」這屬於哪一種複句？', options: ['假設複句', '並列複句', '承接複句', '遞進複句'], ans: 0, detail: '【假設複句】關聯詞「要是……就……」，提出與事實相反的假設來說明太陽的重要。' },
+          { id: 'st_22', tag: '複句辨識', q: '「這幅國畫不是印刷品，而是名家親手繪製的真跡。」這屬於哪一種複句？', options: ['並列複句（對照並列）', '因果複句', '假設複句', '承接複句'], ans: 0, detail: '【並列複句】關聯詞「不是……而是……」，一反一正並列說明事物的真實屬性。' },
+          { id: 'st_23', tag: '複句辨識', q: '「外婆年紀雖然大了，然而精神卻非常矍鑠，每天清晨都去公園打太極拳。」這屬於哪一種複句？', options: ['轉折複句', '遞進複句', '選擇複句', '目的複句'], ans: 0, detail: '【轉折複句】關聯詞「雖然……然而……」，前後意思形成鮮明轉折。' },
+          { id: 'st_24', tag: '複句辨識', q: '「這場公益演講不但吸引了許多家長，甚至連鄰近學校的老師都前來聆聽。」這屬於哪一種複句？', options: ['遞進複句', '選擇複句', '因果複句', '假設複句'], ans: 0, detail: '【遞進複句】關聯詞「不但……甚至……」，程度比前一句更進一步加深。' },
+          { id: 'st_25', tag: '關聯詞填空', q: '「週末打掃房間時，＿＿我負責擦窗戶，＿＿妹妹負責掃地。」最適合填入哪組關聯詞？', options: ['不是……就是……', '雖然……但是……', '因為……所以……', '寧可……也不……'], ans: 0, detail: '【選擇複句】「不是……就是……」表示兩者必居其一的選擇關係。' },
+          { id: 'st_26', tag: '複句辨識', q: '「由於全班同學齊心協力排練，因此我們在合唱比賽中榮獲特優。」這屬於哪一種複句？', options: ['因果複句', '轉折複句', '假設複句', '選擇複句'], ans: 0, detail: '【因果複句】關聯詞「由於……因此……」，前因後果非常明確。' },
+          { id: 'st_27', tag: '複句辨識', q: '「媽媽把剛洗好的蘋果削皮切塊，然後端到書房給正在寫作業的我吃。」這屬於哪一種複句？', options: ['承接複句', '並列複句', '轉折複句', '假設複句'], ans: 0, detail: '【承接複句】關聯詞「……然後……」，呈現連續動作的先後順序。' },
+          { id: 'st_28', tag: '複句辨識', q: '「不管天氣多麼炎熱，農夫伯伯依然在田裡辛勤地耕作。」這屬於哪一種複句？', options: ['條件複句', '選擇複句', '因果複句', '承接複句'], ans: 0, detail: '【條件複句】關聯詞「不管……依然……」，表示在任何條件下結果都始終如一。' },
+          { id: 'st_29', tag: '複句辨識', q: '「老師不厭其煩地講解這道題目，好讓每一位同學都能徹底明白。」這屬於哪一種複句？', options: ['目的複句', '轉折複句', '選擇複句', '並列複句'], ans: 0, detail: '【目的複句】關聯詞「……好讓……」，說明老師反覆講解的目的是讓同學明白。' },
+          { id: 'st_30', tag: '關聯詞填空', q: '「＿＿你平時不注意保護牙齒，＿＿很容易蛀牙。」最適合填入哪組關聯詞？', options: ['倘若……就……', '雖然……可是……', '既……又……', '不但……反而……'], ans: 0, detail: '【假設複句】「倘若……就……」表示假設某種情況發生後會帶來的後果。' },
+          { id: 'st_31', tag: '複句辨識', q: '「這座橋樑設計得既堅固又美觀，成為這座城市的新地標。」這屬於哪一種複句？', options: ['並列複句', '轉折複句', '假設複句', '選擇複句'], ans: 0, detail: '【並列複句】關聯詞「既……又……」，同時肯定橋樑的兩個優點。' },
+          { id: 'st_32', tag: '複句辨識', q: '「他不但沒有被失敗擊倒，反而從錯誤中吸取了寶貴的經驗。」這屬於哪一種複句？', options: ['遞進複句（反向遞進）', '因果複句', '承接複句', '目的複句'], ans: 0, detail: '【遞進複句】關聯詞「不但沒有……反而……」，從否定前項進而肯定更積極的後項。' },
+          { id: 'st_33', tag: '複句辨識', q: '「儘管山路崎嶇難行，登山隊員們還是互相扶持，順利登上了山頂。」這屬於哪一種複句？', options: ['轉折複句', '因果複句', '並列複句', '選擇複句'], ans: 0, detail: '【轉折複句】關聯詞「儘管……還是……」，先承認不利條件，再轉折指出克服困難的結果。' },
+          { id: 'st_34', tag: '關聯詞填空', q: '「＿＿團結一心，＿＿能戰勝前進道路上的一切挑戰。」最適合填入哪組關聯詞？', options: ['唯有……才……', '因為……所以……', '雖然……但是……', '或者……或者……'], ans: 0, detail: '【條件複句】「唯有……才……」強調團結是戰勝挑戰的必要條件。' },
+          { id: 'st_35', tag: '複句辨識', q: '「弟弟剛把積木城堡搭好，小貓就跑過來把它撞倒了。」這屬於哪一種複句？', options: ['承接複句', '目的複句', '條件複句', '選擇複句'], ans: 0, detail: '【承接複句】關聯詞「剛……就……」，表示兩件事情緊接著發生。' },
+          { id: 'st_36', tag: '複句辨識', q: '「我們之所以要學習歷史，是因為歷史能給我們許多做人處事的智慧。」這屬於哪一種複句？', options: ['因果複句（倒裝因果）', '轉折複句', '假設複句', '選擇複句'], ans: 0, detail: '【因果複句】關聯詞「之所以……是因為……」，先說出結果，再解釋背後的深層原因。' },
+          { id: 'st_37', tag: '複句辨識', q: '「在圖書館裡，我們要保持安靜，省得打擾到其他正在專心閱讀的人。」這屬於哪一種複句？', options: ['目的複句', '並列複句', '遞進複句', '假設複句'], ans: 0, detail: '【目的複句】關聯詞「……省得……」，說明保持安靜的目的是避免打擾別人。' },
+          { id: 'st_38', tag: '關聯詞填空', q: '「這道點心＿＿味道香甜可口，＿＿造型十分可愛，大家都搶著品嘗。」最適合填入哪組關聯詞？', options: ['不僅……還……', '雖然……卻……', '如果……那麼……', '與其……不如……'], ans: 0, detail: '【遞進複句】「不僅……還……」連接點心的兩層優點。' },
+          { id: 'st_39', tag: '複句辨識', q: '「或者你先去買門票，或者我先去排隊，我們分頭行動比較節省時間。」這屬於哪一種複句？', options: ['選擇複句', '因果複句', '轉折複句', '條件複句'], ans: 0, detail: '【選擇複句】關聯詞「或者……或者……」，提出兩種可行的方案供選擇。' },
+          { id: 'st_40', tag: '複句辨識', q: '「假使每個人都能多一份包容與體諒，這個社會就會變得更加溫暖和諧。」這屬於哪一種複句？', options: ['假設複句', '承接複句', '並列複句', '轉折複句'], ans: 0, detail: '【假設複句】關聯詞「假使……就……」，提出美好的假設與隨之而來的正向結果。' },
+          { id: 'st_41', tag: '複句辨識', q: '「竹子一方面象徵著虛心有節的品格，另一方面也代表著堅韌不拔的精神。」這屬於哪一種複句？', options: ['並列複句', '轉折複句', '因果複句', '目的複句'], ans: 0, detail: '【並列複句】關聯詞「一方面……另一方面……」，從兩個角度並列闡述竹子的象徵意義。' },
+          { id: 'st_42', tag: '關聯詞填空', q: '「＿＿你現在不抓緊時間複習，＿＿到了考試時就會手忙腳亂。」最適合填入哪組關聯詞？', options: ['假如……那麼……', '雖然……但是……', '既……又……', '因為……所以……'], ans: 0, detail: '【假設複句】「假如……那麼……」提醒不預先準備可能造成的假設後果。' }
+        ],
+
+        classics: [
+          { id: 'cl_01', tag: '勤學篤行', q: '《論語》：「學而時習之，不亦說乎？」句中的「說」字讀音與意思為何？', options: ['音 ㄩㄝˋ，喜悅、愉快的意思', '音 ㄕㄨㄛ，說話的意思', '音 ㄕㄨㄟˋ，勸說的意思', '音 ㄊㄨㄛ，脫離的意思'], ans: 0, detail: '【白話釋義】學習知識並時常溫習實踐，不也是一件很愉快的事嗎？「說」通「悅」。出處：《論語．學而》。' },
+          { id: 'cl_02', tag: '待人處世', q: '《論語》：「三人行，必有我師焉。」這句話主要告訴我們什麼道理？', options: ['每個人都有值得我們學習的優點，要虛心向他人請教', '出門走路一定要三個人結伴才安全', '老師只能同時教導三個學生', '只有年紀比我大的人才能當我的老師'], ans: 0, detail: '【白話釋義】幾個人一起同行，其中一定有可以當我老師的人。教導我們隨時虛心向他人學習。出處：《論語．述而》。' },
+          { id: 'cl_03', tag: '勤學篤行', q: '《論語》：「溫故而知新，可以為師矣。」強調學習時應該如何？', options: ['溫習舊知識，並從中獲得新的領悟與體會', '只學習新知識，完全不用管舊知識', '把書本背得滾瓜爛熟就可以當老師', '只喜歡新奇的事物而討厭古老的書本'], ans: 0, detail: '【白話釋義】溫習學過的知識，進而能領悟到新的道理，這樣就可以做老師了。出處：《論語．為政》。' },
+          { id: 'cl_04', tag: '待人處世', q: '《論語》：「己所不欲，勿施於人。」這句名言教導我們什麼處世原則？', options: ['自己不願意承受的事情，也不要強加在別人身上', '自己不想要的東西，可以全部送給別人', '別人不想要的東西，自己一定要搶過來', '做事情只要考慮自己開心就好'], ans: 0, detail: '【白話釋義】自己不喜歡的，不要加給別人。這是將心比心、推己及人的恕道精神。出處：《論語．顏淵》。' },
+          { id: 'cl_05', tag: '勤學篤行', q: '《論語》：「學而不思則罔，思而不學則殆。」告訴我們學習必須兼顧哪兩件事？', options: ['學習與思考並重', '運動與睡眠並重', '唱歌與畫畫並重', '遊戲與吃飯並重'], ans: 0, detail: '【白話釋義】只讀書卻不思考，就會迷惑而無所得；只空想卻不學習，就會疑惑不安。出處：《論語．為政》。' },
+          { id: 'cl_06', tag: '修身律己', q: '《論語》：「知之為知之，不知為不知，是知也。」這句話勉勵我們面對知識應有什麼態度？', options: ['誠實面對自己懂與不懂的地方，這才是真正的智慧', '不懂也要裝懂，才不會被同學笑話', '什麼都說不知道就是最聰明的人', '遇到不懂的問題直接放棄不要問'], ans: 0, detail: '【白話釋義】知道就是知道，不知道就是不知道，這才是真正的聰明智慧。出處：《論語．為政》。' },
+          { id: 'cl_07', tag: '名句填空', q: '《禮記．學記》：「玉不琢，不成器；人不學，＿＿。」下句應填入什麼？', options: ['不知道', '不明理', '不成才', '無所成'], ans: 0, detail: '【白話釋義】玉石不經過雕琢，就無法成為精美的器物；人不經過學習，就不會明白做人處事的道理。出處：《禮記．學記》。' },
+          { id: 'cl_08', tag: '勤學篤行', q: '顏真卿《勸學》詩：「三更燈火五更雞，正是男兒讀書時。黑髮不知勤學早，＿＿。」下句為何？', options: ['白首方悔讀書遲', '老來方知行路難', '青春一去不復返', '少壯不努力徒傷悲'], ans: 0, detail: '【白話釋義】年輕黑髮時不知道及早勤奮學習，等到年老白頭時才後悔讀書太遲了。出處：唐．顏真卿《勸學》。' },
+          { id: 'cl_09', tag: '勤學篤行', q: '《長歌行》名句：「少壯不努力，＿＿。」提醒我們要珍惜少年時光奮發向上，下句是什麼？', options: ['老大徒傷悲', '白首方悔遲', '萬事成蹉跎', '空悲切白頭'], ans: 0, detail: '【白話釋義】年輕力壯的時候不奮發努力，到了年老時再悲傷後悔也沒有用了。出處：漢樂府《長歌行》。' },
+          { id: 'cl_10', tag: '修身律己', q: '《朱子家訓》：「一粥一飯，當思來處不易；半絲半縷，恆念物力維艱。」教導我們要養成什麼美德？', options: ['珍惜物力、感恩節儉，不浪費糧食與資源', '每天只喝一碗粥就夠了', '衣服破了絕對不能買新的', '只有農家子弟才需要節儉'], ans: 0, detail: '【白話釋義】每一碗粥、每一口飯，都應當想到得來不容易；每一根絲線，都要常念及物力艱難。出處：清．朱柏廬《朱子家訓》。' },
+          { id: 'cl_11', tag: '修身律己', q: '《朱子家訓》：「宜未雨而綢繆，毋臨渴而掘井。」這句話提醒我們做事應該如何？', options: ['事先做好準備，不要等到事情發生了才慌忙應付', '下雨天一定要出門修補屋頂', '口渴的時候再去挖井水最甘甜', '不用提前規劃，船到橋頭自然直'], ans: 0, detail: '【白話釋義】應該在還沒下雨前就修補好門窗，不要等到口渴了才去挖井。比喻事先防患未然。' },
+          { id: 'cl_12', tag: '家國情懷', q: '范仲淹《岳陽樓記》名句：「先天下之憂而憂，＿＿。」展現了心懷天下的崇高抱負，下句為何？', options: ['後天下之樂而樂', '與民同樂共太平', '安得廣廈千萬間', '留取丹心照汗青'], ans: 0, detail: '【白話釋義】在天下人還沒憂慮之前就先憂慮，在天下人都得到快樂之後才快樂。出處：宋．范仲淹《岳陽樓記》。' },
+          { id: 'cl_13', tag: '家國情懷', q: '顧炎武《日知錄》名言：「天下興亡，＿＿。」強調每個人對國家社會都有一份責任，下句是什麼？', options: ['匹夫有責', '人人有份', '責無旁貸', '士大夫之責'], ans: 0, detail: '【白話釋義】國家的興盛或衰亡，每一個平凡百姓都有責任。出處：清．顧炎武《日知錄》。' },
+          { id: 'cl_14', tag: '修身律己', q: '三國劉備告誡兒子的名言：「勿以惡小而為之，＿＿。」教導我們不可輕視微小的善行與過錯，下句為何？', options: ['勿以善小而不為', '防微杜漸保平安', '積善之家有餘慶', '小不忍則亂大謀'], ans: 0, detail: '【白話釋義】不要因為壞事很小就去做，也不要因為善事很小就不去做。出處：《三國志．蜀書．先主傳》。' },
+          { id: 'cl_15', tag: '勤學篤行', q: '朱熹《觀書有感》：「問渠那得清如許？＿＿。」用活水比喻不斷讀書汲取新知，心靈才能保持清澈明淨，下句是什麼？', options: ['為有源頭活水來', '半畝方塘一鑑開', '天光雲影共徘徊', '只緣身在此山中'], ans: 0, detail: '【白話釋義】要問這方池塘的水為何如此清澈？是因為有源頭的活水不斷流進來啊！出處：宋．朱熹《觀書有感》。' },
+          { id: 'cl_16', tag: '待人處世', q: '《孟子》：「愛人者，人恆愛之；敬人者，＿＿。」說明人與人之間相互尊重的道理，下句為何？', options: ['人恆敬之', '人必報之', '天必佑之', '眾人仰之'], ans: 0, detail: '【白話釋義】關愛別人的人，別人也常會關愛他；尊敬別人的人，別人也常會尊敬他。出處：《孟子．離婁下》。' },
+          { id: 'cl_17', tag: '勤學篤行', q: '荀子《勸學》：「不積跬步，無以至千里；不積小流，＿＿。」強調平時點滴累積的重要，下句為何？', options: ['無以成江海', '無以成高山', '無以潤萬物', '無以匯百川'], ans: 0, detail: '【白話釋義】不累積一步半步的行程，就無法到達千里之外；不匯集細小的流水，就無法成為江河大海。出處：《荀子．勸學》。' },
+          { id: 'cl_18', tag: '勤學篤行', q: '荀子《勸學》：「鍥而舍之，朽木不折；鍥而不捨，＿＿。」比喻堅持不懈就能克服再大的困難，下句為何？', options: ['金石可鏤', '滴水穿石', '鐵杵成針', '百鍊成鋼'], ans: 0, detail: '【白話釋義】雕刻一下就放棄，連腐朽的木頭也刻不斷；堅持不停地雕刻，連堅硬的金屬和石頭也能鏤空雕花。' },
+          { id: 'cl_19', tag: '修身律己', q: '諸葛亮《誡子書》：「非淡泊無以明志，＿＿。」勉勵兒子保持內心寧靜專一，才能實現遠大理想，下句為何？', options: ['非寧靜無以致遠', '非勤學無以成才', '非節儉無以養德', '非謙虛無以受益'], ans: 0, detail: '【白話釋義】不把名利看淡就無法明確自己的志向，不保持內心寧靜專一就無法達到遠大的目標。出處：三國．諸葛亮《誡子書》。' },
+          { id: 'cl_20', tag: '修身律己', q: '諸葛亮《誡子書》：「靜以修身，＿＿。」教導我們用寧靜修養身心、用節儉培養品德，下句為何？', options: ['儉以養德', '勤以補拙', '誠以待人', '謙以受益'], ans: 0, detail: '【白話釋義】以靜思反省來修養身心，以節儉樸素來培養品德。出處：三國．諸葛亮《誡子書》。' },
+          { id: 'cl_21', tag: '家國情懷', q: '文天祥《過零丁洋》名句：「人生自古誰無死，＿＿。」展現寧死不屈的愛國氣節，下句為何？', options: ['留取丹心照汗青', '精忠報國萬古流', '死去元知萬事空', '王師北定中原日'], ans: 0, detail: '【白話釋義】自古以來人生在世誰能不死？只求留下一顆赤誠忠心照耀史冊！出處：宋．文天祥《過零丁洋》。' },
+          { id: 'cl_22', tag: '家國情懷', q: '陸游《示兒》：「王師北定中原日，＿＿。」表達詩人臨終前仍心繫國家統一的深情，下句為何？', options: ['家祭無忘告乃翁', '但悲不見九州同', '死去元知萬事空', '遺民淚盡胡塵裡'], ans: 0, detail: '【白話釋義】當朝廷軍隊向北平定中原的那一天，家祭時千萬別忘了告訴你們的父親啊！出處：宋．陸游《示兒》。' },
+          { id: 'cl_23', tag: '修身律己', q: '周敦頤《愛蓮說》讚美蓮花「出淤泥而不染，＿＿」，比喻君子在污濁環境中仍保持高潔品格，下句為何？', options: ['濯清漣而不妖', '香遠益清亭亭淨植', '可遠觀而不可褻玩焉', '中通外直不蔓不枝'], ans: 0, detail: '【白話釋義】蓮花從淤泥中生長出來卻不被沾染污穢，經過清水洗滌卻不顯得妖豔。出處：宋．周敦頤《愛蓮說》。' },
+          { id: 'cl_24', tag: '待人處世', q: '《尚書》名言：「滿招損，＿＿。」提醒我們驕傲自滿會招來損害，謙虛謹慎才會得到益處，下句為何？', options: ['謙受益', '傲必敗', '勤補拙', '誠感天'], ans: 0, detail: '【白話釋義】驕傲自滿會招致損失，謙虛謹慎能獲得益處。出處：《尚書．大禹謨》。' },
+          { id: 'cl_25', tag: '待人處世', q: '《論語》：「歲寒，然後知松柏之後凋也。」這句話比喻什麼道理？', options: ['人在艱難困苦的考驗中，才能顯現出堅貞不屈的品格', '松樹和柏樹在冬天完全不會掉葉子', '只有冬天才適合種植松樹和柏樹', '天氣寒冷時大家要多穿保暖衣物'], ans: 0, detail: '【白話釋義】到了寒冷的季節，才知道松柏是最後才凋謝的。比喻君子在逆境中更能顯現堅貞操守。出處：《論語．子罕》。' },
+          { id: 'cl_26', tag: '勤學篤行', q: '《論語》：「敏而好學，＿＿，是以謂之文也。」讚美聰敏好學且不恥向地位比自己低的人請教，空格應填什麼？', options: ['不恥下問', '循循善誘', '博學多聞', '學而不厭'], ans: 0, detail: '【白話釋義】天資聰敏又勤奮好學，不以向學問或地位比自己低的人請教為恥。出處：《論語．公冶長》。' },
+          { id: 'cl_27', tag: '修身律己', q: '《孟子》：「富貴不能淫，貧賤不能移，＿＿，此之謂大丈夫。」這句話描述了什麼樣的人格？', options: ['威武不能屈', '功名不能動', '生死不能懼', '艱險不能阻'], ans: 0, detail: '【白話釋義】富貴不能迷惑他的心，貧賤不能改變他的志向，威武強權不能使他屈服，這才稱得上是大丈夫。出處：《孟子．滕文公下》。' },
+          { id: 'cl_28', tag: '名句填空', q: '王之渙《登鸛雀樓》：「欲窮千里目，＿＿。」比喻站得越高、看得越遠，人生要不斷向上攀登，下句為何？', options: ['更上一層樓', '黃河入海流', '白日依山盡', '一覽眾山小'], ans: 0, detail: '【白話釋義】想要看到千里之外更遠的風景，就要再登上一層樓。出處：唐．王之渙《登鸛雀樓》。' },
+          { id: 'cl_29', tag: '修身律己', q: '王冕《墨梅》：「不要人誇好顏色，＿＿。」借梅花表達不求世俗誇讚、只求清白自守的高尚志向，下句為何？', options: ['只留清氣滿乾坤', '唯有暗香浮動來', '凌寒獨自為誰開', '冰清玉潔傲霜雪'], ans: 0, detail: '【白話釋義】不需要別人誇讚它顏色有多美，只願把清雅的香氣留在天地之間。出處：元．王冕《墨梅》。' },
+          { id: 'cl_30', tag: '家國情懷', q: '杜甫《茅屋為秋風所破歌》：「安得廣廈千萬間，＿＿！」展現詩人推己及人、關懷天下寒士的博大胸懷，下句為何？', options: ['大庇天下寒士俱歡顏', '風雨不動安如山', '吾廬獨破受凍死亦足', '何時眼前突兀見此屋'], ans: 0, detail: '【白話釋義】哪裡能得到千萬間寬敞的大屋，庇護天下所有貧寒的讀書人，讓大家都露出歡喜的笑容！出處：唐．杜甫。' },
+          { id: 'cl_31', tag: '勤學篤行', q: '韓愈治學名言：「書山有路勤為徑，＿＿。」告訴我們求學沒有捷徑，唯有勤奮與刻苦，下句為何？', options: ['學海無涯苦作舟', '登峰造極志為梯', '博覽群書智作帆', '溫故知新思為槳'], ans: 0, detail: '【白話釋義】在知識的高山上要找到出路，勤奮就是唯一的路徑；在無邊無際的學海裡航行，刻苦就是渡海的船隻。' },
+          { id: 'cl_32', tag: '待人處世', q: '《論語》：「君子成人之美，＿＿。」說明有修養的人樂於成全別人的好事，而不助長壞事，下句為何？', options: ['不成人之惡', '不言人之過', '不計人之嫌', '不奪人之愛'], ans: 0, detail: '【白話釋義】君子成全別人的好事，不促成別人的壞事。出處：《論語．顏淵》。' },
+          { id: 'cl_33', tag: '待人處世', q: '《禮記》：「獨學而無友，則孤陋而寡聞。」這句話主要強調什麼的重要性？', options: ['與朋友切磋討論、互相學習的重要性', '一個人關在房間裡讀書最有效率', '交朋友不需要選擇志同道合的人', '只聽別人說而不自己讀書'], ans: 0, detail: '【白話釋義】如果只是一個人獨自學習而不與朋友交流切磋，就會學識淺薄、見聞不廣。出處：《禮記．學記》。' },
+          { id: 'cl_34', tag: '修身律己', q: '《論語》：「言必信，＿＿。」教導我們說話一定要守信用，做事一定要果斷有始有終，下句為何？', options: ['行必果', '思必慎', '學必勤', '心必誠'], ans: 0, detail: '【白話釋義】說話一定要講信用，做事一定要果決並貫徹到底。出處：《論語．子路》。' },
+          { id: 'cl_35', tag: '家國情懷', q: '蘇軾《題西林壁》：「不識廬山真面目，＿＿。」蘊含「當局者迷，旁觀者清」的哲理，下句為何？', options: ['只緣身在此山中', '遠近高低各不同', '橫看成嶺側成峰', '山色空濛雨亦奇'], ans: 0, detail: '【白話釋義】之所以看不清廬山的真正面貌，只因為自己正身處在這座山之中啊！出處：宋．蘇軾《題西林壁》。' },
+          { id: 'cl_36', tag: '待人處世', q: '《增廣賢文》：「良言一句三冬暖，＿＿。」提醒我們說話要溫暖善意，避免口出惡言傷害別人，下句為何？', options: ['惡語傷人六月寒', '忠言逆耳利於行', '禍從口出須謹慎', '一言既出駟馬難追'], ans: 0, detail: '【白話釋義】一句真誠友善的話，即使在寒冷的冬天也讓人感到溫暖；惡毒傷人的話，即使在六月盛夏也讓人感到心寒。' },
+          { id: 'cl_37', tag: '勤學篤行', q: '《論語》：「知之者不如好之者，＿＿。」強調對學習產生濃厚興趣與熱愛的重要性，下句為何？', options: ['好之者不如樂之者', '樂之者不如行之者', '行之者不如思之者', '學之者不如問之者'], ans: 0, detail: '【白話釋義】懂得學習的人比不上喜愛學習的人；喜愛學習的人，又比不上以學習為樂趣的人。出處：《論語．雍也》。' },
+          { id: 'cl_38', tag: '修身律己', q: '曾子每日省察自己：「吾日三省吾身：為人謀而不忠乎？與朋友交而不信乎？＿＿？」第三件事是什麼？', options: ['傳不習乎', '言不慎乎', '行不果乎', '學不勤乎'], ans: 0, detail: '【白話釋義】替別人辦事是否盡心竭力？與朋友交往是否誠實守信？老師傳授的學業是否溫習了？出處：《論語．學而》。' },
+          { id: 'cl_39', tag: '家國情懷', q: '林則徐名言：「海納百川，有容乃大；壁立千仞，＿＿。」勉勵我們要擁有寬廣的胸懷與剛正不阿的氣節，下句為何？', options: ['無欲則剛', '志在四方', '頂天立地', '不屈不撓'], ans: 0, detail: '【白話釋義】大海容納百條江河所以博大；懸崖峭壁直立千仞，人沒有私心貪欲才能剛正堅強。' },
+          { id: 'cl_40', tag: '名句填空', q: '孟郊《遊子吟》：「誰言寸草心，＿＿。」歌頌偉大無私的母愛，下句為何？', options: ['報得三春暉', '慈母手中線', '臨行密密縫', '意恐遲遲歸'], ans: 0, detail: '【白話釋義】誰說像小草般微弱的孝心，能夠報答得了像春天陽光般溫暖無私的母愛呢？出處：唐．孟郊《遊子吟》。' },
+          { id: 'cl_41', tag: '待人處世', q: '《孟子》：「天時不如地利，＿＿。」說明在所有成功條件中，人心團結和諧才是最關鍵的，下句為何？', options: ['地利不如人和', '人和不如天命', '兵強不如糧足', '城高不如池深'], ans: 0, detail: '【白話釋義】有利的時機比不上有利的地形，有利的地形又比不上人心的團結和諧。出處：《孟子．公孫丑下》。' },
+          { id: 'cl_42', tag: '勤學篤行', q: '歐陽脩讀書名言：「立身以立學為先，＿＿。」指出修身立業必須以求學讀書為根本，下句為何？', options: ['立學以讀書為本', '讀書以明理為要', '明理以力行為貴', '力行以恆心為基'], ans: 0, detail: '【白話釋義】在社會上立足要以學習為先，而學習又以勤奮讀書為根本。出處：宋．歐陽脩。' }
+        ]
+      };
+
+      /* -------------------------------------------------------------------
+       * 5. 遊戲核心狀態與本地進度管理
+       * ------------------------------------------------------------------- */
+      const STORAGE_KEY = 'moyun_academy_state_v1';
+      const MAX_REROLLS = 3; // 每人最多重抽 3 次，第 3 次後自動鎖定並進入書院
+
+      const STAGE_META = {
+        idioms: { badge: '第一關', title: '成語迷蹤林' },
+        rhetoric: { badge: '第二關', title: '修辭幻境塔' },
+        sentences: { badge: '第三關', title: '複句連環陣' },
+        classics: { badge: '第四關', title: '古文聖賢殿' },
+        mistakes: { badge: '特別修練', title: '錯題修練場' }
+      };
+
+      // 初始名號抽籤狀態（每次開啟頁面時明確歸零，保證初始換名功能 100% 順暢可用）
+      let rerollCount = 0;
+      let themeCycleIndex = Math.floor(Math.random() * 3); // 0: classical, 1: scifi, 2: fairytale
+      const THEME_ORDER = ['classical', 'scifi', 'fairytale'];
+      const usedNamesSet = new Set();
+      let autoEnterTimer = null;
+
+      // 持久化修煉進度狀態
+      let playerState = loadSavedProgress();
+
+      function loadSavedProgress() {
+        const defaultState = {
+          currentProfile: null,
+          xp: 0,
+          score: 0,
+          bestStreak: 0,
+          seals: {
+            idioms: false,
+            rhetoric: false,
+            sentences: false,
+            classics: false
+          },
+          clears: {
+            idioms: 0,
+            rhetoric: 0,
+            sentences: 0,
+            classics: 0
+          },
+          mistakes: [] // 存放答錯題目的完整物件（含 originStage）
+        };
+
+        try {
+          const raw = localStorage.getItem(STORAGE_KEY);
+          if (!raw) return defaultState;
+          const parsed = JSON.parse(raw);
+          return {
+            ...defaultState,
+            ...parsed,
+            seals: { ...defaultState.seals, ...(parsed.seals || {}) },
+            clears: { ...defaultState.clears, ...(parsed.clears || {}) },
+            mistakes: Array.isArray(parsed.mistakes) ? parsed.mistakes : []
+          };
+        } catch (e) {
+          return defaultState;
+        }
+      }
+
+      function saveProgress() {
+        try {
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(playerState));
+        } catch (e) {
+          // 忽略無痕模式儲存限制
+        }
+      }
+
+      // 當前闖關回合狀態
+      let quizSession = {
+        stageKey: 'idioms',
+        questions: [],
+        currentIndex: 0,
+        correctCount: 0,
+        roundScore: 0,
+        roundXp: 0,
+        streak: 0,
+        answered: false
+      };
+
+      /* -------------------------------------------------------------------
+       * 6. 輕量 Toast 提示工具（取代 alert）
+       * ------------------------------------------------------------------- */
+      let toastTimeout = null;
+      function showToast(msg) {
+        const box = document.getElementById('toast-box');
+        const text = document.getElementById('toast-text');
+        if (!box || !text) return;
+        text.textContent = msg;
+        box.classList.remove('opacity-0', 'translate-y-2');
+        box.classList.add('opacity-100', 'translate-y-0');
+        clearTimeout(toastTimeout);
+        toastTimeout = setTimeout(() => {
+          box.classList.remove('opacity-100', 'translate-y-0');
+          box.classList.add('opacity-0', 'translate-y-2');
+        }, 2200);
+      }
+
+      /* -------------------------------------------------------------------
+       * 7. 求籤賜名儀式與「最多換 3 次、第 3 次後自動進入」核心邏輯
+       * ------------------------------------------------------------------- */
+      function pickUniqueCharacter() {
+        const themeKey = THEME_ORDER[themeCycleIndex % THEME_ORDER.length];
+        themeCycleIndex = (themeCycleIndex + 1) % THEME_ORDER.length;
+
+        const pool = NAME_POOLS[themeKey];
+        if (usedNamesSet.size >= 535) {
+          usedNamesSet.clear();
+        }
+
+        let candidate = null;
+        let guard = 0;
+        while (guard < 60) {
+          const randIdx = Math.floor(Math.random() * pool.length);
+          const item = pool[randIdx];
+          if (!usedNamesSet.has(item.name)) {
+            candidate = item;
+            break;
+          }
+          guard++;
+        }
+
+        if (!candidate) {
+          candidate = pool.find((item) => !usedNamesSet.has(item.name)) || pool[0];
+        }
+
+        usedNamesSet.add(candidate.name);
+        return candidate;
+      }
+
+      function renderNamingCeremonyUI(profile, isRerollAction = false) {
+        const remaining = Math.max(0, MAX_REROLLS - rerollCount);
+
+        const avatarEl = document.getElementById('ceremony-avatar');
+        const themeBadgeEl = document.getElementById('ceremony-theme-badge');
+        const nameDisplayEl = document.getElementById('ceremony-name-display');
+        const seqEl = document.getElementById('ceremony-draw-seq');
+        const orbTextEl = document.getElementById('ceremony-orb-text');
+        const statusMsgEl = document.getElementById('ceremony-status-msg');
+        const rerollBtn = document.getElementById('btn-reroll-name');
+        const rerollLabel = document.getElementById('btn-reroll-label');
+
+        if (avatarEl) avatarEl.textContent = profile.avatar;
+        if (themeBadgeEl) {
+          themeBadgeEl.textContent = profile.themeBadge;
+          themeBadgeEl.className = `inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs sm:text-sm font-extrabold border ${profile.badgeClass}`;
+        }
+        if (seqEl) {
+          seqEl.textContent = `第 ${rerollCount + 1} 籤`;
+        }
+
+        if (nameDisplayEl) {
+          nameDisplayEl.textContent = profile.name;
+          if (isRerollAction) {
+            // 非阻塞式重啟 CSS 彈跳過渡動畫
+            nameDisplayEl.classList.remove('animate-name-pop');
+            void nameDisplayEl.offsetWidth;
+            nameDisplayEl.classList.add('animate-name-pop');
+          }
+        }
+
+        // 更新 3 顆換名靈珠亮燈狀態
+        for (let i = 1; i <= MAX_REROLLS; i++) {
+          const orb = document.getElementById(`orb-${i}`);
+          if (!orb) continue;
+          if (i <= remaining) {
+            orb.classList.remove('spirit-orb-used');
+            orb.classList.add('spirit-orb-active');
+          } else {
+            orb.classList.remove('spirit-orb-active');
+            orb.classList.add('spirit-orb-used');
+          }
+        }
+
+        if (orbTextEl) {
+          orbTextEl.textContent = remaining > 0 ? `還剩 ${remaining} 次機會` : '靈珠已盡（天命已定）';
+        }
+
+        // 處理換名按鈕與第 3 次（remaining === 0）自動進入機制
+        if (remaining > 0) {
+          if (rerollBtn) {
+            rerollBtn.disabled = false;
+            rerollBtn.classList.remove('opacity-60', 'cursor-not-allowed', 'from-slate-200', 'to-slate-300', 'border-slate-400', 'text-slate-600');
+            rerollBtn.classList.add('from-amber-200', 'to-amber-300', 'border-amber-500', 'text-indigoInk-800');
+          }
+          if (rerollLabel) {
+            rerollLabel.textContent = `🎲 換一個名字（還剩 ${remaining} 次）`;
+          }
+          if (statusMsgEl) {
+            statusMsgEl.textContent = rerollCount === 0
+              ? '點擊「換一個名字」可重抽跨界名號，或直接接受稱號！'
+              : `已重抽第 ${rerollCount} 次，還可再換 ${remaining} 次名號！`;
+          }
+        } else {
+          // 第 3 次點擊換名後（rerollCount === 3，剩餘 0 次）
+          if (rerollBtn) {
+            rerollBtn.disabled = true;
+            rerollBtn.classList.remove('from-amber-200', 'to-amber-300', 'border-amber-500', 'text-indigoInk-800');
+            rerollBtn.classList.add('opacity-60', 'cursor-not-allowed', 'from-slate-200', 'to-slate-300', 'border-slate-400', 'text-slate-600');
+          }
+          if (rerollLabel) {
+            rerollLabel.textContent = '🔒 已達換名上限（天命已定）';
+          }
+          if (statusMsgEl) {
+            statusMsgEl.textContent = '✨ 天命已定！1.2 秒後自動進入《墨韻小書院修煉記》...';
+          }
+
+          clearTimeout(autoEnterTimer);
+          autoEnterTimer = setTimeout(() => {
+            enterAcademy();
+          }, 1200);
+        }
+
+        // 同步更新主畫面頂部狀態列（確保雙向一致）
+        playerState.currentProfile = profile;
+        saveProgress();
+        updateAllHUD();
+      }
+
+      function handleRerollName(fromTopHud = false) {
+        if (rerollCount >= MAX_REROLLS) {
+          showToast('🔒 換名靈珠已用盡，天命稱號已鎖定！');
+          return;
+        }
+
+        rerollCount += 1;
+        const newProfile = pickUniqueCharacter();
+        SFX.reroll();
+
+        renderNamingCeremonyUI(newProfile, true);
+
+        if (fromTopHud) {
+          const remaining = Math.max(0, MAX_REROLLS - rerollCount);
+          if (remaining > 0) {
+            showToast(`✨ 賜名成功！「${newProfile.name}」（還剩 ${remaining} 次換名）`);
+          } else {
+            showToast(`🔒 最終天命已定：「${newProfile.name}」！`);
+          }
+        }
+      }
+
+      function enterAcademy() {
+        clearTimeout(autoEnterTimer);
+        autoEnterTimer = null;
+
+        const modal = document.getElementById('naming-modal');
+        if (modal) {
+          modal.classList.add('hidden-modal');
+        }
+        SFX.accept();
+        updateAllHUD();
+        showToast(`🏯 歡迎「${playerState.currentProfile.name}」踏入墨韻小書院修煉記！`);
+      }
+
+      function restartNamingCeremony() {
+        clearTimeout(autoEnterTimer);
+        autoEnterTimer = null;
+        rerollCount = 0;
+        const initialProfile = pickUniqueCharacter();
+        renderNamingCeremonyUI(initialProfile, true);
+
+        const modal = document.getElementById('naming-modal');
+        if (modal) {
+          modal.classList.remove('hidden-modal');
+        }
+        SFX.reroll();
+      }
+
+      /* -------------------------------------------------------------------
+       * 8. 等級計算與全局 HUD 更新
+       * ------------------------------------------------------------------- */
+      function getRankInfo(xp) {
+        let current = RANKS[0];
+        let next = null;
+        for (let i = 0; i < RANKS.length; i++) {
+          if (xp >= RANKS[i].minXp) {
+            current = RANKS[i];
+            next = RANKS[i + 1] || null;
+          } else {
+            break;
+          }
+        }
+        return { current, next };
+      }
+
+      function updateAllHUD() {
+        const profile = playerState.currentProfile || NAME_POOLS.classical[0];
+        const remaining = Math.max(0, MAX_REROLLS - rerollCount);
+
+        // 頂部角色資訊
+        const hudAvatar = document.getElementById('hud-avatar');
+        const hudName = document.getElementById('hud-player-name');
+        const hudTheme = document.getElementById('hud-theme-badge');
+        const hudRerollBtn = document.getElementById('btn-hud-reroll');
+
+        if (hudAvatar) hudAvatar.textContent = profile.avatar;
+        if (hudName) hudName.textContent = profile.name;
+        if (hudTheme) {
+          hudTheme.textContent = profile.themeBadge;
+          hudTheme.className = `px-1.5 py-0.5 rounded text-[10px] sm:text-[11px] font-bold border ${profile.hudBadgeClass}`;
+        }
+
+        if (hudRerollBtn) {
+          if (remaining > 0) {
+            hudRerollBtn.disabled = false;
+            hudRerollBtn.textContent = `🎲 換名 (剩 ${remaining} 次)`;
+            hudRerollBtn.className = 'interactive-btn px-2 py-0.5 rounded-lg text-[11px] font-extrabold bg-amber-400 text-indigoInk-900 hover:bg-amber-300 active:scale-95 transition-all shadow-sm';
+          } else {
+            hudRerollBtn.disabled = true;
+            hudRerollBtn.textContent = '🔒 名號已定';
+            hudRerollBtn.className = 'px-2 py-0.5 rounded-lg text-[11px] font-bold bg-white/15 text-paper-200/80 border border-white/20 cursor-not-allowed';
+          }
+        }
+
+        // 等級與經驗條
+        const { current, next } = getRankInfo(playerState.xp);
+        const hudRankTitle = document.getElementById('hud-rank-title');
+        const hudXpText = document.getElementById('hud-xp-text');
+        const hudXpBar = document.getElementById('hud-xp-bar');
+        const hudScore = document.getElementById('hud-score');
+
+        if (hudRankTitle) hudRankTitle.textContent = current.title;
+        if (hudScore) hudScore.textContent = playerState.score.toLocaleString();
+
+        if (next) {
+          const spanXp = next.minXp - current.minXp;
+          const gainedInLevel = playerState.xp - current.minXp;
+          const pct = Math.min(100, Math.max(0, Math.round((gainedInLevel / spanXp) * 100)));
+          if (hudXpText) hudXpText.textContent = `${playerState.xp} / ${next.minXp} XP`;
+          if (hudXpBar) hudXpBar.style.width = `${pct}%`;
+        } else {
+          if (hudXpText) hudXpText.textContent = `${playerState.xp} XP (最高宗師)`;
+          if (hudXpBar) hudXpBar.style.width = '100%';
+        }
+
+        // 地圖歡迎語與進度
+        const mapGreeting = document.getElementById('map-greeting-name');
+        if (mapGreeting) mapGreeting.textContent = profile.name;
+
+        const sealKeys = ['idioms', 'rhetoric', 'sentences', 'classics'];
+        let litSeals = 0;
+        sealKeys.forEach((key) => {
+          const sealEl = document.getElementById(`seal-${key}`);
+          const statEl = document.getElementById(`stat-${key}`);
+          const isLit = Boolean(playerState.seals[key]);
+          if (isLit) litSeals++;
+
+          if (sealEl) {
+            if (isLit) {
+              sealEl.textContent = '🟢 通關玉璽已點亮';
+              sealEl.className = 'jade-seal px-2.5 py-1 rounded-xl text-xs font-extrabold text-white shrink-0';
+            } else {
+              sealEl.textContent = '⚪ 未獲玉璽';
+              sealEl.className = 'px-2.5 py-1 rounded-xl bg-ink-800/5 border border-ink-800/15 text-xs font-extrabold text-ink-700 shrink-0';
+            }
+          }
+          if (statEl) {
+            statEl.textContent = `通關次數：${playerState.clears[key] || 0} 次`;
+          }
+        });
+
+        const sealCountEl = document.getElementById('map-seal-count');
+        if (sealCountEl) sealCountEl.textContent = `已點亮通關玉璽：${litSeals} / 4`;
+
+        const streakBadgeEl = document.getElementById('map-streak-badge');
+        if (streakBadgeEl) streakBadgeEl.textContent = `最高連勝：${playerState.bestStreak} 題`;
+
+        const nextRankEl = document.getElementById('map-next-rank-info');
+        if (nextRankEl) {
+          if (next) {
+            nextRankEl.textContent = `距離「${next.title}」還需 ${next.minXp - playerState.xp} XP`;
+          } else {
+            nextRankEl.textContent = '🎉 已登峰造極榮登「Lv.8 文曲星小宗師」！';
+          }
+        }
+
+        const rankDotsEl = document.getElementById('map-rank-dots');
+        if (rankDotsEl) {
+          rankDotsEl.innerHTML = RANKS.map((r) => {
+            const reached = playerState.xp >= r.minXp;
+            return `<span title="${r.title}" class="h-2.5 flex-1 rounded-full transition-all ${reached ? 'bg-amber-500 shadow-sm' : 'bg-amber-900/15'}"></span>`;
+          }).join('');
+        }
+
+        // 錯題修練場數量
+        const mistakeBadge = document.getElementById('mistake-count-badge');
+        if (mistakeBadge) {
+          mistakeBadge.textContent = `目前累積 ${playerState.mistakes.length} 題`;
+        }
+      }
+
+      /* -------------------------------------------------------------------
+       * 9. 闖關答題核心引擎（每回合 5 題、選項隨機洗牌、即時解析與連勝加分）
+       * ------------------------------------------------------------------- */
+      function shuffleArray(arr) {
+        const copy = arr.slice();
+        for (let i = copy.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [copy[i], copy[j]] = [copy[j], copy[i]];
+        }
+        return copy;
+      }
+
+      function switchView(viewName) {
+        ['map', 'quiz', 'summary'].forEach((v) => {
+          const el = document.getElementById(`view-${v}`);
+          if (el) {
+            if (v === viewName) el.classList.remove('hidden');
+            else el.classList.add('hidden');
+          }
+        });
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+
+      function startStage(stageKey) {
+        let sourcePool = [];
+        if (stageKey === 'mistakes') {
+          if (playerState.mistakes.length === 0) {
+            showToast('🎉 太棒了！目前錯題修練場乾乾淨淨，沒有任何錯題喔！');
+            return;
+          }
+          sourcePool = shuffleArray(playerState.mistakes).slice(0, 5);
+        } else {
+          const bank = QUESTION_BANKS[stageKey] || QUESTION_BANKS.idioms;
+          sourcePool = shuffleArray(bank).slice(0, 5);
+        }
+
+        // 為每題產生選項隨機順序，避免答案永遠在第一個選項
+        const preparedQuestions = sourcePool.map((item) => {
+          const correctText = item.options[item.ans];
+          const shuffledOptions = shuffleArray(item.options);
+          const newAnsIndex = shuffledOptions.indexOf(correctText);
+          return {
+            ...item,
+            shuffledOptions,
+            correctIndex: newAnsIndex
+          };
+        });
+
+        quizSession = {
+          stageKey,
+          questions: preparedQuestions,
+          currentIndex: 0,
+          correctCount: 0,
+          roundScore: 0,
+          roundXp: 0,
+          streak: 0,
+          answered: false
+        };
+
+        const meta = STAGE_META[stageKey] || STAGE_META.idioms;
+        const stageBadge = document.getElementById('quiz-stage-badge');
+        const stageTitle = document.getElementById('quiz-stage-title');
+        if (stageBadge) stageBadge.textContent = meta.badge;
+        if (stageTitle) stageTitle.textContent = meta.title;
+
+        SFX.reroll();
+        switchView('quiz');
+        renderCurrentQuestion();
+      }
+
+      function renderCurrentQuestion() {
+        const total = quizSession.questions.length;
+        const idx = quizSession.currentIndex;
+        const currentQ = quizSession.questions[idx];
+        quizSession.answered = false;
+
+        // 進度圓點
+        const dotsEl = document.getElementById('quiz-progress-dots');
+        if (dotsEl) {
+          dotsEl.innerHTML = quizSession.questions.map((_, i) => {
+            if (i < idx) return '<span class="w-3 h-3 rounded-full bg-emerald-500"></span>';
+            if (i === idx) return '<span class="w-3.5 h-3.5 rounded-full bg-amber-500 ring-2 ring-amber-300"></span>';
+            return '<span class="w-3 h-3 rounded-full bg-ink-800/20"></span>';
+          }).join('');
+        }
+
+        const streakPill = document.getElementById('quiz-streak-pill');
+        if (streakPill) streakPill.textContent = `🔥 連勝：${quizSession.streak} 題`;
+
+        const qNumEl = document.getElementById('quiz-q-number');
+        const qTagEl = document.getElementById('quiz-q-tag');
+        const qTextEl = document.getElementById('quiz-question-text');
+        if (qNumEl) qNumEl.textContent = `第 ${idx + 1} / ${total} 題`;
+        if (qTagEl) qTagEl.textContent = currentQ.tag;
+        if (qTextEl) qTextEl.textContent = currentQ.q;
+
+        // 渲染四個選項
+        const gridEl = document.getElementById('quiz-options-grid');
+        const labels = ['A', 'B', 'C', 'D'];
+        if (gridEl) {
+          gridEl.innerHTML = currentQ.shuffledOptions.map((optText, optIdx) => `
+            <button
+              type="button"
+              data-opt-idx="${optIdx}"
+              class="quiz-opt-btn interactive-btn w-full text-left p-4 rounded-2xl bg-white hover:bg-amber-50 border-2 border-amber-300 hover:border-amber-500 shadow-sm transition-all flex items-center gap-3 active:scale-[0.99]"
+            >
+              <span class="w-8 h-8 rounded-xl bg-indigoInk-800 text-amber-200 font-black text-sm flex items-center justify-center shrink-0">
+                ${labels[optIdx]}
+              </span>
+              <span class="font-bold text-sm sm:text-base text-ink-900 leading-snug">${optText}</span>
+            </button>
+          `).join('');
+
+          gridEl.querySelectorAll('.quiz-opt-btn').forEach((btn) => {
+            btn.addEventListener('click', () => {
+              const chosenIdx = Number(btn.getAttribute('data-opt-idx'));
+              handleSelectOption(chosenIdx);
+            });
+          });
+        }
+
+        // 隱藏解析面板
+        const feedbackBox = document.getElementById('quiz-feedback-box');
+        if (feedbackBox) feedbackBox.classList.add('hidden');
+      }
+
+      function handleSelectOption(chosenIdx) {
+        if (quizSession.answered) return;
+        quizSession.answered = true;
+
+        const currentQ = quizSession.questions[quizSession.currentIndex];
+        const isCorrect = chosenIdx === currentQ.correctIndex;
+        const optionButtons = document.querySelectorAll('.quiz-opt-btn');
+
+        optionButtons.forEach((btn, idx) => {
+          btn.disabled = true;
+          btn.classList.remove('hover:bg-amber-50', 'hover:border-amber-500');
+          if (idx === currentQ.correctIndex) {
+            btn.classList.remove('bg-white', 'border-amber-300');
+            btn.classList.add('bg-emerald-100', 'border-emerald-600', 'ring-2', 'ring-emerald-400/50');
+          } else if (idx === chosenIdx && !isCorrect) {
+            btn.classList.remove('bg-white', 'border-amber-300');
+            btn.classList.add('bg-rose-100', 'border-rose-600');
+          } else {
+            btn.classList.add('opacity-60');
+          }
+        });
+
+        const feedbackBox = document.getElementById('quiz-feedback-box');
+        const feedbackHeader = document.getElementById('quiz-feedback-header');
+        const feedbackReward = document.getElementById('quiz-feedback-reward');
+        const feedbackDetail = document.getElementById('quiz-feedback-detail');
+        const nextBtn = document.getElementById('btn-next-question');
+
+        const oldRank = getRankInfo(playerState.xp).current;
+
+        if (isCorrect) {
+          SFX.correct();
+          quizSession.correctCount += 1;
+          quizSession.streak += 1;
+          if (quizSession.streak > playerState.bestStreak) {
+            playerState.bestStreak = quizSession.streak;
+          }
+
+          const streakBonus = quizSession.streak >= 2 ? (quizSession.streak - 1) * 20 : 0;
+          const earnedScore = 100 + streakBonus;
+          const earnedXp = 25;
+
+          quizSession.roundScore += earnedScore;
+          quizSession.roundXp += earnedXp;
+          playerState.score += earnedScore;
+          playerState.xp += earnedXp;
+
+          // 若目前在錯題修練場答對，從錯題庫消除該題
+          let purifiedMsg = '';
+          const mistakeIdx = playerState.mistakes.findIndex((m) => m.id === currentQ.id);
+          if (mistakeIdx !== -1) {
+            playerState.mistakes.splice(mistakeIdx, 1);
+            purifiedMsg = '<div class="font-extrabold text-emerald-700 mt-1">✨ 錯題淨化成功！此題已從錯題修練場移除！</div>';
+          }
+
+          if (feedbackBox) {
+            feedbackBox.className = 'mt-5 rounded-2xl p-4 sm:p-5 border-2 bg-emerald-50/95 border-emerald-500 transition-all';
+          }
+          if (feedbackHeader) {
+            feedbackHeader.innerHTML = `<span class="text-emerald-700">✅ 太神啦！答對了！${quizSession.streak >= 2 ? `（🔥 ${quizSession.streak} 連勝！）` : ''}</span>`;
+          }
+          if (feedbackReward) {
+            feedbackReward.textContent = `+${earnedScore} 積分 • +${earnedXp} XP`;
+            feedbackReward.className = 'px-2.5 py-0.5 rounded-full text-xs font-extrabold bg-emerald-600 text-white';
+          }
+          if (feedbackDetail) {
+            feedbackDetail.innerHTML = `<p>${currentQ.detail}</p>${purifiedMsg}`;
+          }
+        } else {
+          SFX.wrong();
+          quizSession.streak = 0;
+
+          // 自動收錄至錯題修練場（避免重複加入同一題）
+          const exists = playerState.mistakes.some((m) => m.id === currentQ.id);
+          if (!exists) {
+            playerState.mistakes.push({
+              id: currentQ.id,
+              tag: currentQ.tag,
+              q: currentQ.q,
+              options: currentQ.options,
+              ans: currentQ.ans,
+              detail: currentQ.detail
+            });
+          }
+
+          const correctChoiceText = currentQ.shuffledOptions[currentQ.correctIndex];
+          if (feedbackBox) {
+            feedbackBox.className = 'mt-5 rounded-2xl p-4 sm:p-5 border-2 bg-rose-50/95 border-rose-500 transition-all';
+          }
+          if (feedbackHeader) {
+            feedbackHeader.innerHTML = `<span class="text-cinnabar-700">💡 差一點點！正確答案是：「${correctChoiceText}」</span>`;
+          }
+          if (feedbackReward) {
+            feedbackReward.textContent = '已收錄至錯題修練場';
+            feedbackReward.className = 'px-2.5 py-0.5 rounded-full text-xs font-extrabold bg-cinnabar-600 text-white';
+          }
+          if (feedbackDetail) {
+            feedbackDetail.innerHTML = `<p>${currentQ.detail}</p>`;
+          }
+        }
+
+        const streakPill = document.getElementById('quiz-streak-pill');
+        if (streakPill) streakPill.textContent = `🔥 連勝：${quizSession.streak} 題`;
+
+        if (nextBtn) {
+          const isLast = quizSession.currentIndex >= quizSession.questions.length - 1;
+          nextBtn.textContent = isLast ? '🏆 查看本回合修煉結算' : '下一題 →';
+        }
+
+        if (feedbackBox) feedbackBox.classList.remove('hidden');
+
+        saveProgress();
+        updateAllHUD();
+
+        // 檢查是否達成八階晉級
+        const newRank = getRankInfo(playerState.xp).current;
+        if (newRank.level > oldRank.level) {
+          triggerLevelUpModal(newRank.title);
+        }
+      }
+
+      function handleNextQuestion() {
+        if (quizSession.currentIndex < quizSession.questions.length - 1) {
+          quizSession.currentIndex += 1;
+          renderCurrentQuestion();
+        } else {
+          finishQuizRound();
+        }
+      }
+
+      function finishQuizRound() {
+        const total = quizSession.questions.length;
+        const passed = quizSession.correctCount >= 4 && quizSession.stageKey !== 'mistakes';
+        const oldRank = getRankInfo(playerState.xp).current;
+
+        let sealText = '未達 4 題（再接再厲）';
+        if (quizSession.stageKey === 'mistakes') {
+          sealText = '錯題淨化修煉';
+        } else if (passed) {
+          const isFirstClear = !playerState.seals[quizSession.stageKey];
+          playerState.seals[quizSession.stageKey] = true;
+          playerState.clears[quizSession.stageKey] = (playerState.clears[quizSession.stageKey] || 0) + 1;
+
+          if (isFirstClear) {
+            playerState.xp += 50;
+            quizSession.roundXp += 50;
+            sealText = '🌟 首通點亮玉璽 (+50 XP)';
+          } else {
+            sealText = '🟢 通關玉璽耀眼';
+          }
+        }
+
+        saveProgress();
+        updateAllHUD();
+
+        const newRank = getRankInfo(playerState.xp).current;
+        if (newRank.level > oldRank.level) {
+          triggerLevelUpModal(newRank.title);
+        } else if (passed) {
+          SFX.accept();
+        }
+
+        // 渲染結算畫面
+        const iconEl = document.getElementById('summary-badge-icon');
+        const titleEl = document.getElementById('summary-title');
+        const subEl = document.getElementById('summary-subtitle');
+        const correctEl = document.getElementById('summary-correct');
+        const scoreEl = document.getElementById('summary-score');
+        const xpEl = document.getElementById('summary-xp');
+        const sealEl = document.getElementById('summary-seal-status');
+
+        if (iconEl) iconEl.textContent = passed ? '🏆' : (quizSession.stageKey === 'mistakes' ? '🔥' : '📖');
+        if (titleEl) {
+          titleEl.textContent = passed
+            ? '試煉大捷！通關玉璽點亮！'
+            : (quizSession.stageKey === 'mistakes' ? '錯題修練圓滿結束！' : '試煉完成，繼續精進！');
+        }
+        if (subEl) {
+          subEl.textContent = passed
+            ? `恭喜「${playerState.currentProfile.name}」在《墨韻小書院修煉記》表現非凡！`
+            : '單回合答對 4 題以上即可點亮通關玉璽，再挑戰一次吧！';
+        }
+        if (correctEl) correctEl.textContent = `${quizSession.correctCount} / ${total}`;
+        if (scoreEl) scoreEl.textContent = `+${quizSession.roundScore}`;
+        if (xpEl) xpEl.textContent = `+${quizSession.roundXp} XP`;
+        if (sealEl) sealEl.textContent = sealText;
+
+        switchView('summary');
+      }
+
+      /* -------------------------------------------------------------------
+       * 10. 晉級慶祝彈窗與《墨韻小書院修煉記》晉級證書彈窗
+       * ------------------------------------------------------------------- */
+      function triggerLevelUpModal(newRankTitle) {
+        SFX.levelUp();
+        const modal = document.getElementById('levelup-modal');
+        const rankEl = document.getElementById('levelup-new-rank');
+        if (rankEl) rankEl.textContent = newRankTitle;
+        if (modal) modal.classList.remove('hidden');
+      }
+
+      function openCertificateModal() {
+        const profile = playerState.currentProfile || NAME_POOLS.classical[0];
+        const { current } = getRankInfo(playerState.xp);
+        const litCount = Object.values(playerState.seals).filter(Boolean).length;
+
+        const certAvatar = document.getElementById('cert-avatar');
+        const certName = document.getElementById('cert-player-name');
+        const certTheme = document.getElementById('cert-theme-badge');
+        const certRank = document.getElementById('cert-rank-title');
+        const certScore = document.getElementById('cert-score');
+        const certXp = document.getElementById('cert-xp');
+        const certSeals = document.getElementById('cert-seals');
+
+        if (certAvatar) certAvatar.textContent = profile.avatar;
+        if (certName) certName.textContent = profile.name;
+        if (certTheme) certTheme.textContent = profile.themeBadge;
+        if (certRank) certRank.textContent = current.title;
+        if (certScore) certScore.textContent = playerState.score.toLocaleString();
+        if (certXp) certXp.textContent = `${playerState.xp} XP`;
+        if (certSeals) certSeals.textContent = `${litCount} / 4`;
+
+        const modal = document.getElementById('certificate-modal');
+        if (modal) modal.classList.remove('hidden');
+        SFX.reroll();
+      }
+
+      /* -------------------------------------------------------------------
+       * 11. DOM 載入完成後綁定所有事件與啟動初始求籤賜名儀式
+       * ------------------------------------------------------------------- */
+      function initApp() {
+        // 每次進入頁面時，rerollCount 明確初始化為 0（剩餘 3 次），立即抽出第 1 個名字並渲染
+        rerollCount = 0;
+        const firstProfile = pickUniqueCharacter();
+        renderNamingCeremonyUI(firstProfile, false);
+
+        // 求籤賜名彈窗：換一個名字按鈕（確保 100% 順暢運作）
+        const btnReroll = document.getElementById('btn-reroll-name');
+        if (btnReroll) {
+          btnReroll.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            handleRerollName(false);
+          });
+        }
+
+        // 求籤賜名彈窗：接受稱號進入書院按鈕（若在 1.2 秒自動進入倒數中點擊，會清除計時器並立即進入）
+        const btnAccept = document.getElementById('btn-accept-name');
+        if (btnAccept) {
+          btnAccept.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            enterAcademy();
+          });
+        }
+
+        // 主畫面頂部：微調換名按鈕（共用最多 3 次上限）
+        const btnHudReroll = document.getElementById('btn-hud-reroll');
+        if (btnHudReroll) {
+          btnHudReroll.addEventListener('click', (e) => {
+            e.preventDefault();
+            handleRerollName(true);
+          });
+        }
+
+        // 主畫面頂部：重新拜師按鈕（重置 rerollCount = 0 並重啟賜名儀式）
+        const btnRestartCeremony = document.getElementById('btn-restart-ceremony');
+        if (btnRestartCeremony) {
+          btnRestartCeremony.addEventListener('click', () => {
+            restartNamingCeremony();
+          });
+        }
+
+        // 音效開關
+        const btnSound = document.getElementById('btn-toggle-sound');
+        if (btnSound) {
+          btnSound.addEventListener('click', () => {
+            soundEnabled = !soundEnabled;
+            btnSound.textContent = soundEnabled ? '🔊' : '🔇';
+            showToast(soundEnabled ? '🔊 古風書院音效已開啟' : '🔇 已切換為靜音模式');
+          });
+        }
+
+        // 晉級證書彈窗開關
+        const btnOpenCert = document.getElementById('btn-open-certificate');
+        const btnCloseCert = document.getElementById('btn-close-certificate');
+        if (btnOpenCert) btnOpenCert.addEventListener('click', openCertificateModal);
+        if (btnCloseCert) {
+          btnCloseCert.addEventListener('click', () => {
+            document.getElementById('certificate-modal').classList.add('hidden');
+          });
+        }
+
+        // 關閉晉級慶祝彈窗
+        const btnCloseLevelup = document.getElementById('btn-close-levelup');
+        if (btnCloseLevelup) {
+          btnCloseLevelup.addEventListener('click', () => {
+            document.getElementById('levelup-modal').classList.add('hidden');
+          });
+        }
+
+        // 四大關卡進入按鈕
+        document.querySelectorAll('.btn-start-stage').forEach((btn) => {
+          btn.addEventListener('click', () => {
+            const stageKey = btn.getAttribute('data-stage');
+            startStage(stageKey);
+          });
+        });
+
+        // 錯題修練場進入按鈕
+        const btnMistakes = document.getElementById('btn-start-mistakes');
+        if (btnMistakes) {
+          btnMistakes.addEventListener('click', () => startStage('mistakes'));
+        }
+
+        // 闖關中返回地圖與下一題按鈕
+        const btnQuitQuiz = document.getElementById('btn-quit-quiz');
+        if (btnQuitQuiz) {
+          btnQuitQuiz.addEventListener('click', () => switchView('map'));
+        }
+
+        const btnNextQuestion = document.getElementById('btn-next-question');
+        if (btnNextQuestion) {
+          btnNextQuestion.addEventListener('click', handleNextQuestion);
+        }
+
+        // 結算畫面按鈕
+        const btnSummaryRetry = document.getElementById('btn-summary-retry');
+        const btnSummaryHome = document.getElementById('btn-summary-home');
+        if (btnSummaryRetry) {
+          btnSummaryRetry.addEventListener('click', () => startStage(quizSession.stageKey));
+        }
+        if (btnSummaryHome) {
+          btnSummaryHome.addEventListener('click', () => switchView('map'));
+        }
+      }
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initApp);
+      } else {
+        initApp();
+      }
+    })();
+  </script>
+</body>
+</html>
