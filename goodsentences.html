@@ -1,0 +1,2087 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>修身古文名言 197 句｜互動測驗與分類文庫</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts: Noto Serif TC & Noto Sans TC -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600;700&family=Noto+Serif+TC:wght@500;600;700;900&display=swap" rel="stylesheet" />
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            paper: '#FAF8F3',
+            ink: '#1E3A5F',
+            inkDark: '#142842',
+            cinnabar: '#9E2A2B',
+            cinnabarLight: '#FDF2F2',
+            gold: '#A67C52',
+            goldLight: '#F6EFE6',
+            borderWarm: '#E5DFD3',
+          },
+          fontFamily: {
+            serif: ['"Noto Serif TC"', 'serif'],
+            sans: ['"Noto Sans TC"', 'sans-serif'],
+          },
+        },
+      },
+    };
+  </script>
+  <style>
+    /* 宣紙細膩質感背景與字體設定 */
+    body {
+      background-color: #FAF8F3;
+      background-image:
+        radial-gradient(rgba(166, 124, 82, 0.06) 1px, transparent 0),
+        radial-gradient(rgba(30, 58, 95, 0.04) 1px, transparent 0);
+      background-size: 28px 28px;
+      background-position: 0 0, 14px 14px;
+      color: #262626;
+      font-family: 'Noto Sans TC', sans-serif;
+      overflow-x: hidden;
+    }
+
+    .font-classical {
+      font-family: 'Noto Serif TC', serif;
+    }
+
+    /* 傳統印章樣式 */
+    .seal-badge {
+      border: 1.5px solid #9E2A2B;
+      color: #9E2A2B;
+      font-family: 'Noto Serif TC', serif;
+      letter-spacing: 0.08em;
+      box-shadow: inset 0 0 0 1px rgba(158, 42, 43, 0.15);
+    }
+
+    .seal-stamp-large {
+      border: 3px solid #9E2A2B;
+      color: #9E2A2B;
+      font-family: 'Noto Serif TC', serif;
+      transform: rotate(-4deg);
+      box-shadow: 0 2px 10px rgba(158, 42, 43, 0.15), inset 0 0 0 2px rgba(158, 42, 43, 0.2);
+    }
+
+    /* 填空底線樣式 */
+    .cloze-blank {
+      display: inline-block;
+      min-width: 5.5rem;
+      padding: 0 0.65rem;
+      margin: 0 0.2rem;
+      border-bottom: 2.5px solid #9E2A2B;
+      background-color: rgba(158, 42, 43, 0.07);
+      color: #9E2A2B;
+      font-weight: 700;
+      text-align: center;
+      border-radius: 4px 4px 0 0;
+    }
+
+    /* 平滑進場動畫 */
+    @keyframes fadeSlideUp {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    .animate-fade-up {
+      animation: fadeSlideUp 0.28s ease-out forwards;
+    }
+
+    /* 罕見字與古音注音標示 */
+    ruby {
+      ruby-align: center;
+    }
+    ruby rt {
+      font-family: 'Noto Sans TC', sans-serif;
+      font-size: 0.56em;
+      color: #9E2A2B;
+      font-weight: 500;
+      line-height: 1;
+      letter-spacing: 0;
+      user-select: none;
+    }
+
+    /* 捲軸美化 */
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #F2EDE2;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #C8BBA6;
+      border-radius: 9999px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #A67C52;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col">
+
+  <!-- 頂部書院風格頁首與導覽列 -->
+  <header class="sticky top-0 z-30 bg-[#FAF8F3]/95 backdrop-blur-md border-b border-borderWarm shadow-sm">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 py-3.5">
+      <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+        <!-- 品牌標題 -->
+        <div class="flex items-center gap-3">
+          <div class="seal-badge px-2 py-1 rounded text-xs sm:text-sm font-bold select-none shrink-0 bg-white">
+            國學修身
+          </div>
+          <div>
+            <h1 class="font-classical text-lg sm:text-2xl font-bold text-ink tracking-wide leading-tight">
+              修身古文名言 197 句
+            </h1>
+            <p class="text-xs text-stone-500 hidden sm:block">
+              互動測驗（填空・文意）與四大主題分類文庫
+            </p>
+          </div>
+        </div>
+
+        <!-- 三大主導覽切換 -->
+        <nav class="grid grid-cols-3 sm:flex items-center gap-1.5 sm:gap-2 bg-[#EFECE4] p-1 rounded-xl border border-borderWarm" aria-label="主導覽">
+          <button id="nav-quiz" onclick="switchTab('quiz')" class="nav-btn px-3 sm:px-4 py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all flex items-center justify-center gap-1.5 bg-ink text-white shadow-sm">
+            <span>✍️</span><span>互動測驗</span>
+          </button>
+          <button id="nav-library" onclick="switchTab('library')" class="nav-btn px-3 sm:px-4 py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all flex items-center justify-center gap-1.5 text-stone-700 hover:text-ink">
+            <span>📖</span><span>分類文庫</span>
+          </button>
+          <button id="nav-notebook" onclick="switchTab('notebook')" class="nav-btn px-3 sm:px-4 py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all flex items-center justify-center gap-1.5 text-stone-700 hover:text-ink relative">
+            <span>🔖</span><span>錯題與收藏</span>
+            <span id="nav-notebook-badge" class="hidden ml-0.5 px-1.5 py-0.2 text-[11px] rounded-full bg-cinnabar text-white font-bold">0</span>
+          </button>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <!-- 主內容容器 -->
+  <main class="flex-1 max-w-6xl w-full mx-auto px-4 sm:px-6 py-6 sm:py-8">
+
+    <!-- ========================================================= -->
+    <!-- 分頁一：互動測驗模式 -->
+    <!-- ========================================================= -->
+    <section id="view-quiz" class="space-y-6">
+
+      <!-- 1A. 測驗設定面板 -->
+      <div id="quiz-setup-panel" class="bg-white rounded-2xl border border-borderWarm shadow-sm p-5 sm:p-8 animate-fade-up">
+        <div class="pb-5 mb-6 border-b border-borderWarm">
+          <div class="inline-flex items-center gap-2 text-xs font-semibold text-gold uppercase tracking-wider mb-1">
+            <span>CLASSICAL ASSESSMENT</span>
+            <span>•</span>
+            <span>專注文句與義理</span>
+          </div>
+          <h2 class="font-classical text-xl sm:text-2xl font-bold text-ink">自訂修身名言測驗</h2>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <!-- 題庫範圍 -->
+          <div class="space-y-2.5">
+            <label class="block text-sm font-bold text-ink">一、選擇題庫範圍</label>
+            <div id="scope-options" class="grid grid-cols-1 gap-2">
+              <!-- 由 JS 動態渲染範圍按鈕與即時題數 -->
+            </div>
+          </div>
+
+          <!-- 測驗題型 -->
+          <div class="space-y-2.5">
+            <label class="block text-sm font-bold text-ink">二、選擇測驗題型</label>
+            <div id="type-options" class="grid grid-cols-1 gap-2">
+              <button type="button" data-type="mixed" data-mode="mixed" onclick="selectQuizType('mixed')" class="type-btn text-left p-3.5 rounded-xl border-2 border-ink bg-ink/5 transition-all">
+                <div class="font-bold text-ink text-sm flex items-center justify-between">
+                  <span>🎯 綜合測驗（填空＋文意）</span>
+                  <span class="text-xs px-2 py-0.5 rounded bg-ink text-white">推薦</span>
+                </div>
+                <p class="text-xs text-stone-600 mt-1">交替測驗文句挖空四選一、看句選意與看意選句</p>
+              </button>
+
+              <button type="button" data-type="cloze-mc" onclick="selectQuizType('cloze-mc')" class="type-btn text-left p-3.5 rounded-xl border border-borderWarm hover:border-gold bg-white transition-all">
+                <div class="font-bold text-stone-800 text-sm">🧩 文句填空（四選一）</div>
+                <p class="text-xs text-stone-500 mt-1">挖空關鍵句段或核心詞彙，從相近干擾項選出正解</p>
+              </button>
+
+              <button type="button" data-type="meaning" onclick="selectQuizType('meaning')" class="type-btn text-left p-3.5 rounded-xl border border-borderWarm hover:border-gold bg-white transition-all">
+                <div class="font-bold text-stone-800 text-sm">💡 文句意思（本意與引申意）</div>
+                <p class="text-xs text-stone-500 mt-1">測驗對古文原句字面釋義與深層修身意涵的理解</p>
+              </button>
+            </div>
+          </div>
+
+          <!-- 題數選擇與啟動 -->
+          <div class="flex flex-col justify-between space-y-6">
+            <div class="space-y-2.5">
+              <label class="block text-sm font-bold text-ink">三、選擇測驗題數</label>
+              <div id="count-options" class="grid grid-cols-3 sm:grid-cols-2 gap-2">
+                <button type="button" data-count="5" onclick="selectQuizCount(5)" class="count-btn py-3 px-3 rounded-xl border border-borderWarm bg-white text-sm font-semibold text-stone-700 hover:border-gold transition-all">5 題</button>
+                <button type="button" data-count="10" onclick="selectQuizCount(10)" class="count-btn py-3 px-3 rounded-xl border-2 border-ink bg-ink/5 text-sm font-bold text-ink transition-all">10 題</button>
+                <button type="button" data-count="20" onclick="selectQuizCount(20)" class="count-btn py-3 px-3 rounded-xl border border-borderWarm bg-white text-sm font-semibold text-stone-700 hover:border-gold transition-all">20 題</button>
+                <button type="button" data-count="30" onclick="selectQuizCount(30)" class="count-btn py-3 px-3 rounded-xl border border-borderWarm bg-white text-sm font-semibold text-stone-700 hover:border-gold transition-all">30 題</button>
+                <button type="button" data-count="all" onclick="selectQuizCount('all')" class="count-btn col-span-2 py-3 px-3 rounded-xl border border-borderWarm bg-white text-sm font-semibold text-stone-700 hover:border-gold transition-all">全部題目（依所選範圍）</button>
+              </div>
+            </div>
+
+            <div class="bg-paper rounded-xl p-4 border border-borderWarm space-y-3">
+              <div class="flex items-center justify-between text-xs text-stone-600">
+                <span>目前設定摘要</span>
+                <span id="setup-summary-badge" class="font-bold text-ink">全部 197 句 ・ 10 題</span>
+              </div>
+              <button id="start-quiz-btn" onclick="startQuiz()" class="w-full py-3.5 px-5 rounded-xl bg-ink hover:bg-inkDark text-white font-bold text-base shadow-md hover:shadow-lg transition-all flex items-center justify-center gap-2 cursor-pointer">
+                <span>開始測驗</span>
+                <span>→</span>
+              </button>
+              <p class="text-[11px] text-stone-400 text-center">
+                支援鍵盤快捷鍵：數字鍵 1–4 選答、Enter 送出／下一題
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 1B. 測驗作答區 -->
+      <div id="quiz-active-panel" class="hidden space-y-5 animate-fade-up">
+        <!-- 進度列與頂部控制 -->
+        <div class="bg-white rounded-2xl border border-borderWarm p-4 sm:px-6 shadow-sm">
+          <div class="flex flex-wrap items-center justify-between gap-3 mb-2.5">
+            <div class="flex items-center gap-2.5">
+              <span id="q-progress-text" class="font-bold text-ink text-sm sm:text-base">第 1 / 10 題</span>
+              <span id="q-type-tag" class="text-xs px-2.5 py-0.5 rounded-full bg-goldLight text-gold font-semibold border border-gold/30">文句填空</span>
+              <span id="q-category-tag" class="text-xs px-2.5 py-0.5 rounded-full bg-slate-100 text-slate-600 font-medium">修身律己</span>
+            </div>
+            <div class="flex items-center gap-3">
+              <span class="text-xs sm:text-sm text-stone-600">目前答對：<strong id="q-live-score" class="text-emerald-700">0</strong> 題</span>
+              <button onclick="abortQuiz()" class="text-xs px-3 py-1.5 rounded-lg border border-borderWarm text-stone-500 hover:text-cinnabar hover:border-cinnabar/40 transition-colors">
+                結束返回
+              </button>
+            </div>
+          </div>
+          <div class="w-full h-2 bg-stone-200 rounded-full overflow-hidden">
+            <div id="q-progress-bar" class="h-full bg-ink transition-all duration-300 rounded-full" style="width: 10%"></div>
+          </div>
+        </div>
+
+        <!-- 題目卡片 -->
+        <div class="bg-white rounded-2xl border border-borderWarm shadow-sm p-5 sm:p-8 space-y-6">
+          <div class="flex items-start justify-between gap-4">
+            <p id="q-instruction" class="text-xs sm:text-sm font-semibold text-gold tracking-wide">
+              請選出最適合填入底線處的古文句段：
+            </p>
+            <button id="q-fav-btn" onclick="toggleCurrentQuestionFav()" class="shrink-0 px-3 py-1.5 rounded-lg border border-borderWarm text-xs font-medium text-stone-600 hover:border-amber-400 hover:text-amber-600 transition-all flex items-center gap-1" title="加入或移除收藏">
+              <span id="q-fav-icon">☆</span>
+              <span id="q-fav-label">收藏本句</span>
+            </button>
+          </div>
+
+          <!-- 題幹顯示區 -->
+          <div id="q-stem-box" class="bg-paper rounded-xl border border-borderWarm/90 p-5 sm:p-7">
+            <div id="q-stem-content" class="font-classical text-xl sm:text-2xl md:text-[26px] text-ink leading-[2.15] tracking-wide">
+              <!-- 題幹動態填入 -->
+            </div>
+          </div>
+
+          <!-- 四選一選項區 -->
+          <div id="q-mc-options" class="grid grid-cols-1 gap-3">
+            <!-- 4 個選項按鈕動態生成 -->
+          </div>
+
+          <!-- 作答後即時詳解區 -->
+          <div id="q-feedback-box" class="hidden rounded-xl border-2 p-5 sm:p-6 space-y-4 animate-fade-up">
+            <div class="flex flex-wrap items-center justify-between gap-2">
+              <div id="q-feedback-status" class="flex items-center gap-2 font-bold text-base sm:text-lg">
+                <!-- 答對 / 答錯標題 -->
+              </div>
+              <span id="q-wrong-recorded-badge" class="hidden text-xs px-2.5 py-1 rounded-full bg-cinnabarLight text-cinnabar font-semibold border border-cinnabar/25">
+                已自動收錄至錯題本
+              </span>
+            </div>
+
+            <div class="bg-white/90 rounded-xl p-4 sm:p-5 border border-borderWarm space-y-3">
+              <div>
+                <div class="text-xs font-semibold text-stone-400 mb-1">完整古文原句（編號 <span id="fb-id">001</span>）</div>
+                <div id="fb-full-quote" class="font-classical text-lg sm:text-xl font-bold text-ink leading-[2.15]"></div>
+              </div>
+              <div class="pt-2.5 border-t border-borderWarm/70">
+                <div class="text-xs font-semibold text-gold mb-1">白話釋義（本意與引申意）</div>
+                <p id="fb-meaning" class="text-sm sm:text-base text-stone-700 leading-relaxed"></p>
+              </div>
+              <div class="pt-2 flex flex-wrap items-center justify-between gap-2 text-xs text-stone-500">
+                <span>主題分類：<strong id="fb-category" class="text-ink"></strong></span>
+                <span>典籍出處（延伸參考）：<span id="fb-source" class="font-medium text-stone-600"></span></span>
+              </div>
+            </div>
+
+            <div class="flex justify-end pt-1">
+              <button id="q-next-btn" onclick="nextQuestion()" class="px-6 py-3 rounded-xl bg-ink hover:bg-inkDark text-white font-bold text-sm sm:text-base shadow transition-all flex items-center gap-2">
+                <span id="q-next-btn-text">下一題</span>
+                <span>→</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 1C. 測驗成績結算面板 -->
+      <div id="quiz-result-panel" class="hidden space-y-6 animate-fade-up">
+        <div class="bg-white rounded-2xl border border-borderWarm shadow-sm p-6 sm:p-10 relative overflow-hidden">
+          <div class="flex flex-col md:flex-row items-center justify-between gap-6 pb-6 border-b border-borderWarm">
+            <div class="space-y-2 text-center md:text-left">
+              <div class="text-xs font-bold text-gold tracking-widest uppercase">ASSESSMENT REPORT ・ 修身測驗結算</div>
+              <h2 class="font-classical text-2xl sm:text-3xl font-bold text-ink">測驗完成！</h2>
+              <p id="res-subtitle" class="text-sm text-stone-600">本次共作答 10 題，已完成學習紀錄更新。</p>
+            </div>
+
+            <!-- 國學印章評語 -->
+            <div id="res-seal" class="seal-stamp-large px-5 py-3 rounded-lg text-center select-none bg-cinnabarLight/40">
+              <div id="res-seal-title" class="text-xl sm:text-2xl font-black tracking-widest">溫故知新</div>
+              <div id="res-seal-sub" class="text-[11px] font-sans font-semibold mt-0.5">修身有成</div>
+            </div>
+          </div>
+
+          <!-- 核心數據卡片 -->
+          <div class="grid grid-cols-3 gap-3 sm:gap-5 my-6">
+            <div class="bg-paper rounded-xl p-4 text-center border border-borderWarm">
+              <div class="text-xs text-stone-500 mb-1">總得分</div>
+              <div id="res-score" class="font-classical text-2xl sm:text-4xl font-bold text-ink">80</div>
+            </div>
+            <div class="bg-paper rounded-xl p-4 text-center border border-borderWarm">
+              <div class="text-xs text-stone-500 mb-1">答對題數</div>
+              <div id="res-correct-count" class="font-classical text-2xl sm:text-4xl font-bold text-emerald-700">8 / 10</div>
+            </div>
+            <div class="bg-paper rounded-xl p-4 text-center border border-borderWarm">
+              <div class="text-xs text-stone-500 mb-1">正確率</div>
+              <div id="res-accuracy" class="font-classical text-2xl sm:text-4xl font-bold text-cinnabar">80%</div>
+            </div>
+          </div>
+
+          <!-- 各主題掌握度統計條 -->
+          <div class="space-y-3 mb-8">
+            <h3 class="text-sm font-bold text-ink">各主題掌握度分析</h3>
+            <div id="res-category-bars" class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <!-- 動態產生各主題長條圖 -->
+            </div>
+          </div>
+
+          <!-- 操作按鈕列 -->
+          <div class="flex flex-wrap items-center justify-center sm:justify-between gap-3 pt-4 border-t border-borderWarm">
+            <button onclick="resetToQuizSetup()" class="px-5 py-3 rounded-xl border border-borderWarm bg-white hover:bg-paper text-stone-700 font-semibold text-sm transition-all">
+              ← 返回測驗設定
+            </button>
+            <div class="flex flex-wrap items-center gap-3">
+              <button id="res-retry-wrong-btn" onclick="retrySessionWrong()" class="hidden px-5 py-3 rounded-xl bg-cinnabar hover:bg-red-800 text-white font-bold text-sm shadow transition-all">
+                🔥 一鍵重練本次錯題 (<span id="res-wrong-num">0</span>)
+              </button>
+              <button onclick="startQuiz()" class="px-5 py-3 rounded-xl bg-ink hover:bg-inkDark text-white font-bold text-sm shadow transition-all">
+                再測一輪同設定 ↻
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- 本次作答明細回顧 -->
+        <div class="bg-white rounded-2xl border border-borderWarm shadow-sm p-5 sm:p-7 space-y-4">
+          <h3 class="font-classical text-lg font-bold text-ink">本次題目回顧</h3>
+          <div id="res-review-list" class="space-y-3">
+            <!-- 動態生成每題回顧 -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================= -->
+    <!-- 分頁二：分類文庫與查詢 -->
+    <!-- ========================================================= -->
+    <section id="view-library" class="hidden space-y-5 animate-fade-up">
+      <!-- 控制面板：分類頁籤、搜尋框、背誦遮蔽模式 -->
+      <div class="bg-white rounded-2xl border border-borderWarm shadow-sm p-4 sm:p-6 space-y-4">
+        <!-- 主題分類頁籤 -->
+        <div class="flex flex-wrap items-center gap-2" id="lib-category-tabs">
+          <!-- 由 JS 動態生成 6 個分類頁籤 -->
+        </div>
+
+        <!-- 搜尋與背誦模式列 -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-3 pt-2 border-t border-borderWarm/70">
+          <!-- 即時搜尋框 -->
+          <div class="lg:col-span-6 relative">
+            <span class="absolute left-3.5 top-1/2 -translate-y-1/2 text-stone-400 text-sm">🔍</span>
+            <input
+              id="lib-search-input"
+              type="text"
+              oninput="handleLibrarySearch(this.value)"
+              placeholder="搜尋古文、白話釋義關鍵字，或編號（如 042、君子、謙、讀書）..."
+              class="w-full pl-10 pr-9 py-2.5 rounded-xl border border-borderWarm bg-paper/70 focus:bg-white focus:border-ink focus:outline-none text-sm text-stone-800"
+            />
+            <button id="lib-clear-search" onclick="clearLibrarySearch()" class="hidden absolute right-3 top-1/2 -translate-y-1/2 text-stone-400 hover:text-stone-700 text-xs font-bold px-1.5 py-0.5 rounded">
+              ✕
+            </button>
+          </div>
+
+          <!-- 背誦遮蔽模式切換 -->
+          <div class="lg:col-span-6 flex flex-wrap items-center justify-between lg:justify-end gap-2">
+            <span class="text-xs font-semibold text-stone-500">背誦模式：</span>
+            <div class="inline-flex rounded-xl bg-[#EFECE4] p-1 border border-borderWarm">
+              <button type="button" data-mask="none" onclick="setMaskMode('none')" class="mask-btn px-2.5 sm:px-3 py-1.5 rounded-lg text-xs font-semibold bg-ink text-white shadow-sm transition-all">
+                完整閱讀
+              </button>
+              <button type="button" data-mask="meaning" onclick="setMaskMode('meaning')" class="mask-btn px-2.5 sm:px-3 py-1.5 rounded-lg text-xs font-semibold text-stone-700 hover:text-ink transition-all">
+                遮蔽釋義
+              </button>
+              <button type="button" data-mask="quote" onclick="setMaskMode('quote')" class="mask-btn px-2.5 sm:px-3 py-1.5 rounded-lg text-xs font-semibold text-stone-700 hover:text-ink transition-all">
+                遮蔽文句
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- 篩選狀態摘要列 -->
+        <div class="flex flex-wrap items-center justify-between gap-2 text-xs text-stone-500">
+          <div>
+            共顯示 <strong id="lib-result-count" class="text-ink text-sm">197</strong> 則名言
+            <span id="lib-mask-hint" class="hidden ml-2 text-gold font-medium">（點擊被遮蔽的區塊即可單獨揭曉）</span>
+          </div>
+          <button id="lib-reset-reveals-btn" onclick="resetIndividualReveals()" class="hidden text-gold hover:underline font-medium">
+            ↻ 重新全部遮蔽
+          </button>
+        </div>
+      </div>
+
+      <!-- 文句卡片列表 -->
+      <div id="lib-cards-grid" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <!-- 由 JS 動態渲染卡片 -->
+      </div>
+
+      <!-- 空搜尋狀態 -->
+      <div id="lib-empty-state" class="hidden bg-white rounded-2xl border border-borderWarm p-12 text-center space-y-3">
+        <div class="text-3xl">📜</div>
+        <h3 class="font-classical text-lg font-bold text-ink">找不到符合條件的名言</h3>
+        <p class="text-sm text-stone-500">請嘗試更換搜尋關鍵字，或切換至「全部」分類瀏覽。</p>
+        <button onclick="resetLibraryFilters()" class="mt-2 px-4 py-2 rounded-xl bg-ink text-white text-xs font-semibold">
+          重設所有篩選
+        </button>
+      </div>
+    </section>
+
+    <!-- ========================================================= -->
+    <!-- 分頁三：錯題與收藏本 -->
+    <!-- ========================================================= -->
+    <section id="view-notebook" class="hidden space-y-6 animate-fade-up">
+      <!-- 頂部統計與專屬測驗發起區 -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <!-- 錯題本卡片 -->
+        <div class="bg-white rounded-2xl border border-borderWarm shadow-sm p-5 sm:p-6 flex flex-col justify-between gap-4">
+          <div class="flex items-start justify-between gap-3">
+            <div>
+              <div class="inline-flex items-center gap-1.5 text-xs font-bold text-cinnabar bg-cinnabarLight px-2.5 py-1 rounded-full mb-2">
+                <span>❌ 測驗錯題本</span>
+              </div>
+              <h3 class="font-classical text-xl font-bold text-ink">
+                目前累積 <span id="nb-wrong-total" class="text-cinnabar text-2xl">0</span> 則錯題
+              </h3>
+              <p class="text-xs text-stone-500 mt-1">測驗中答錯的文句會自動收錄於此，反覆練習直至熟記。</p>
+            </div>
+          </div>
+          <div class="flex flex-wrap items-center gap-2.5 pt-2">
+            <button id="nb-quiz-wrong-btn" onclick="startNotebookQuiz('wrong')" class="flex-1 py-2.5 px-4 rounded-xl bg-cinnabar hover:bg-red-800 text-white font-bold text-xs sm:text-sm shadow-sm transition-all disabled:opacity-40 disabled:cursor-not-allowed">
+              ✍️ 針對錯題發起測驗
+            </button>
+            <button id="nb-clear-wrong-btn" onclick="requestClearNotebook('wrong')" class="py-2.5 px-3 rounded-xl border border-borderWarm text-xs text-stone-500 hover:text-cinnabar hover:border-cinnabar/40 transition-colors">
+              清空錯題
+            </button>
+          </div>
+        </div>
+
+        <!-- 收藏本卡片 -->
+        <div class="bg-white rounded-2xl border border-borderWarm shadow-sm p-5 sm:p-6 flex flex-col justify-between gap-4">
+          <div class="flex items-start justify-between gap-3">
+            <div>
+              <div class="inline-flex items-center gap-1.5 text-xs font-bold text-amber-700 bg-amber-50 px-2.5 py-1 rounded-full mb-2 border border-amber-200">
+                <span>⭐ 我的重點收藏</span>
+              </div>
+              <h3 class="font-classical text-xl font-bold text-ink">
+                目前已收藏 <span id="nb-fav-total" class="text-amber-600 text-2xl">0</span> 則名言
+              </h3>
+              <p class="text-xs text-stone-500 mt-1">在文庫或測驗詳解中點擊星號即可加入個人修身座右銘集。</p>
+            </div>
+          </div>
+          <div class="flex flex-wrap items-center gap-2.5 pt-2">
+            <button id="nb-quiz-fav-btn" onclick="startNotebookQuiz('fav')" class="flex-1 py-2.5 px-4 rounded-xl bg-ink hover:bg-inkDark text-white font-bold text-xs sm:text-sm shadow-sm transition-all disabled:opacity-40 disabled:cursor-not-allowed">
+              ✍️ 針對收藏發起測驗
+            </button>
+            <button id="nb-copy-fav-btn" onclick="copyFavoritesText()" class="py-2.5 px-3 rounded-xl border border-borderWarm text-xs text-stone-600 hover:text-ink hover:border-ink/40 transition-colors">
+              📋 複製全文
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 錯題與收藏切換檢視 -->
+      <div class="bg-white rounded-2xl border border-borderWarm shadow-sm p-5 sm:p-6 space-y-5">
+        <div class="flex flex-wrap items-center justify-between gap-3 border-b border-borderWarm pb-4">
+          <div class="inline-flex rounded-xl bg-[#EFECE4] p-1 border border-borderWarm">
+            <button id="nb-subtab-wrong" onclick="switchNotebookSubtab('wrong')" class="px-4 py-2 rounded-lg text-xs sm:text-sm font-bold bg-ink text-white shadow-sm transition-all">
+              錯題本列表 (<span id="nb-subtab-wrong-count">0</span>)
+            </button>
+            <button id="nb-subtab-fav" onclick="switchNotebookSubtab('fav')" class="px-4 py-2 rounded-lg text-xs sm:text-sm font-bold text-stone-700 hover:text-ink transition-all">
+              收藏本列表 (<span id="nb-subtab-fav-count">0</span>)
+            </button>
+          </div>
+
+          <!-- 二次確認清空列（取代 confirm()） -->
+          <div id="nb-confirm-bar" class="hidden items-center gap-2 bg-cinnabarLight border border-cinnabar/30 px-3 py-1.5 rounded-xl text-xs">
+            <span id="nb-confirm-text" class="text-cinnabar font-semibold">確定要清空嗎？</span>
+            <button onclick="executeClearNotebook()" class="px-2.5 py-1 rounded-lg bg-cinnabar text-white font-bold">確定</button>
+            <button onclick="cancelClearNotebook()" class="px-2.5 py-1 rounded-lg bg-white text-stone-600 border border-borderWarm">取消</button>
+          </div>
+        </div>
+
+        <div id="nb-list-container" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <!-- 動態渲染錯題或收藏卡片 -->
+        </div>
+
+        <div id="nb-empty-state" class="hidden py-12 text-center space-y-3">
+          <div id="nb-empty-icon" class="text-3xl">✨</div>
+          <h4 id="nb-empty-title" class="font-classical text-lg font-bold text-ink">目前尚無錯題紀錄</h4>
+          <p id="nb-empty-desc" class="text-sm text-stone-500">前往「互動測驗」開始練習，答錯的題目會自動整理在這裡。</p>
+          <button onclick="switchTab('quiz')" class="mt-1 px-4 py-2 rounded-xl bg-ink text-white text-xs font-semibold">
+            前往互動測驗 →
+          </button>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- 回到頂部懸浮按鈕 -->
+  <button id="scroll-top-btn" onclick="window.scrollTo({ top: 0, behavior: 'smooth' })" class="hidden fixed bottom-6 right-5 z-20 w-10 h-10 rounded-full bg-ink text-white shadow-lg hover:bg-inkDark transition-all flex items-center justify-center text-sm font-bold" title="回到頂部">
+    ↑
+  </button>
+
+  <!-- 自訂 Toast 訊息框（取代 alert） -->
+  <div id="toast-container" class="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 pointer-events-none flex flex-col items-center gap-2"></div>
+
+  <!-- 頁尾 -->
+  <footer class="border-t border-borderWarm bg-white/60 py-5 px-4 text-center text-xs text-stone-500 mt-10">
+    <p class="font-classical text-stone-600">修身古文名言 197 句｜互動測驗與分類文庫</p>
+    <p class="mt-1">涵蓋「修身律己（80）」、「勤學篤行（66）」、「待人處世（20）」、「家國情懷（31）」四大國學經典主題</p>
+  </footer>
+
+  <script>
+    // =========================================================================
+    // 一、完整 197 句古文名言資料庫（嚴格對應 id, quote, source, meaning, category）
+    // =========================================================================
+    const QUOTES_DATA = [
+      { id: "001", category: "修身律己", quote: "不以一眚掩大德。", source: "《左傳》", meaning: "評價一個人時，不能因為一點微小的過失就抹煞他的整體功績。" },
+      { id: "002", category: "修身律己", quote: "見善如不及，見不善如探湯。", source: "《論語》", meaning: "見到好的人，生怕來不及向他學習；見到好的事，生怕遲了就做不了。看到惡人、壞事，就像接觸到滾燙的水一樣，要立刻離開、避得遠遠的。" },
+      { id: "003", category: "勤學篤行", quote: "欲窮千里目，更上一層樓。", source: "[唐] 王之渙《登鸛雀樓》", meaning: "想看到更遠、更廣闊的景物，就要再登上一層樓；想學到更多、更深的知識，就要比原來更加努力。" },
+      { id: "004", category: "待人處世", quote: "君子之交淡如水，小人之交甘若醴。", source: "《莊子》", meaning: "君子之間的交往像水一樣清淡純淨，這樣的友情才會長久；小人之間的交往像甜酒一樣濃稠，卻難以持久。" },
+      { id: "005", category: "修身律己", quote: "好學近乎知，力行近乎仁，知恥近乎勇。", source: "《禮記·中庸》", meaning: "勤懇好學就接近智，凡事盡力實踐就接近仁，懂得明辨是非善惡並引以為恥，就是勇的表現。" },
+      { id: "006", category: "待人處世", quote: "良言一句三冬暖，惡語傷人六月寒。", source: "明代諺語", meaning: "一句良善溫暖的話，能讓聽者即便在寒冬中也倍感溫暖；相反地，尖酸刻薄的言語會傷害別人的感情與自尊，即便在六月酷暑也會令人感到寒冷。" },
+      { id: "007", category: "家國情懷", quote: "千經萬典，孝悌為先。", source: "《增廣賢文》", meaning: "千萬種經典所講述的道理中，孝順父母、友愛兄弟是最應該優先做到的。" },
+      { id: "008", category: "修身律己", quote: "善惡隨人作，禍福自己招。", source: "《增廣賢文》", meaning: "好事與壞事都是人自己做出來的，災禍與幸福也全是由自己的言行所招致的。" },
+      { id: "009", category: "修身律己", quote: "君子藏器於身，待時而動。", source: "《周易·繫辭下》", meaning: "君子就算擁有卓著的才能與超群的技藝，也不會到處炫耀賣弄，而是靜待合適的時機才施展出來。" },
+      { id: "010", category: "勤學篤行", quote: "學而不厭，誨人不倦。", source: "《論語·述而》", meaning: "努力學習而不感到滿足，教導別人而不感到厭倦。" },
+      { id: "011", category: "待人處世", quote: "天下皆知取之為取，而莫知與之為取。", source: "《後漢書》", meaning: "人們都認為只有取得別人的東西才是收穫，卻不知道給予別人其實也是一種收穫。" },
+      { id: "012", category: "家國情懷", quote: "人固有一死，或重於泰山，或輕於鴻毛。", source: "[漢] 司馬遷《報任安書》", meaning: "人終究免不了一死，但死的價值不同：為了正義與人民的事業而死，就比泰山還要莊重；而那些自私自利、損人利己之人的死，就比鴻毛還要輕微。" },
+      { id: "013", category: "家國情懷", quote: "羊有跪乳之恩，鴉有反哺之義。", source: "《增廣賢文》", meaning: "小羊有跪下接受母乳的感恩舉動，小烏鴉有銜食餵養母鴉的情義，身為子女更應該懂得孝順父母。" },
+      { id: "014", category: "修身律己", quote: "強中自有強中手，莫向人前滿自誇。", source: "《警世通言》", meaning: "儘管你是一個強者，但世上必定還有比你更強的人，所以不要在別人面前驕傲自滿、自我炫耀。" },
+      { id: "015", category: "勤學篤行", quote: "玉不琢，不成器；人不學，不知道。", source: "《禮記·學記》", meaning: "玉石不經過雕琢，就不能成為有用的玉器；人不經過學習，就不懂得做人處世的事理。" },
+      { id: "016", category: "修身律己", quote: "滿招損，謙受益。", source: "《尚書·大禹謨》", meaning: "自滿於已取得的成就，將會招來損失與災禍；謙遜並時時察覺自身不足，就能因此獲益。" },
+      { id: "017", category: "修身律己", quote: "人不知而不慍，不亦君子乎？", source: "《論語·學而》", meaning: "如果自己有了某些學識與造詣，別人並不了解，卻完全不感到氣憤或委屈，這不也是一種君子風度的表現嗎？" },
+      { id: "018", category: "勤學篤行", quote: "書到用時方恨少，事非經過不知難。", source: "[清] 陳廷焯", meaning: "知識總是在實際應用時才讓人感到不夠用；許多事情如果不親自經歷過，就不知道它有多困難。" },
+      { id: "019", category: "勤學篤行", quote: "笨鳥先飛早入林，笨人勤學早成材。", source: "《省世格言》", meaning: "飛得慢的鳥兒提前起飛，就會比別的鳥兒更早飛入樹林；資質不夠聰明的人只要勤懇努力，就能比別人更早成材。" },
+      { id: "020", category: "勤學篤行", quote: "書山有路勤為徑，學海無涯苦作舟。", source: "《增廣賢文》", meaning: "勤奮是登上知識高峰的捷徑，不怕吃苦才能在無邊無際的學海裡自由遨遊。" },
+      { id: "021", category: "勤學篤行", quote: "學如逆水行舟，不進則退。", source: "《增廣賢文》", meaning: "學習要不斷進取、持續努力，就像逆水行駛的小船，不努力向前推進，就只能向後倒退。" },
+      { id: "022", category: "勤學篤行", quote: "吾生也有涯，而知也無涯。", source: "《莊子·養生主》", meaning: "個人的生命是有限的，而人類的知識卻是無窮無盡的。" },
+      { id: "023", category: "家國情懷", quote: "老吾老，以及人之老；幼吾幼，以及人之幼。", source: "《孟子·梁惠王上》", meaning: "尊敬、愛戴自家的長輩，進而推廣到尊敬、愛戴別人的長輩；愛護自家的兒女，進而推廣到愛護別人的兒女。" },
+      { id: "024", category: "修身律己", quote: "見侮而不鬥，辱也。", source: "《公孫龍子》", meaning: "當正義受到侮辱、欺凌卻不挺身而出，是一種恥辱的表現。" },
+      { id: "025", category: "修身律己", quote: "千丈之堤，以螻蟻之穴潰；百尺之室，以突隙之煙焚。", source: "《韓非子·喻老》", meaning: "千里長堤因為有螻蟻打洞，可能會因此垮塌決堤；百尺高樓可能因為煙囪縫隙冒出火星引起火災而焚毀（比喻小患不除必釀大禍）。" },
+      { id: "026", category: "待人處世", quote: "言之者無罪，聞之者足以戒。", source: "《詩經·大序》", meaning: "提出批評意見的人沒有罪過；聽到別人批評意見的人要細心反省自己，有錯就改正，無錯就當作給自己的勸誡。" },
+      { id: "027", category: "待人處世", quote: "良藥苦於口而利於病，忠言逆於耳而利於行。", source: "《孔子家語》", meaning: "好的藥物味道雖苦，卻有利於治病；忠誠勸誡的話聽起來雖不順耳，卻有利於端正人的行為。" },
+      { id: "028", category: "修身律己", quote: "言必信，行必果。", source: "《論語·子路》", meaning: "說出口的話必定要守信用，決定要做的事必定要堅決果敢地完成。" },
+      { id: "029", category: "修身律己", quote: "毋意，毋必，毋固，毋我。", source: "《論語·子罕》", meaning: "講求事實，不憑空猜測；遇事不專斷、不任性；行事要靈活通達，不死板；凡事不以「我」為中心，不自以為是。" },
+      { id: "030", category: "待人處世", quote: "三人行，必有我師焉，擇其善者而從之，其不善者而改之。", source: "《論語·述而》", meaning: "三個人同行，其中必定有人在某方面值得我學習，那他就可以當我的老師。選取他的優點來學習，對於他的缺點與不足，則引以為戒並加以改正。" },
+      { id: "031", category: "修身律己", quote: "君子求諸己，小人求諸人。", source: "《論語·衛靈公》", meaning: "君子總是嚴格要求自己，從自身尋找缺點與問題；小人則經常把目光投向別人，專挑別人的缺點與不足。" },
+      { id: "032", category: "修身律己", quote: "君子坦蕩蕩，小人長戚戚。", source: "《論語·述而》", meaning: "君子心胸開朗、光明磊落，舉止也顯得舒暢安定；小人心裡慾念太多、心理負擔沉重，常常憂慮擔心、忐忑不安。" },
+      { id: "033", category: "修身律己", quote: "不怨天，不尤人。", source: "《論語·憲問》", meaning: "遇到挫折與失敗時，絕不抱怨天命，也絕不把責任推卸給別人。" },
+      { id: "034", category: "修身律己", quote: "不遷怒，不貳過。", source: "《論語·雍也》", meaning: "不把對甲的怒氣發洩到乙身上，並且不重複犯同樣的過錯。" },
+      { id: "035", category: "修身律己", quote: "小不忍，則亂大謀。", source: "《論語·衛靈公》", meaning: "對小事不能忍耐、缺乏耐性，就會影響整體大局，壞了重要的大事。" },
+      { id: "036", category: "修身律己", quote: "小人之過也必文。", source: "《論語·子張》", meaning: "小人犯了過錯，必定會想方設法加以掩飾文過。" },
+      { id: "037", category: "修身律己", quote: "過而不改，是謂過矣。", source: "《論語·衛靈公》", meaning: "有了過錯卻不肯改正，這才是真正的過錯。" },
+      { id: "038", category: "修身律己", quote: "君子務本，本立而道生。", source: "《論語·學而》", meaning: "君子致力於根本的修養，確立了根本，為人處世的「道」也就自然產生了。" },
+      { id: "039", category: "修身律己", quote: "君子恥其言而過其行。", source: "《論語·憲問》", meaning: "君子以說得多而做得少為可恥（強調行勝於言）。" },
+      { id: "040", category: "修身律己", quote: "三思而後行。", source: "《論語·公冶長》", meaning: "每做一件事情，必須經過反覆審慎的思考斟酌後才付諸行動。" },
+      { id: "041", category: "修身律己", quote: "多行不義必自斃。", source: "《左傳·隱公元年》", meaning: "不義的壞事做得太多，最終必定會自取滅亡。" },
+      { id: "042", category: "修身律己", quote: "天行健，君子以自強不息。", source: "《周易·乾卦》", meaning: "天體運行剛健有力、永不止息；君子也應效法天道，擁有堅強的意志與永不止息的奮鬥精神，不斷自我提升。" },
+      { id: "043", category: "修身律己", quote: "勿以惡小而為之，勿以善小而不為。", source: "《三國志·蜀書·先主傳》", meaning: "不要因為壞事微不足道就去做；相反地，對於微小的、有利於別人的好事，也不要因為意義不大就不去做。" },
+      { id: "044", category: "勤學篤行", quote: "學而不思則罔，思而不學則殆。", source: "《論語·為政》", meaning: "只讀書學習卻不深入思考，就會感到迷茫無所得；只空想卻不踏實學習，就會陷入疑惑而危險。" },
+      { id: "045", category: "勤學篤行", quote: "知之為知之，不知為不知，是知也。", source: "《論語·為政》", meaning: "知道就是知道，不知道就坦承不知道，不弄虛作假，這才是真正的智慧。" },
+      { id: "046", category: "勤學篤行", quote: "業精於勤，荒於嬉；行成於思，毀於隨。", source: "[唐] 韓愈《進學解》", meaning: "學業與事業的精進在於勤奮努力，荒廢在於貪玩嬉戲；德行的成就在於審慎思考，敗壞在於任性隨意。" },
+      { id: "047", category: "勤學篤行", quote: "讀書有三到：謂心到，眼到，口到。", source: "[南宋] 朱熹《訓學齋規》", meaning: "用心思考、用眼仔細看、用口多朗讀，三方面都做到位，才是真正的讀書之道。" },
+      { id: "048", category: "勤學篤行", quote: "黑髮不知勤學早，白首方悔讀書遲。", source: "[唐] 顏真卿《勸學》", meaning: "年輕黑髮的時候不知道抓緊時間勤奮學習，等到白髮蒼蒼年老時才後悔讀書太遲。" },
+      { id: "049", category: "勤學篤行", quote: "知不足者好學，恥下問者自滿。", source: "[北宋] 林逋《省心錄》", meaning: "知道自己不足並努力學習的人才是聰明好學的；恥於向地位低於自己的人請教又驕傲自滿的人，則是可恥的。" },
+      { id: "050", category: "勤學篤行", quote: "學不可以已。", source: "《荀子·勸學》", meaning: "學習是永無止境、不可以半途停止的。" },
+      { id: "051", category: "勤學篤行", quote: "學而時習之，不亦說乎？", source: "《論語·學而》", meaning: "學過的知識在適當的時候時常溫習實踐，使自己對知識有新的體悟，這不是很令人喜悅的事嗎？" },
+      { id: "052", category: "勤學篤行", quote: "溫故而知新，可以為師矣。", source: "《論語·為政》", meaning: "在溫習舊知識的同時能領悟出新的見解與體會，這樣的人就可以成為老師了。" },
+      { id: "053", category: "勤學篤行", quote: "讀書破萬卷，下筆如有神。", source: "[唐] 杜甫《奉贈韋左丞丈二十二韻》", meaning: "博覽群書、讀書讀得透徹，寫起文章來就會文思泉湧，彷彿有神明相助一般。" },
+      { id: "054", category: "勤學篤行", quote: "少壯不努力，老大徒傷悲。", source: "《漢樂府·長歌行》", meaning: "年輕力壯的時候不努力奮發，到了年老體衰時就只能徒然懊悔悲傷。" },
+      { id: "055", category: "待人處世", quote: "躬自厚而薄責於人，則遠怨矣。", source: "《論語·衛靈公》", meaning: "多自我反省、嚴格要求自己，而少責備別人、對人寬容，這樣就能遠離別人的怨恨了。" },
+      { id: "056", category: "待人處世", quote: "君子成人之美，不成人之惡。小人反是。", source: "《論語·顏淵》", meaning: "君子總是成全別人的好事與美德，不促成別人的壞事；小人則正好相反。" },
+      { id: "057", category: "待人處世", quote: "見賢思齊焉，見不賢而內自省也。", source: "《論語·里仁》", meaning: "見到賢德有才的人，就想著向他看齊；見到不賢德的人，就要在內心自我反省是否也有同樣的缺點。" },
+      { id: "058", category: "待人處世", quote: "己所不欲，勿施於人。", source: "《論語·顏淵》", meaning: "自己不願意承受的事物（痛苦、災難、屈辱等），也不要強加到別人身上。" },
+      { id: "059", category: "待人處世", quote: "當仁，不讓於師。", source: "《論語·衛靈公》", meaning: "遇到應該實踐的仁義好事，就應當仁不讓、勇於承擔，即使是面對老師也不必謙讓。" },
+      { id: "060", category: "修身律己", quote: "君子欲訥於言而敏於行。", source: "《論語·里仁》", meaning: "君子說話謹慎不誇誇其談，做起事來卻勤快敏捷。" },
+      { id: "061", category: "待人處世", quote: "二人同心，其利斷金；同心之言，其臭如蘭。", source: "《周易·繫辭上》", meaning: "兩人同心協力，力量鋒利得足以斬斷金屬；同心同德的人所說的話，就像蘭花般芬芳，令人樂於接受。" },
+      { id: "062", category: "修身律己", quote: "人誰無過，過而能改，善莫大焉。", source: "《左傳·宣公二年》", meaning: "人哪有不犯錯的？犯了錯誤只要能夠及時改正，就是莫大的善行。" },
+      { id: "063", category: "修身律己", quote: "差之毫釐，謬以千里。", source: "[南宋] 陸九淵（原出《禮記·經解》）", meaning: "做任何事情，開始時必定要嚴謹認真，如果一開始差了一絲一毫，最終結果就會相差千里。" },
+      { id: "064", category: "勤學篤行", quote: "盛年不重來，一日難再晨。", source: "[東晉] 陶淵明《雜詩》", meaning: "美好的青春年華過去了就不會再重來，一天之中也不會有兩個早晨，應當及時珍惜時光。" },
+      { id: "065", category: "勤學篤行", quote: "言之無文，行而不遠。", source: "《左傳·襄公二十五年》", meaning: "文章或言論若缺乏文采與妥善的表達，即使內容再好，也難以廣泛流傳、影響深遠。" },
+      { id: "066", category: "勤學篤行", quote: "人之為學，不可自小，又不可自大。", source: "[清] 顧炎武", meaning: "做學問時，既不可在淵博浩瀚的知識面前妄自菲薄，也不可因為學到一點知識就驕傲自大。" },
+      { id: "067", category: "家國情懷", quote: "天下興亡，匹夫有責。", source: "[清] 顧炎武《日知錄》", meaning: "國家的興盛與衰亡，每一個普通百姓都負有不可推卸的責任。" },
+      { id: "068", category: "修身律己", quote: "生於憂患，死於安樂。", source: "《孟子·告子下》", meaning: "憂患與逆境能磨煉人的意志、使人奮發圖強；相反地，沉溺於安逸享樂則會讓人不求上進而走向衰敗。" },
+      { id: "069", category: "家國情懷", quote: "位卑未敢忘憂國。", source: "[宋] 陸游《病起書懷》", meaning: "儘管自己職位卑微，卻從來不敢忘記憂國憂民的責任。" },
+      { id: "070", category: "家國情懷", quote: "人生自古誰無死，留取丹心照汗青。", source: "[宋] 文天祥《過零丁洋》", meaning: "自古以來人生在世誰能免於一死？只願留下一片忠肝義膽，永照青史。" },
+      { id: "071", category: "家國情懷", quote: "先天下之憂而憂，後天下之樂而樂。", source: "[宋] 范仲淹《岳陽樓記》", meaning: "在天下人憂慮之前就先憂慮，在天下人快樂之後才快樂。" },
+      { id: "072", category: "家國情懷", quote: "生當作人傑，死亦為鬼雄。", source: "[宋] 李清照《夏日絕句》", meaning: "活著的時候應當成為人中豪傑，即便死後也要成為鬼中英雄。" },
+      { id: "073", category: "家國情懷", quote: "利於國者愛之，害於國者惡之。", source: "《晏子春秋》", meaning: "凡是對國家有利的事情就要熱愛並積極去做，凡是對國家有害的事情就要憎惡並堅決遠離。" },
+      { id: "074", category: "家國情懷", quote: "讀書本意在元元。", source: "[宋] 陸游", meaning: "讀書的根本目的在於掌握知識後造福百姓、服務社會，而不是為了個人的升官發財。" },
+      { id: "075", category: "勤學篤行", quote: "人一能之，己百之；人十能之，己千之。", source: "《禮記·中庸》", meaning: "別人學一次就能學會的，我就花一百倍的功夫去學；別人學十次能掌握的，我就花一千倍的功夫去學，終究也能精通。" },
+      { id: "076", category: "修身律己", quote: "知恥近乎勇。", source: "《禮記·中庸》", meaning: "懂得什麼是可恥的行為並能自我惕勵改正，這就是接近勇敢的表現。" },
+      { id: "077", category: "修身律己", quote: "以五十步笑百步。", source: "《孟子·梁惠王上》", meaning: "逃跑了五十步的人嘲笑逃跑了一百步的人——比喻自己與別人犯了同樣性質的錯誤，只是程度輕重不同，卻自以為是地嘲笑別人。" },
+      { id: "078", category: "待人處世", quote: "君子莫大乎與人為善。", source: "《孟子·公孫丑上》", meaning: "君子最大的美德，就是以寬厚仁愛之心與人共同行善、勉勵他人向善。" },
+      { id: "079", category: "修身律己", quote: "人皆可以為堯舜。", source: "《孟子·告子下》", meaning: "只要肯立志並努力修身行善，人人都可以成為像堯、舜那樣的大聖人。" },
+      { id: "080", category: "勤學篤行", quote: "不積跬步，無以至千里；不積小流，無以成江海。", source: "《荀子·勸學》", meaning: "不把半步、一步累積起來，就無法到達千里之外；不把細小的水流匯聚起來，就無法形成江河大海。" },
+      { id: "081", category: "勤學篤行", quote: "讀書百遍，其義自見。", source: "《三國志·魏書·王肅傳注》", meaning: "讀書必須反覆誦讀多遍，書中的義理自然就會明白透徹。" },
+      { id: "082", category: "勤學篤行", quote: "學而不化，非學也。", source: "[宋] 楊萬里", meaning: "學習知識卻不能融會貫通、靈活運用，就不能算真正的學習。" },
+      { id: "083", category: "勤學篤行", quote: "好學而不貳。", source: "《左傳》", meaning: "喜愛學習並且專心致志，絕不三心二意。" },
+      { id: "084", category: "勤學篤行", quote: "學如不及，猶恐失之。", source: "《論語·泰伯》", meaning: "學習知識時總像追趕不上似的努力，追上了又唯恐再失去。" },
+      { id: "085", category: "勤學篤行", quote: "人而不學，其猶正牆面而立。", source: "《論語·陽貨》", meaning: "人如果不學習，就像面對著牆壁站立一樣，寸步難行、什麼也看不見。" },
+      { id: "086", category: "勤學篤行", quote: "知而好問，然後能才。", source: "《荀子》", meaning: "聰明的人還必須勤學好問，這樣才能真正成為有用之才。" },
+      { id: "087", category: "勤學篤行", quote: "學之廣在於不倦，不倦在於固志。", source: "[晉] 葛洪《抱朴子》", meaning: "學問的淵博在於學習不知疲倦，而學習不知疲倦則在於擁有堅定不移的志向。" },
+      { id: "088", category: "勤學篤行", quote: "學而不知道，與不學同；知而不能行，與不知同。", source: "[宋] 黃晞", meaning: "學習卻不能從中領悟道理，跟沒有學習一樣；懂得道理卻不能付諸實踐，跟不知道一樣。" },
+      { id: "089", category: "家國情懷", quote: "時窮節乃見，一一垂丹青。", source: "[宋] 文天祥《正氣歌》", meaning: "在時局危難、走投無路的時刻，忠臣義士的氣節才會顯現出來，他們的英名一個個永垂史冊。" },
+      { id: "090", category: "家國情懷", quote: "哀哀父母，生我劬勞。", source: "《詩經·小雅·蓼莪》", meaning: "可敬可念的父母啊，生下我、養育我，耗盡了多少辛勤與勞苦！" },
+      { id: "091", category: "家國情懷", quote: "報國之心，死而後已。", source: "[宋] 蘇軾", meaning: "報效國家的忠誠志向，直到生命終結都不會停止。" },
+      { id: "092", category: "家國情懷", quote: "憂國忘家，捐軀濟難，忠臣之志也。", source: "[三國] 曹植《求自試表》", meaning: "憂慮國家大事而忘卻個人小家，獻出生命以拯救國家危難，這正是忠臣的志向。" },
+      { id: "093", category: "家國情懷", quote: "大丈夫處世，當掃除天下，安事一室乎？", source: "[東漢] 陳蕃", meaning: "有志氣的大丈夫活在世上，應當以掃平天下奸邪為己任，怎能只滿足於打理自己一間屋子的小事呢？" },
+      { id: "094", category: "家國情懷", quote: "少小思報國，不是愛封侯。", source: "[唐] 岑參《送人赴安西》", meaning: "從小就立志報效國家，並不是為了貪圖封侯拜相的功名利祿。" },
+      { id: "095", category: "家國情懷", quote: "有利國家之事雖死弗避。", source: "[明] 呂坤《呻吟語·卷上》", meaning: "凡是對國家有利的事情，即便面臨死亡的危險也絕不逃避。" },
+      { id: "096", category: "家國情懷", quote: "一寸山河一寸金。", source: "[金] 左企弓", meaning: "國家的每一寸山河都比一寸黃金還要寶貴，絕不能輕易割讓給外人。" },
+      { id: "097", category: "家國情懷", quote: "欲安其家，必先安於國。", source: "武則天", meaning: "如果想使自己的小家庭安穩幸福，必須先讓整個國家安定繁榮起來。" },
+      { id: "098", category: "家國情懷", quote: "捐軀赴國難，視死忽如歸。", source: "[三國] 曹植《白馬篇》", meaning: "為了國家危難而獻出生命，把死亡看得像回家一樣從容坦然。" },
+      { id: "099", category: "家國情懷", quote: "風聲、雨聲、讀書聲，聲聲入耳；家事、國事、天下事，事事關心。", source: "[明] 顧憲成", meaning: "風聲、雨聲與琅琅讀書聲，聲聲都傳入耳中；家事、國事與天下大事，事事都應放在心上（讀書人不可只顧死讀書，更要胸懷天下）。" },
+      { id: "100", category: "勤學篤行", quote: "博觀而約取，厚積而薄發。", source: "[宋] 蘇軾", meaning: "廣泛博覽群書並精選吸收其中的精華，深厚累積學識後再謹慎恰當地發揮出來。" },
+      { id: "101", category: "修身律己", quote: "人患志之不立，何患令名之不彰？", source: "[南朝宋] 劉義慶《世說新語·自新》", meaning: "人所憂患的是不能立定志向，何必擔憂美名不能遠揚？說明只要立志遷善、奮發向上，自然會贏得良好的聲譽。" },
+      { id: "102", category: "修身律己", quote: "大丈夫當為雄飛，安能雌伏？", source: "[南朝宋] 范曄《後漢書·趙典傳》", meaning: "大丈夫應當像雄鷹展翅高飛，怎能像雌鳥伏居巢穴？比喻人應當志向高遠、奮發有為，不可消極退縮。" },
+      { id: "103", category: "修身律己", quote: "丈夫為志，窮當益堅，老當益壯。", source: "[南朝宋] 范曄《後漢書·馬援傳》", meaning: "有志之士在處境窮困的時候，志向應當更加堅定；年紀老邁的時候，志氣應當更加壯盛。勉人不可因逆境或年老而失志。" },
+      { id: "104", category: "修身律己", quote: "老驥伏櫪，志在千里；烈士暮年，壯心不已。", source: "[三國] 曹操《步出夏門行》", meaning: "良馬雖然年老伏臥在馬槽邊，志向仍在馳騁千里；有遠大抱負的人雖已到了晚年，雄心壯志依然不會停止。" },
+      { id: "105", category: "家國情懷", quote: "風蕭蕭兮易水寒，壯士一去兮不復還。", source: "[西漢] 司馬遷《史記·刺客列傳》", meaning: "秋風蕭蕭吹拂著，易水是如此寒冷；壯士這一去啊，便不再回來了。展現壯士視死如歸、為大義捨生忘死的決心。" },
+      { id: "106", category: "家國情懷", quote: "一夫當關，萬夫莫敵。", source: "[唐] 李白《蜀道難》（化用）", meaning: "只要一個人把守住險要關口，一萬個人也難以攻克（李白原詩作「一夫當關，萬夫莫開」）。後人常用以形容一人之勇足以抵擋千軍萬馬。" },
+      { id: "107", category: "修身律己", quote: "不入虎穴，焉得虎子。", source: "[南朝宋] 范曄《後漢書·班超傳》", meaning: "不進入老虎的洞穴，怎能捉到小老虎？比喻唯有勇於冒險、深入險境實踐，才能獲得非凡的成果。" },
+      { id: "108", category: "修身律己", quote: "自反而縮，雖千萬人，吾往矣。", source: "《孟子·公孫丑上》", meaning: "自我反省後，如果確認自己的義理正直無愧，縱使面前有千萬強敵阻擋，我也照樣勇往直前、見義勇為。" },
+      { id: "109", category: "修身律己", quote: "泰山崩於前而色不變，麋鹿興於左而目不瞬。", source: "[北宋] 蘇洵《心術》", meaning: "泰山在面前崩塌而臉色不改，麋鹿在身邊突然躍起而眼睛不眨一下。極言人極度勇敢冷靜，不因突發變故而驚慌失措。" },
+      { id: "110", category: "勤學篤行", quote: "出於幽谷，遷於喬木。", source: "《孟子·滕文公上》", meaning: "鳥兒飛出幽暗的深谷，遷居到高大的樹木上。比喻人脫離低劣平庸的環境，走向光明高遠的境界，常用以勉人力求上進。" },
+      { id: "111", category: "勤學篤行", quote: "百尺竿頭，更進一步。", source: "[南宋] 朱熹《答鞏仲至》", meaning: "已經爬到百尺高竿的頂端，仍要繼續向上更進一步。比喻不滿足於現有成就，精益求精，爭取更大的突破。" },
+      { id: "112", category: "修身律己", quote: "吞舟之魚，不游支流；鴻鵠高飛，不集污池。", source: "《列子·楊朱》", meaning: "足以吞船的大魚，不會游在狹窄的河川支流裡；高空飛翔的天鵝（鴻鵠），不會停棲在污濁的水池邊。比喻志向遠大的人不甘於平庸或污濁的環境。" },
+      { id: "113", category: "修身律己", quote: "歲寒，然後知松柏之後凋也。", source: "《論語·子罕》", meaning: "到了歲末嚴寒的時節，草木都已凋零，這才知道松柏依然長青、禁得起寒冬考驗。比喻君子在亂世或逆境中，仍能堅守忠貞操守、不屈不撓。" },
+      { id: "114", category: "勤學篤行", quote: "騏驥之跼躅，不如駑馬之安步。", source: "[西漢] 司馬遷《史記·淮陰侯列傳》", meaning: "千里駿馬若徘徊不前，反而不如平庸的劣馬一步一步踏實前進（「跼躅」為徘徊不前，「安步」為穩健徐行）。比喻資質平庸但踏實肯幹的人，勝過才智高卻猶豫怠惰者。" },
+      { id: "115", category: "勤學篤行", quote: "登高必自卑，行遠必自邇。", source: "《禮記·中庸》", meaning: "要登上高處必須從低處起步，要走到遠方必須從近處出發（「卑」為低處，「邇」為近處）。比喻開創事業或求學修身，務必從基礎做起、腳踏實地，切忌好高騖遠。" },
+      { id: "116", category: "修身律己", quote: "將相本無種，男兒當自強。", source: "[宋] 汪洙《神童詩》", meaning: "宰相與將領並非生來就有高貴血統或命中注定，有志氣的人應當靠自己奮發圖強、努力拼搏去成就一番事業。" },
+      { id: "117", category: "勤學篤行", quote: "飽食終日，無所用心，難矣哉！", source: "《論語·陽貨》", meaning: "整天吃得飽飽的，卻什麼事也不肯動腦筋思考，這樣的人是很難有所成就的（警醒人切勿遊手好閒、荒廢光陰）。" },
+      { id: "118", category: "勤學篤行", quote: "九層之臺，起於累土；千里之行，始於足下。", source: "《老子·第六十四章》", meaning: "九層高的樓臺是由一筐筐泥土逐步堆積而成的，千里遠的路程是從腳下第一步開始走起的。說明任何宏大成就都離不開點滴累積與艱苦實踐。" },
+      { id: "119", category: "家國情懷", quote: "疾風知勁草，板蕩識誠臣。", source: "[唐] 吳兢《貞觀政要·忠義》", meaning: "在猛烈狂風吹襲下，才能看出小草的堅韌；在政局動盪不安的危難時刻，才能辨識出忠臣的堅貞氣節。" },
+      { id: "120", category: "待人處世", quote: "路遙知馬力，日久見人心。", source: "[元] 佚名《爭報恩·第一折》", meaning: "路途遙遠才能測出馬匹的耐力，時間長久才能看清一個人的內心品性。說明人的真誠與品格需經過長期考驗方能顯現。" },
+      { id: "121", category: "修身律己", quote: "一失足成千古恨，再回頭百年身。", source: "[明] 楊儀《明良記》", meaning: "一旦走錯一步、犯下重大過錯，往往成為終身難以挽回的憾恨，想再回頭重新來過，時光已逝、百年之身已老。警惕人行事須謹慎自愛。" },
+      { id: "122", category: "待人處世", quote: "他山之石，可以攻錯。", source: "《詩經·小雅·鶴鳴》", meaning: "別座山上的石頭，可以用來打磨玉器（「攻」為琢磨，「錯」為磨石）。比喻借鏡他人的長處與經驗，來修正自身的缺點與不足。" },
+      { id: "123", category: "修身律己", quote: "仰不愧於天，俯不怍於人。", source: "《孟子·盡心上》", meaning: "抬頭無愧於上天，低頭無愧於眾人（「怍」為愧疚）。形容為人處世光明磊落、心跡坦蕩，沒有任何虧心之事。" },
+      { id: "124", category: "待人處世", quote: "高山仰止，景行行止。", source: "《詩經·小雅·車舝》", meaning: "巍峨的高山令人仰望，崇高的德行令人景仰效法（「景行」指大路，引申為崇高品行；「止」為語助詞）。常用以表達對賢德之人的敬慕。" },
+      { id: "125", category: "修身律己", quote: "從善如登，從惡如崩。", source: "《國語·周語下》", meaning: "順從善道、力求上進就像登山一樣艱難，需要步步努力；放縱惡習、墮落變壞卻像山崩一樣迅速容易。警惕人時刻自律，切勿鬆懈。" },
+      { id: "126", category: "修身律己", quote: "見善則遷，有過則改。", source: "《周易·益卦》", meaning: "看到別人的優點與善行，就督促自己學習看齊；發現自己有了過錯，就立刻改正。強調不斷遷善改過的自我修養。" },
+      { id: "127", category: "修身律己", quote: "蘧伯玉年五十，而知四十九年非。", source: "[西漢] 劉安《淮南子·原道訓》", meaning: "春秋時期衛國賢大夫蘧伯玉活到五十歲時，仍能反省並察覺過去四十九年來的種種過失。讚揚其終身自我省察、精益求精的精神。" },
+      { id: "128", category: "待人處世", quote: "終身讓路，不枉百步。", source: "[北宋] 歐陽修《新唐書·朱敬則傳》", meaning: "一輩子懂得禮讓道路給別人先行的人，累計起來也不會白白多走一百步路。說明待人寬容禮讓、不與人斤斤計較，自己並不會吃虧，反而能化解紛爭。" },
+      { id: "129", category: "待人處世", quote: "我無爾詐，爾無我虞。", source: "《左傳·宣公十五年》", meaning: "我不欺騙你，你也不猜忌防備我（「爾詐」即「詐爾」，「虞」為猜忌、防備）。形容雙方彼此以誠相待、坦率互信，不耍弄心機。" },
+      { id: "130", category: "勤學篤行", quote: "鳥欲高飛先振翅，人求上進先讀書。", source: "李苦禪", meaning: "鳥兒想要高飛必先振奮雙翅，人想要追求上進必須先勤奮讀書。說明讀書學習是自我提升與實現抱負的起點。" },
+      { id: "131", category: "修身律己", quote: "不是一番寒徹骨，怎得梅花撲鼻香！", source: "[唐] 黃檗禪師《上堂開示頌》", meaning: "若不是經歷過一番徹骨的嚴寒考驗，梅花怎能綻放出撲鼻的芬芳？比喻唯有歷經艱苦磨礪，才能收穫豐碩甜美的成果。" },
+      { id: "132", category: "修身律己", quote: "路漫漫其修遠兮，吾將上下而求索。", source: "[戰國] 屈原《離騷》", meaning: "追求真理與理想的道路既漫長又遙遠，我將不遺餘力地上下求索、堅持到底。展現矢志不渝的探索精神。" },
+      { id: "133", category: "修身律己", quote: "石可破也，而不可奪堅；丹可磨也，而不可奪赤。", source: "《呂氏春秋·誠廉》", meaning: "石頭可以被擊碎，但無法改變它堅硬的本性；硃砂可以被研磨，但無法奪去它赤紅的本色。比喻志士仁人寧死不屈、堅守節操的高尚品格。" },
+      { id: "134", category: "勤學篤行", quote: "積土而為山，積水而為海。", source: "《荀子·儒效》", meaning: "把泥土不斷堆積就能成為高山，把細水持續匯聚就能成為大海。強調凡事重在日常一點一滴的積累與堅持。" },
+      { id: "135", category: "修身律己", quote: "窮且益堅，不墜青雲之志。", source: "[唐] 王勃《滕王閣序》", meaning: "處境越是困頓艱難，意志就越要堅定不移，絕不放棄高遠崇高的志向。" },
+      { id: "136", category: "修身律己", quote: "人生不作安期生，醉入東海騎長鯨。", source: "[宋] 陸游《長歌行》", meaning: "人生在世不願學神仙安期生那樣消極避世，寧可豪邁奔放地醉入東海、騎乘長鯨遨遊天下。展現壯懷激烈、不甘平庸的英雄氣概。" },
+      { id: "137", category: "修身律己", quote: "會當凌絕頂，一覽眾山小。", source: "[唐] 杜甫《望岳》", meaning: "有朝一日定要登上泰山的最高峰頂，俯瞰群山顯得如此渺小。比喻不怕困難、勇於攀登人生與事業高峰的雄心壯志。" },
+      { id: "138", category: "勤學篤行", quote: "發憤忘食，樂以忘憂，不知老之將至云爾。", source: "《論語·述而》", meaning: "勤奮學習或工作時連吃飯都忘了，沉浸在求道與進取的快樂中連憂愁都忘了，甚至不知道衰老即將來臨。形容全身心投入的治學境界。" },
+      { id: "139", category: "待人處世", quote: "海納百川，有容乃大；壁立千仞，無欲則剛。", source: "[清] 林則徐", meaning: "大海因為能容納百條河流而成就其廣大，峭壁因為矗立千仞、無所貪求而顯得剛勁挺拔。勉人培養寬廣包容的胸襟與無私剛正的風骨。" },
+      { id: "140", category: "修身律己", quote: "海闊憑魚躍，天高任鳥飛。", source: "《古詩詩話》（化用唐詩）", meaning: "廣闊的大海任憑魚兒自由跳躍，高遠的天空任憑鳥兒盡情翱翔。比喻在開闊的舞臺上，有才華與抱負的人可以盡情施展身手。" },
+      { id: "141", category: "家國情懷", quote: "三十功名塵與土，八千里路雲和月。", source: "[宋] 岳飛《滿江紅》", meaning: "三十多年來建立的功名如同塵土般微不足道，八千里征戰路途上只有風雲與明月相伴。展現淡泊名利、精忠報國的胸懷。" },
+      { id: "142", category: "修身律己", quote: "寄蜉蝣於天地，渺滄海之一粟。", source: "[宋] 蘇軾《前赤壁賦》", meaning: "人生短暫如同朝生暮死的蜉蝣寄居在天地之間，渺小得就像大海裡的一粒小米。提醒人看淡得失、豁達處世。" },
+      { id: "143", category: "勤學篤行", quote: "繩鋸木斷，水滴石穿。", source: "[南宋] 羅大經《鶴林玉露》", meaning: "用繩子不斷來回鋸木頭終能將木頭鋸斷，水滴長久滴落終能把石頭滴穿。比喻力量雖小，只要持之以恆、專注不懈，終能克服艱難。" },
+      { id: "144", category: "家國情懷", quote: "莫等閒，白了少年頭，空悲切。", source: "[宋] 岳飛《滿江紅》", meaning: "切莫虛度光陰、輕易放任時光流逝，等到少年頭髮斑白時才徒然悔恨悲傷。警醒年輕人及時奮發報國。" },
+      { id: "145", category: "修身律己", quote: "天生我材必有用，千金散盡還復來。", source: "[唐] 李白《將進酒》", meaning: "上天造就我這副才幹必定有它的用處，即使千金耗盡也終會再次賺回來。展現高度自信、樂觀豁達的人生態度。" },
+      { id: "146", category: "修身律己", quote: "少年豪放，莫學衰翁樣。", source: "[宋] 葉夢得《點絳唇》", meaning: "年輕人應當保持朝氣蓬勃、豪邁奔放的精神，切莫學那暮氣沉沉、消極頹唐的衰翁模樣。" },
+      { id: "147", category: "家國情懷", quote: "採得百花成蜜後，為誰辛苦為誰甜。", source: "[唐] 羅隱《蜂》", meaning: "蜜蜂採集百花釀成甘甜的蜂蜜之後，究竟是為誰辛苦勞作、又是讓誰品嘗甜美？歌頌無私奉獻、辛勤耕耘的高尚精神。" },
+      { id: "148", category: "勤學篤行", quote: "一寸光陰一寸金，寸金難買寸光陰。", source: "《增廣賢文》", meaning: "一寸時間就像一寸黃金般寶貴，但一寸黃金卻難以買回一寸逝去的光陰。勸誡世人珍惜分秒時間。" },
+      { id: "149", category: "修身律己", quote: "花經雨後香微淡，松到秋深色尚蒼。", source: "[清] 袁枚", meaning: "花朵經過雨水沖刷後香氣略顯清淡，松樹到了深秋時節依然蒼翠挺拔。比喻真正經得起考驗的品格，在逆境與歲月洗禮中愈顯堅貞。" },
+      { id: "150", category: "修身律己", quote: "沉舟側畔千帆過，病樹前頭萬木春。", source: "[唐] 劉禹錫《酬樂天揚州初逢席上見贈》", meaning: "翻覆的沉船旁邊仍有千艘船隻揚帆駛過，枯病的老樹前方正有萬千樹木迎來春天。比喻新事物終將取代舊事物，展現逆境中昂揚樂觀的胸懷。" },
+      { id: "151", category: "勤學篤行", quote: "紙上得來終覺淺，絕知此事要躬行。", source: "[宋] 陸游《冬夜讀書示子聿》", meaning: "從書本上得來的知識終究顯得淺薄，想要徹底領悟事物的真諦，必須親自去實踐體驗。強調知行合一的重要性。" },
+      { id: "152", category: "修身律己", quote: "此生泰山重，勿作鴻毛遺。", source: "[北宋] 黃庭堅《贈別幾復》", meaning: "這一生應當活得像泰山一樣莊重有價值，切莫像鴻毛般輕飄飄地虛度遺棄。勉人珍視生命價值、建立不朽功業。" },
+      { id: "153", category: "修身律己", quote: "有志不在年高，無志空活百歲。", source: "[清] 石玉昆《三俠五義》", meaning: "一個人有沒有志向不在於年紀大小；如果沒有遠大志向，即便活到一百歲也是白活一場。勉人趁早立志奮發。" },
+      { id: "154", category: "勤學篤行", quote: "知之者不如好之者，好之者不如樂之者。", source: "《論語·雍也》", meaning: "懂得學習的人比不上喜愛學習的人，喜愛學習的人又比不上以學習為樂趣的人。揭示求知由淺入深的三重境界。" },
+      { id: "155", category: "家國情懷", quote: "憂勞可以興國，逸豫可以亡身。", source: "[北宋] 歐陽修《五代史伶官傳序》", meaning: "憂患勤勞可以使國家興盛強大，安逸享樂則會使個人走向敗亡。警示無論治國或修身皆應居安思危、戒除懶散。" },
+      { id: "156", category: "勤學篤行", quote: "天下事以難而廢者十之一，以惰而廢者十之九。", source: "[清] 彭端淑《為學》", meaning: "天下的事情因為太困難而半途廢棄的只佔十分之一，因為懶惰懈怠而廢棄的卻佔了十分之九。點明成敗關鍵在於勤奮而非難度。" },
+      { id: "157", category: "家國情懷", quote: "山河破碎風飄絮，身世浮沉雨打萍。", source: "[宋] 文天祥《過零丁洋》", meaning: "國家山河支離破碎如狂風吹散的柳絮，個人身世坎坷浮沉似暴雨擊打的浮萍。抒發國破家亡的深沉悲痛與忠貞節操。" },
+      { id: "158", category: "修身律己", quote: "志當存高遠。", source: "[三國] 諸葛亮《誡外甥書》", meaning: "一個人立志應當胸懷高遠、抱負不凡，不為眼前小利或平庸瑣事所侷限。" },
+      { id: "159", category: "勤學篤行", quote: "讀書不覺已春深，一寸光陰一寸金。", source: "[唐] 王貞白《白鹿洞二首》", meaning: "專心讀書不知不覺間春天已經深了，每一寸光陰都像一寸黃金一樣珍貴。形容全神貫注於讀書、惜時如金的狀態。" },
+      { id: "160", category: "修身律己", quote: "精誠所加，金石為開。", source: "[南朝宋] 范曄《後漢書·廣陵思王荊傳》", meaning: "真誠專一的信念所到之處，連堅硬的金屬與石頭都會為之裂開。比喻只要心意真誠、意志堅定，就能克服一切障礙。" },
+      { id: "161", category: "勤學篤行", quote: "敏而好學，不恥下問。", source: "《論語·公冶長》", meaning: "天資聰敏而又喜愛學習，並且不以向地位或學問不如自己的人請教為可恥。強調謙遜好學的求知態度。" },
+      { id: "162", category: "修身律己", quote: "天將降大任於是人也，必先苦其心志，勞其筋骨，餓其體膚，空乏其身，行拂亂其所為。", source: "《孟子·告子下》", meaning: "上天將要降下重大使命給這個人之前，必定先使他的內心痛苦、筋骨勞累、體膚飢餓、身處窮困，並使他做事處處不順，藉此磨煉他的心性與能力。" },
+      { id: "163", category: "勤學篤行", quote: "青春須早為，豈能長少年！", source: "[唐] 孟郊《勸學》", meaning: "青春年華必須趁早努力有所作為，人哪能永遠保持少年時光呢？勸誡年輕人切勿蹉跎歲月。" },
+      { id: "164", category: "勤學篤行", quote: "人有坎壈，失於盛年；猶當晚學，不可自棄。", source: "[北齊] 顏之推《顏氏家訓·勉學》", meaning: "人若因遭遇坎坷困頓而在青壯年時期錯失學習機會，到了晚年仍然應當發憤學習，絕不可自暴自棄。" },
+      { id: "165", category: "勤學篤行", quote: "百學須先立志。", source: "[南宋] 朱熹", meaning: "學習各種知識技能之前，必須先立定遠大而明確的志向。有志向才有前進的動力與方向。" },
+      { id: "166", category: "勤學篤行", quote: "光陰似箭，日月如梭。", source: "《增廣賢文》", meaning: "時間流逝得像飛箭一樣快，日月交替如同織布的梭子般迅速。提醒人珍惜眼前光陰，切莫虛度。" },
+      { id: "167", category: "修身律己", quote: "人生如夢，一尊還酹江月。", source: "[宋] 蘇軾《念奴嬌·赤壁懷古》", meaning: "人生短暫有如一場大夢，且舉起酒杯灑酒祭奠江上的明月。展現歷經滄桑後豁達超脫、從容面對起落的胸襟。" },
+      { id: "168", category: "勤學篤行", quote: "盛年不重來，一日難再晨。及時當勉勵，歲月不待人。", source: "[東晉] 陶淵明《雜詩》", meaning: "美好的青春年華過去了就不會再重來，一天之中也不會有兩個早晨；應當趁著大好時光勉勵自己努力奮發，因為歲月是從不等待任何人的。" },
+      { id: "169", category: "修身律己", quote: "莫道桑榆晚，為霞尚滿天。", source: "[唐] 劉禹錫《酬樂天詠老見示》", meaning: "不要說太陽落到桑樹和榆樹之間已近黃昏，它映照出的晚霞依然絢麗滿天。比喻人雖已到晚年，仍能發揮餘熱、有所作為。" },
+      { id: "170", category: "勤學篤行", quote: "騏驥一躍，不能十步；駑馬十駕，功在不舍。", source: "《荀子·勸學》", meaning: "駿馬跳躍一次也不能超過十步遠；劣馬拉車走上十天也能到達遠方，它的成功在於堅持不懈、永不放棄。強調恆心勝過天賦。" },
+      { id: "171", category: "勤學篤行", quote: "讀書不趁早，後來徒悔懊。", source: "《清詩鐸》", meaning: "讀書學習如果不趁著年輕時抓緊時間，將來年長了就只能徒然懊悔。" },
+      { id: "172", category: "修身律己", quote: "誰道人生無再少？門前流水尚能西！", source: "[宋] 蘇軾《浣溪沙》", meaning: "誰說人生就不能再回到年輕時候？你看門前的溪水都還能向西奔流呢！展現不服老、積極樂觀的昂揚心態。" },
+      { id: "173", category: "修身律己", quote: "世事多因忙裡錯，好人多半苦中來。", source: "[清] 曾國藩", meaning: "世間許多事情往往是因為慌亂急躁而出錯，而品格高尚的人才多半是從艱苦磨煉中成長出來的。提醒處事從容不迫、勇於吃苦。" },
+      { id: "174", category: "家國情懷", quote: "我勸天公重抖擻，不拘一格降人才。", source: "[清] 龔自珍《己亥雜詩》", meaning: "我奉勸上天重新振作精神，打破常規格局，降下各式各樣的優秀人才來振興國家。表達渴望變革與人才輩出的愛國情懷。" },
+      { id: "175", category: "修身律己", quote: "好風憑藉力，送我上青雲。", source: "[清] 曹雪芹《紅樓夢·臨江仙》", meaning: "憑藉著和煦強勁的好風之力，將我高高送上青雲之上。比喻善於把握機遇、借力使力，實現遠大理想。" },
+      { id: "176", category: "勤學篤行", quote: "鑿壁偷光，聚螢作囊；忍貧讀書，車胤匡衡。", source: "[明] 許名奎《勸忍百箴》", meaning: "匡衡鑿穿牆壁借鄰家燈光讀書，車胤捕捉螢火蟲裝入紗囊照明夜讀，二人皆在貧困中堅忍苦讀終成大器。勉人克服逆境勤學。" },
+      { id: "177", category: "修身律己", quote: "窮則變，變則通，通則久。", source: "《周易·繫辭下》", meaning: "事物發展到了極點陷入困境就必須尋求變革，變革之後就能順暢通達，通達之後才能長久延續。揭示靈活應變、與時俱進的智慧。" },
+      { id: "178", category: "修身律己", quote: "長風破浪會有時，直掛雲帆濟滄海。", source: "[唐] 李白《行路難》", meaning: "總有一天能乘著長風衝破巨浪，高高掛起雲帆橫渡茫茫滄海。展現面對挫折依然堅信理想終能實現的豪邁氣魄。" },
+      { id: "179", category: "勤學篤行", quote: "人生在勤，不索何獲。", source: "[東漢] 張衡《應間》", meaning: "人生的價值在於勤奮努力，如果不去探索追求，又怎能有所收穫呢？" },
+      { id: "180", category: "修身律己", quote: "古之立大事者，不惟有超世之才，亦必有堅忍不拔之志。", source: "[宋] 蘇軾《晁錯論》", meaning: "自古以來能夠成就偉大事業的人，不僅擁有超越常人的才華，也必定擁有堅韌不拔、百折不撓的意志。" },
+      { id: "181", category: "修身律己", quote: "志不強者智不達。", source: "《墨子·修身》", meaning: "意志不堅強的人，他的智慧也無法通達透徹。說明堅定的意志是發揮才智、成就事業的根本保障。" },
+      { id: "182", category: "修身律己", quote: "千磨萬擊還堅勁，任爾東西南北風。", source: "[清] 鄭板橋《竹石》", meaning: "經歷無數次的磨煉與打擊依然堅韌挺拔，任憑你刮來東西南北哪個方向的狂風。讚頌堅貞不屈、剛正不阿的骨氣。" },
+      { id: "183", category: "勤學篤行", quote: "學必求其心得，業必貴其專精。", source: "[清] 章學誠", meaning: "做學問必須追求自己真正的領悟與體會，從事專業必須貴在專注精深。強調治學應獨立思考、精益求精。" },
+      { id: "184", category: "勤學篤行", quote: "工欲善其事，必先利其器。", source: "《論語·衛靈公》", meaning: "工匠想要把工作做好，必定要先使他的工具鋒利精良。比喻要完成某項任務或學業，必須先做好充分準備並掌握良好方法。" },
+      { id: "185", category: "勤學篤行", quote: "三更燈火五更雞，正是男兒讀書時。黑髮不知勤學早，白首方悔讀書遲。", source: "[唐] 顏真卿《勸學》", meaning: "三更半夜燈火通明、五更清晨公雞報曉，正是年輕人發憤讀書的大好時光；年輕黑髮時若不知及早勤學，等到白髮蒼蒼年老時才後悔讀書太遲。" },
+      { id: "186", category: "勤學篤行", quote: "古人學問無遺力，少壯工夫老始成。", source: "[宋] 陸游《冬夜讀書示子聿》", meaning: "古人做學問總是不遺餘力地苦下功夫，年輕時打下的深厚基礎，往往要到年老時才真正成就。說明治學須長期積累、切忌急功近利。" },
+      { id: "187", category: "勤學篤行", quote: "立身以立學為先，立學以讀書為本。", source: "[北宋] 歐陽修", meaning: "立身處世應當把學習擺在第一位，而求學又應當以多讀書為根本。" },
+      { id: "188", category: "修身律己", quote: "俗子胸襟誰識我？英雄末路當磨折。", source: "[清] 秋瑾《對酒》", meaning: "心胸狹隘的凡夫俗子誰能理解我的抱負？英雄在窮途末路時理應經歷種種磨難挫折。展現傲視世俗、無懼坎坷的豪邁氣節。" },
+      { id: "189", category: "待人處世", quote: "尺有所短，寸有所長。物有所不足，智有所不明。", source: "[戰國] 屈原《楚辭·卜居》", meaning: "一尺雖長但也有它短的地方，一寸雖短但也有它長的用處；萬物各有不足之處，再聰明的人也有不明白的地方。勉人客觀自省、虛心取長補短。" },
+      { id: "190", category: "修身律己", quote: "堅志而勇為，謂之剛。剛，生人之德也。", source: "[明] 戚繼光《練兵實紀》", meaning: "立定堅強的志向並勇敢付諸行動，這就叫做「剛」；剛毅正是做人最可貴的美德。" },
+      { id: "191", category: "勤學篤行", quote: "一日不書，百事荒蕪。", source: "[明] 李詡《戒庵老人漫筆》", meaning: "只要一天不讀書寫作，百般事務就會顯得荒廢生疏。強調每日持續學習、不可間斷的重要性。" },
+      { id: "192", category: "修身律己", quote: "不飛則已，一飛沖天；不鳴則已，一鳴驚人。", source: "[西漢] 司馬遷《史記·滑稽列傳》", meaning: "不飛則罷，一旦展翅高飛便直衝雲霄；不鳴則罷，一旦開口鳴叫便震驚世人。比喻平時默默積蓄實力，一旦施展便創造驚人成就。" },
+      { id: "193", category: "修身律己", quote: "有志者事竟成。", source: "[南朝宋] 范曄《後漢書·耿弇傳》", meaning: "只要擁有堅定不移的志向並堅持努力，事情終究會獲得成功。" },
+      { id: "194", category: "修身律己", quote: "春花不紅不如草，少年不美不如老。", source: "[清] 袁枚", meaning: "春天的花朵若不紅豔還不如青草，年輕人若沒有朝氣與才德還不如老人。激勵青少年珍惜青春、展現蓬勃向上的人生風采。" },
+      { id: "195", category: "勤學篤行", quote: "青，取之於藍而青於藍；冰，水為之而寒於水。", source: "《荀子·勸學》", meaning: "靛青染料是從藍草中提煉出來的，顏色卻比藍草更深；冰塊是由水凝結而成的，溫度卻比水更寒冷。比喻學生超越老師、後人勝過前人。" },
+      { id: "196", category: "勤學篤行", quote: "日日行，不怕千萬里；常常做，不怕千萬事。", source: "[清] 金纓《格言聯璧·處事》", meaning: "只要每天堅持行走，就不怕千萬里遙遠的路途；只要經常動手去做，就不怕千萬件繁難的事務。強調持之以恆、腳踏實地的力量。" },
+      { id: "197", category: "修身律己", quote: "仰天大笑出門去，我輩豈是蓬蒿人。", source: "[唐] 李白《南陵別兒童入京》", meaning: "仰頭向天開懷大笑走出家門，我輩有志之士難道會是長期埋沒在草野之間的平庸之人嗎？展現滿懷自信與豪情壯志。" }
+    ];
+
+    const QUOTE_MAP = new Map(QUOTES_DATA.map(q => [q.id, q]));
+
+    // =========================================================================
+    // 二、狀態管理與 LocalStorage 持久化
+    // =========================================================================
+    const STORAGE_KEYS = {
+      FAVORITES: 'guwen197_favorites_v1',
+      WRONGS: 'guwen197_wrongs_v1' // 物件：{ [id]: { count: number, lastTime: number } }
+    };
+
+    let state = {
+      activeTab: 'quiz', // 'quiz' | 'library' | 'notebook'
+      favorites: new Set(),
+      wrongs: {},
+
+      // 測驗設定
+      quizConfig: {
+        scope: 'all', // 'all' | '修身律己' | '勤學篤行' | '待人處世' | '家國情懷' | 'fav' | 'wrong'
+        type: 'mixed', // 'mixed' | 'cloze-mc' | 'meaning'
+        count: 10 // 5 | 10 | 20 | 30 | 'all'
+      },
+
+      // 進行中的測驗狀態
+      quizSession: null,
+
+      // 文庫狀態
+      library: {
+        category: 'all', // 'all' | '修身律己' | '勤學篤行' | '待人處世' | '家國情懷' | 'fav'
+        search: '',
+        maskMode: 'none', // 'none' | 'meaning' | 'quote'
+        revealedIds: new Set()
+      },
+
+      // 錯題與收藏本狀態
+      notebook: {
+        subtab: 'wrong', // 'wrong' | 'fav'
+        pendingClearType: null
+      }
+    };
+
+    function loadPersistedData() {
+      try {
+        const rawFav = localStorage.getItem(STORAGE_KEYS.FAVORITES);
+        if (rawFav) {
+          const arr = JSON.parse(rawFav);
+          if (Array.isArray(arr)) state.favorites = new Set(arr.filter(id => QUOTE_MAP.has(id)));
+        }
+        const rawWrongs = localStorage.getItem(STORAGE_KEYS.WRONGS);
+        if (rawWrongs) {
+          const obj = JSON.parse(rawWrongs);
+          if (obj && typeof obj === 'object') {
+            Object.keys(obj).forEach(id => {
+              if (QUOTE_MAP.has(id)) state.wrongs[id] = obj[id];
+            });
+          }
+        }
+      } catch (e) {
+        console.warn('讀取本機儲存失敗', e);
+      }
+    }
+
+    function savePersistedData() {
+      try {
+        localStorage.setItem(STORAGE_KEYS.FAVORITES, JSON.stringify([...state.favorites]));
+        localStorage.setItem(STORAGE_KEYS.WRONGS, JSON.stringify(state.wrongs));
+      } catch (e) {
+        console.warn('寫入本機儲存失敗', e);
+      }
+      updateGlobalBadges();
+    }
+
+    // =========================================================================
+    // 三、通用工具與通知
+    // =========================================================================
+    function showToast(message, type = 'info') {
+      const container = document.getElementById('toast-container');
+      const el = document.createElement('div');
+      const styles = {
+        info: 'bg-ink text-white border-inkDark',
+        success: 'bg-emerald-800 text-white border-emerald-900',
+        warn: 'bg-cinnabar text-white border-red-900'
+      };
+      el.className = `pointer-events-auto px-4 py-2.5 rounded-xl shadow-lg border text-xs sm:text-sm font-medium animate-fade-up ${styles[type] || styles.info}`;
+      el.textContent = message;
+      container.appendChild(el);
+      setTimeout(() => {
+        el.style.opacity = '0';
+        el.style.transition = 'opacity 0.25s ease';
+        setTimeout(() => el.remove(), 260);
+      }, 2400);
+    }
+
+    function shuffleArray(arr) {
+      const copy = [...arr];
+      for (let i = copy.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [copy[i], copy[j]] = [copy[j], copy[i]];
+      }
+      return copy;
+    }
+
+    function escapeHtml(str) {
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+    }
+
+    // 罕見字與古音注音對照表（依教育部重編國語辭典標準注音）
+    const RARE_ZHUYIN_MAP = {
+      '眚': 'ㄕㄥˇ',
+      '醴': 'ㄌㄧˇ',
+      '慍': 'ㄩㄣˋ',
+      '螻': 'ㄌㄡˊ',
+      '隙': 'ㄒㄧˋ',
+      '罔': 'ㄨㄤˇ',
+      '殆': 'ㄉㄞˋ',
+      '訥': 'ㄋㄜˋ',
+      '釐': 'ㄌㄧˊ',
+      '謬': 'ㄇㄧㄡˋ',
+      '跬': 'ㄎㄨㄟˇ',
+      '劬': 'ㄑㄩˊ',
+      '弗': 'ㄈㄨˊ',
+      '驥': 'ㄐㄧˋ',
+      '櫪': 'ㄌㄧˋ',
+      '麋': 'ㄇㄧˊ',
+      '鵠': 'ㄏㄨˊ',
+      '騏': 'ㄑㄧˊ',
+      '跼': 'ㄐㄩˊ',
+      '躅': 'ㄓㄨˊ',
+      '駑': 'ㄋㄨˊ',
+      '邇': 'ㄦˇ',
+      '怍': 'ㄗㄨㄛˋ',
+      '蘧': 'ㄑㄩˊ',
+      '仞': 'ㄖㄣˋ',
+      '蜉': 'ㄈㄨˊ',
+      '蝣': 'ㄧㄡˊ',
+      '粟': 'ㄙㄨˋ',
+      '壈': 'ㄌㄢˇ',
+      '酹': 'ㄌㄟˋ',
+      '鑿': 'ㄗㄠˊ',
+      '胤': 'ㄧㄣˋ',
+      '蒿': 'ㄏㄠ'
+    };
+
+    function getCharacterZhuyin(ch, fullContext) {
+      if (ch === '說' && fullContext.includes('不亦說乎')) return 'ㄩㄝˋ';
+      if (ch === '臭' && fullContext.includes('其臭如蘭')) return 'ㄒㄧㄡˋ';
+      if (ch === '虞' && fullContext.includes('爾無我虞')) return 'ㄩˊ';
+      return RARE_ZHUYIN_MAP[ch] || null;
+    }
+
+    /**
+     * 為古文中的罕見字加上 <ruby> 注音標示，並於純文字比對後安全套用搜尋高亮，
+     * 確保搜尋過濾不受標籤干擾且 <ruby> 標籤永不被切斷。
+     */
+    function annotateClassicalQuote(text, searchKeyword = '', fullContext = text) {
+      const str = String(text || '');
+      if (!str) return '';
+
+      const highlighted = new Array(str.length).fill(false);
+      if (searchKeyword) {
+        const lowerStr = str.toLowerCase();
+        const lowerKw = searchKeyword.toLowerCase();
+        let pos = 0;
+        while ((pos = lowerStr.indexOf(lowerKw, pos)) !== -1) {
+          for (let k = pos; k < pos + lowerKw.length; k++) {
+            highlighted[k] = true;
+          }
+          pos += lowerKw.length;
+        }
+      }
+
+      let html = '';
+      let inMark = false;
+      for (let i = 0; i < str.length; i++) {
+        if (highlighted[i] && !inMark) {
+          html += '<mark class="bg-amber-200/90 text-ink px-0.5 rounded font-semibold">';
+          inMark = true;
+        } else if (!highlighted[i] && inMark) {
+          html += '</mark>';
+          inMark = false;
+        }
+
+        const ch = str[i];
+        const zy = getCharacterZhuyin(ch, fullContext);
+        if (zy) {
+          html += `<ruby>${escapeHtml(ch)}<rt>${zy}</rt></ruby>`;
+        } else {
+          html += escapeHtml(ch);
+        }
+      }
+      if (inMark) html += '</mark>';
+      return html;
+    }
+
+    function getCategoryBadgeClass(cat) {
+      switch (cat) {
+        case '修身律己': return 'bg-[#1E3A5F]/10 text-[#1E3A5F] border-[#1E3A5F]/20';
+        case '勤學篤行': return 'bg-[#A67C52]/15 text-[#7C5832] border-[#A67C52]/30';
+        case '待人處世': return 'bg-emerald-800/10 text-emerald-900 border-emerald-800/20';
+        case '家國情懷': return 'bg-[#9E2A2B]/10 text-[#9E2A2B] border-[#9E2A2B]/25';
+        default: return 'bg-stone-100 text-stone-700 border-stone-200';
+      }
+    }
+
+    function updateGlobalBadges() {
+      const wrongCount = Object.keys(state.wrongs).length;
+      const favCount = state.favorites.size;
+      const totalNb = wrongCount + favCount;
+      const badge = document.getElementById('nav-notebook-badge');
+      if (totalNb > 0) {
+        badge.textContent = totalNb;
+        badge.classList.remove('hidden');
+      } else {
+        badge.classList.add('hidden');
+      }
+    }
+
+    // =========================================================================
+    // 四、導覽分頁切換
+    // =========================================================================
+    function switchTab(tab) {
+      state.activeTab = tab;
+      ['quiz', 'library', 'notebook'].forEach(t => {
+        const view = document.getElementById(`view-${t}`);
+        const btn = document.getElementById(`nav-${t}`);
+        if (t === tab) {
+          view.classList.remove('hidden');
+          btn.classList.add('bg-ink', 'text-white', 'shadow-sm');
+          btn.classList.remove('text-stone-700', 'hover:text-ink');
+        } else {
+          view.classList.add('hidden');
+          btn.classList.remove('bg-ink', 'text-white', 'shadow-sm');
+          btn.classList.add('text-stone-700', 'hover:text-ink');
+        }
+      });
+
+      if (tab === 'quiz') {
+        renderQuizSetupScopes();
+      } else if (tab === 'library') {
+        renderLibrary();
+      } else if (tab === 'notebook') {
+        renderNotebook();
+      }
+    }
+
+    // =========================================================================
+    // 五、題庫填空引擎與出題系統（嚴格禁止出現作者與出處）
+    // =========================================================================
+
+    /**
+     * 將古文拆解為標點與非標點句段，並提取一個最適合挖空的目標句段或核心詞組
+     */
+    function generateClozeData(quoteObj) {
+      const text = quoteObj.quote;
+      // 以常見中文標點切分，並保留分隔符
+      const rawTokens = text.split(/([，；。！？、：])/).filter(t => t.length > 0);
+      const clauses = [];
+      rawTokens.forEach((tok, idx) => {
+        if (!/^[，；。！？、：]$/.test(tok)) {
+          clauses.push({ text: tok, tokenIndex: idx });
+        }
+      });
+
+      // 情況一：有多個句段（2段以上）
+      if (clauses.length >= 2) {
+        // 優先挑選字數 3~8 字的句段，若無則挑選任意長度 >= 2 的句段
+        let candidates = clauses.filter(c => c.text.length >= 3 && c.text.length <= 8);
+        if (candidates.length === 0) {
+          candidates = clauses.filter(c => c.text.length >= 2);
+        }
+        if (candidates.length === 0) candidates = clauses;
+
+        const chosen = candidates[Math.floor(Math.random() * candidates.length)];
+        const answer = chosen.text;
+        const prefix = rawTokens.slice(0, chosen.tokenIndex).join('');
+        const suffix = rawTokens.slice(chosen.tokenIndex + 1).join('');
+        return { prefix, answer, suffix };
+      }
+
+      // 情況二：單一句段（例如「不以一眚掩大德。」、「三思而後行。」、「學不可以已。」）
+      const singleClause = clauses[0] ? clauses[0].text : text.replace(/[。！？]/g, '');
+      const punctSuffix = text.slice(singleClause.length);
+      const len = singleClause.length;
+
+      let start = 0;
+      let subLen = 2;
+      if (len >= 9) {
+        // 取後半段 4 字
+        subLen = 4;
+        start = len - 4;
+      } else if (len >= 6) {
+        // 取後 3 字（如「掩大德」、「忘憂國」、「五十步」、「有志者」）
+        subLen = 3;
+        start = Math.random() < 0.7 ? len - 3 : 0;
+      } else if (len === 5) {
+        // 5字句如「三思而後行」、「學不可以已」、「知恥近乎勇」、「志當存高遠」
+        if (Math.random() < 0.5) {
+          start = 0;
+          subLen = 2;
+        } else {
+          start = 3;
+          subLen = 2;
+        }
+      } else {
+        subLen = Math.max(2, Math.floor(len / 2));
+        start = len - subLen;
+      }
+
+      const answer = singleClause.slice(start, start + subLen);
+      const prefix = singleClause.slice(0, start);
+      const suffix = singleClause.slice(start + subLen) + punctSuffix;
+      return { prefix, answer, suffix };
+    }
+
+    // 預先建立全庫真實句段池，供填空四選一產生自然、字數相近的干擾項
+    const CLAUSE_POOL = (() => {
+      const set = new Set();
+      QUOTES_DATA.forEach(item => {
+        const parts = item.quote.split(/[，；。！？、：]/).map(s => s.trim()).filter(s => s.length >= 2 && s.length <= 10);
+        parts.forEach(p => set.add(p));
+        // 亦從單句抽出 2~3 字核心片語補充短詞池
+        if (parts.length === 1 && parts[0].length >= 5) {
+          const s = parts[0];
+          set.add(s.slice(0, 2));
+          set.add(s.slice(-2));
+          if (s.length >= 6) set.add(s.slice(-3));
+        }
+      });
+      return [...set];
+    })();
+
+    function getClozeDistractors(answer, fullQuote) {
+      const targetLen = answer.length;
+      // 1. 先找字數完全相同、且不與正確答案或題幹重疊的句段
+      let sameLen = CLAUSE_POOL.filter(seg =>
+        seg !== answer &&
+        seg.length === targetLen &&
+        !fullQuote.includes(seg) &&
+        !seg.includes(answer) &&
+        !answer.includes(seg)
+      );
+
+      // 2. 若不足 3 個，放寬至字數 ±1
+      if (sameLen.length < 3) {
+        const nearLen = CLAUSE_POOL.filter(seg =>
+          seg !== answer &&
+          Math.abs(seg.length - targetLen) === 1 &&
+          !fullQuote.includes(seg) &&
+          !sameLen.includes(seg)
+        );
+        sameLen = sameLen.concat(nearLen);
+      }
+
+      return shuffleArray(sameLen).slice(0, 3);
+    }
+
+    function getMeaningDistractors(quoteObj) {
+      // 優先從同主題挑 3 個干擾釋義，若不足則從全庫補足
+      const sameCat = QUOTES_DATA.filter(q => q.id !== quoteObj.id && q.category === quoteObj.category);
+      const otherCat = QUOTES_DATA.filter(q => q.id !== quoteObj.id && q.category !== quoteObj.category);
+      const pool = shuffleArray(sameCat).concat(shuffleArray(otherCat));
+      const picked = [];
+      const seenMeanings = new Set([quoteObj.meaning]);
+      for (const item of pool) {
+        if (!seenMeanings.has(item.meaning)) {
+          seenMeanings.add(item.meaning);
+          picked.push(item.meaning);
+          if (picked.length === 3) break;
+        }
+      }
+      return picked;
+    }
+
+    function getQuoteDistractors(quoteObj) {
+      const sameCat = QUOTES_DATA.filter(q => q.id !== quoteObj.id && q.category === quoteObj.category);
+      const otherCat = QUOTES_DATA.filter(q => q.id !== quoteObj.id && q.category !== quoteObj.category);
+      const pool = shuffleArray(sameCat).concat(shuffleArray(otherCat));
+      return pool.slice(0, 3).map(q => q.quote);
+    }
+
+    /**
+     * 根據設定生成整份考卷（僅限選擇題：文句填空四選一與文句意思，絕不包含手寫題及作者出處題）
+     */
+    function buildQuestions(poolItems, quizType, countSetting) {
+      const shuffled = shuffleArray(poolItems);
+      const finalCount = countSetting === 'all' ? shuffled.length : Math.min(countSetting, shuffled.length);
+      const selected = shuffled.slice(0, finalCount);
+
+      return selected.map((item, idx) => {
+        let mode = quizType;
+        if (quizType === 'mixed') {
+          const r = idx % 3;
+          if (r === 0) mode = 'cloze-mc';
+          else if (r === 1) mode = 'meaning-to-def';
+          else mode = idx % 6 === 2 ? 'meaning-to-quote' : 'cloze-mc';
+        } else if (quizType === 'meaning') {
+          mode = idx % 4 === 3 ? 'meaning-to-quote' : 'meaning-to-def';
+        } else {
+          mode = 'cloze-mc';
+        }
+
+        if (mode === 'cloze-mc') {
+          const cloze = generateClozeData(item);
+          const distractors = getClozeDistractors(cloze.answer, item.quote);
+          const options = shuffleArray([cloze.answer, ...distractors]);
+          return {
+            index: idx,
+            quoteObj: item,
+            mode: 'cloze-mc',
+            typeLabel: '文句填空（四選一）',
+            instruction: '請選出最適合填入底線空格處的古文句段：',
+            cloze,
+            correctAnswer: cloze.answer,
+            options,
+            userAnswer: null,
+            isCorrect: null
+          };
+        } else if (mode === 'meaning-to-quote') {
+          const distractors = getQuoteDistractors(item);
+          const options = shuffleArray([item.quote, ...distractors]);
+          return {
+            index: idx,
+            quoteObj: item,
+            mode,
+            typeLabel: '文意辨識（依意選句）',
+            instruction: '下列哪一句古文最符合這段「白話釋義與意涵」？',
+            correctAnswer: item.quote,
+            options,
+            userAnswer: null,
+            isCorrect: null
+          };
+        } else {
+          // meaning-to-def
+          const distractors = getMeaningDistractors(item);
+          const options = shuffleArray([item.meaning, ...distractors]);
+          return {
+            index: idx,
+            quoteObj: item,
+            mode: 'meaning-to-def',
+            typeLabel: '文句意思（本意與引申意）',
+            instruction: '下列何者最準確闡釋這句古文的「本意與引申意」？',
+            correctAnswer: item.meaning,
+            options,
+            userAnswer: null,
+            isCorrect: null
+          };
+        }
+      });
+    }
+
+    // =========================================================================
+    // 六、測驗設定與互動控制
+    // =========================================================================
+    function getScopeItems(scope) {
+      if (scope === 'all') return QUOTES_DATA;
+      if (scope === 'fav') return QUOTES_DATA.filter(q => state.favorites.has(q.id));
+      if (scope === 'wrong') return QUOTES_DATA.filter(q => Boolean(state.wrongs[q.id]));
+      return QUOTES_DATA.filter(q => q.category === scope);
+    }
+
+    function renderQuizSetupScopes() {
+      const scopes = [
+        { key: 'all', label: '全部經典名言', count: QUOTES_DATA.length },
+        { key: '修身律己', label: '修身律己', count: 80 },
+        { key: '勤學篤行', label: '勤學篤行', count: 66 },
+        { key: '待人處世', label: '待人處世', count: 20 },
+        { key: '家國情懷', label: '家國情懷', count: 31 },
+        { key: 'fav', label: '⭐ 僅考我的收藏', count: state.favorites.size },
+        { key: 'wrong', label: '❌ 僅考錯題本', count: Object.keys(state.wrongs).length }
+      ];
+
+      // 若目前選的收藏或錯題已清空，自動退回 all
+      if ((state.quizConfig.scope === 'fav' && state.favorites.size === 0) ||
+          (state.quizConfig.scope === 'wrong' && Object.keys(state.wrongs).length === 0)) {
+        state.quizConfig.scope = 'all';
+      }
+
+      const container = document.getElementById('scope-options');
+      container.innerHTML = scopes.map(s => {
+        const active = state.quizConfig.scope === s.key;
+        const disabled = s.count === 0;
+        return `
+          <button
+            type="button"
+            onclick="${disabled ? `showToast('目前「${s.label}」尚無題目喔！', 'warn')` : `selectQuizScope('${s.key}')`}"
+            class="flex items-center justify-between px-3.5 py-2.5 rounded-xl border text-left transition-all ${
+              disabled
+                ? 'opacity-45 bg-stone-50 border-borderWarm cursor-not-allowed'
+                : active
+                  ? 'border-2 border-ink bg-ink/5 text-ink font-bold shadow-xs'
+                  : 'border-borderWarm bg-white hover:border-gold text-stone-700 font-medium'
+            }"
+          >
+            <span class="text-sm">${s.label}</span>
+            <span class="text-xs px-2 py-0.5 rounded-full ${active ? 'bg-ink text-white' : 'bg-paper text-stone-600 border border-borderWarm'}">${s.count} 句</span>
+          </button>
+        `;
+      }).join('');
+
+      updateSetupSummary();
+    }
+
+    function selectQuizScope(scope) {
+      state.quizConfig.scope = scope;
+      renderQuizSetupScopes();
+    }
+
+    function selectQuizType(type) {
+      state.quizConfig.type = type;
+      document.querySelectorAll('.type-btn').forEach(btn => {
+        const isMatch = btn.dataset.type === type;
+        btn.className = isMatch
+          ? 'type-btn text-left p-3.5 rounded-xl border-2 border-ink bg-ink/5 transition-all'
+          : 'type-btn text-left p-3.5 rounded-xl border border-borderWarm hover:border-gold bg-white transition-all';
+      });
+      updateSetupSummary();
+    }
+
+    function selectQuizCount(count) {
+      state.quizConfig.count = count;
+      document.querySelectorAll('.count-btn').forEach(btn => {
+        const isMatch = String(btn.dataset.count) === String(count);
+        if (isMatch) {
+          btn.classList.remove('border', 'border-borderWarm', 'bg-white', 'font-semibold', 'text-stone-700');
+          btn.classList.add('border-2', 'border-ink', 'bg-ink/5', 'font-bold', 'text-ink');
+        } else {
+          btn.classList.remove('border-2', 'border-ink', 'bg-ink/5', 'font-bold', 'text-ink');
+          btn.classList.add('border', 'border-borderWarm', 'bg-white', 'font-semibold', 'text-stone-700');
+        }
+      });
+      updateSetupSummary();
+    }
+
+    function updateSetupSummary() {
+      const items = getScopeItems(state.quizConfig.scope);
+      const scopeName = state.quizConfig.scope === 'all' ? '全部 197 句'
+        : state.quizConfig.scope === 'fav' ? '我的收藏'
+        : state.quizConfig.scope === 'wrong' ? '錯題本'
+        : state.quizConfig.scope;
+      const actualCount = state.quizConfig.count === 'all'
+        ? items.length
+        : Math.min(state.quizConfig.count, items.length);
+      document.getElementById('setup-summary-badge').textContent = `${scopeName} ・ 共 ${actualCount} 題`;
+    }
+
+    function startQuiz(customItems = null) {
+      const pool = customItems || getScopeItems(state.quizConfig.scope);
+      if (!pool || pool.length === 0) {
+        showToast('所選範圍目前沒有題目，請先調整範圍！', 'warn');
+        return;
+      }
+
+      const countSetting = customItems ? 'all' : state.quizConfig.count;
+      const questions = buildQuestions(pool, state.quizConfig.type, countSetting);
+
+      state.quizSession = {
+        questions,
+        currentIndex: 0,
+        scoreCount: 0,
+        wrongItems: []
+      };
+
+      document.getElementById('quiz-setup-panel').classList.add('hidden');
+      document.getElementById('quiz-result-panel').classList.add('hidden');
+      document.getElementById('quiz-active-panel').classList.remove('hidden');
+
+      renderCurrentQuestion();
+    }
+
+    function abortQuiz() {
+      state.quizSession = null;
+      resetToQuizSetup();
+    }
+
+    function resetToQuizSetup() {
+      document.getElementById('quiz-active-panel').classList.add('hidden');
+      document.getElementById('quiz-result-panel').classList.add('hidden');
+      document.getElementById('quiz-setup-panel').classList.remove('hidden');
+      renderQuizSetupScopes();
+    }
+
+    function renderCurrentQuestion() {
+      const session = state.quizSession;
+      if (!session) return;
+      const q = session.questions[session.currentIndex];
+      const total = session.questions.length;
+      const currentNum = session.currentIndex + 1;
+
+      // 更新頂部進度
+      document.getElementById('q-progress-text').textContent = `第 ${currentNum} / ${total} 題`;
+      document.getElementById('q-type-tag').textContent = q.typeLabel;
+      document.getElementById('q-category-tag').textContent = q.quoteObj.category;
+      document.getElementById('q-live-score').textContent = session.scoreCount;
+      document.getElementById('q-progress-bar').style.width = `${Math.round((currentNum / total) * 100)}%`;
+
+      // 更新收藏按鈕狀態
+      updateQuestionFavButton(q.quoteObj.id);
+
+      // 題目引導語與題幹
+      document.getElementById('q-instruction').textContent = q.instruction;
+      const stemEl = document.getElementById('q-stem-content');
+
+      if (q.mode === 'cloze-mc') {
+        stemEl.className = 'font-classical text-xl sm:text-2xl md:text-[26px] text-ink leading-[2.15] tracking-wide';
+        stemEl.innerHTML = `${annotateClassicalQuote(q.cloze.prefix, '', q.quoteObj.quote)}<span class="cloze-blank" id="stem-blank-slot">＿＿＿＿</span>${annotateClassicalQuote(q.cloze.suffix, '', q.quoteObj.quote)}`;
+      } else if (q.mode === 'meaning-to-quote') {
+        stemEl.className = 'font-sans text-base sm:text-lg text-stone-800 leading-relaxed';
+        stemEl.innerHTML = `<div class="text-xs font-bold text-gold mb-1.5">白話釋義（本意與引申意）：</div>「${escapeHtml(q.quoteObj.meaning)}」`;
+      } else {
+        stemEl.className = 'font-classical text-xl sm:text-2xl md:text-[26px] text-ink leading-[2.15] tracking-wide';
+        stemEl.innerHTML = annotateClassicalQuote(q.quoteObj.quote);
+      }
+
+      // 隱藏詳解區
+      document.getElementById('q-feedback-box').classList.add('hidden');
+
+      // 渲染四選一選項
+      const mcBox = document.getElementById('q-mc-options');
+      const isQuoteOption = (q.mode === 'cloze-mc' || q.mode === 'meaning-to-quote');
+      mcBox.innerHTML = q.options.map((opt, idx) => {
+        const letter = ['A', 'B', 'C', 'D'][idx];
+        const renderedOpt = isQuoteOption
+          ? annotateClassicalQuote(opt, '', q.mode === 'cloze-mc' && opt === q.correctAnswer ? q.quoteObj.quote : opt)
+          : escapeHtml(opt);
+        return `
+          <button
+            type="button"
+            data-opt-idx="${idx}"
+            onclick="submitMcAnswer(${idx})"
+            class="mc-opt-btn w-full text-left p-4 sm:px-5 sm:py-4 rounded-xl border border-borderWarm bg-white hover:border-ink hover:bg-paper/80 transition-all flex items-start gap-3.5 group cursor-pointer"
+          >
+            <span class="w-7 h-7 rounded-lg bg-paper border border-borderWarm group-hover:bg-ink group-hover:text-white group-hover:border-ink text-ink font-bold text-xs flex items-center justify-center shrink-0 mt-0.5 transition-colors">
+              ${letter}
+            </span>
+            <span class="${isQuoteOption ? 'font-classical text-base sm:text-lg text-stone-800 leading-[2.15]' : 'text-sm sm:text-base text-stone-700 leading-relaxed'}">
+              ${renderedOpt}
+            </span>
+          </button>
+        `;
+      }).join('');
+    }
+
+    function updateQuestionFavButton(id) {
+      const isFav = state.favorites.has(id);
+      const btn = document.getElementById('q-fav-btn');
+      document.getElementById('q-fav-icon').textContent = isFav ? '★' : '☆';
+      document.getElementById('q-fav-label').textContent = isFav ? '已收藏' : '收藏本句';
+      if (isFav) {
+        btn.classList.add('border-amber-400', 'bg-amber-50', 'text-amber-700');
+      } else {
+        btn.classList.remove('border-amber-400', 'bg-amber-50', 'text-amber-700');
+      }
+    }
+
+    function toggleCurrentQuestionFav() {
+      if (!state.quizSession) return;
+      const q = state.quizSession.questions[state.quizSession.currentIndex];
+      toggleFavorite(q.quoteObj.id);
+      updateQuestionFavButton(q.quoteObj.id);
+    }
+
+    function submitMcAnswer(optIdx) {
+      const session = state.quizSession;
+      if (!session) return;
+      const q = session.questions[session.currentIndex];
+      if (q.isCorrect !== null) return;
+
+      const chosen = q.options[optIdx];
+      const isCorrect = chosen === q.correctAnswer;
+
+      // 標示各選項對錯顏色
+      document.querySelectorAll('.mc-opt-btn').forEach((btn, idx) => {
+        btn.disabled = true;
+        btn.classList.remove('hover:border-ink', 'hover:bg-paper/80', 'cursor-pointer');
+        const val = q.options[idx];
+        const badge = btn.querySelector('span:first-child');
+
+        if (val === q.correctAnswer) {
+          btn.classList.remove('border-borderWarm', 'bg-white');
+          btn.classList.add('border-2', 'border-emerald-600', 'bg-emerald-50/90');
+          badge.classList.remove('bg-paper', 'text-ink');
+          badge.classList.add('bg-emerald-600', 'text-white', 'border-emerald-600');
+        } else if (idx === optIdx && !isCorrect) {
+          btn.classList.remove('border-borderWarm', 'bg-white');
+          btn.classList.add('border-2', 'border-cinnabar', 'bg-cinnabarLight');
+          badge.classList.remove('bg-paper', 'text-ink');
+          badge.classList.add('bg-cinnabar', 'text-white', 'border-cinnabar');
+        } else {
+          btn.classList.add('opacity-55');
+        }
+      });
+
+      finalizeQuestionAnswer(q, chosen, isCorrect);
+    }
+
+    function finalizeQuestionAnswer(q, userAnswer, isCorrect) {
+      const session = state.quizSession;
+      q.userAnswer = userAnswer;
+      q.isCorrect = isCorrect;
+
+      // 若是填空題，將題幹底線填入答案（含注音）
+      const blankSlot = document.getElementById('stem-blank-slot');
+      if (blankSlot) {
+        blankSlot.innerHTML = annotateClassicalQuote(q.correctAnswer, '', q.quoteObj.quote);
+        if (isCorrect) {
+          blankSlot.style.borderColor = '#059669';
+          blankSlot.style.color = '#065F46';
+          blankSlot.style.backgroundColor = 'rgba(5, 150, 105, 0.12)';
+        }
+      }
+
+      const wrongBadge = document.getElementById('q-wrong-recorded-badge');
+      if (isCorrect) {
+        session.scoreCount += 1;
+        document.getElementById('q-live-score').textContent = session.scoreCount;
+        wrongBadge.classList.add('hidden');
+      } else {
+        session.wrongItems.push(q.quoteObj);
+        recordWrongQuote(q.quoteObj.id);
+        wrongBadge.classList.remove('hidden');
+      }
+
+      // 顯示詳解卡片
+      const fbBox = document.getElementById('q-feedback-box');
+      const fbStatus = document.getElementById('q-feedback-status');
+      fbBox.classList.remove('hidden', 'border-emerald-500', 'bg-emerald-50/50', 'border-cinnabar', 'bg-cinnabarLight/50');
+
+      if (isCorrect) {
+        fbBox.classList.add('border-emerald-500', 'bg-emerald-50/50');
+        fbStatus.innerHTML = `<span class="text-emerald-700">✓ 回答正確！</span>`;
+      } else {
+        fbBox.classList.add('border-cinnabar', 'bg-cinnabarLight/50');
+        fbStatus.innerHTML = `<span class="text-cinnabar">✕ 回答不正確</span><span class="text-xs sm:text-sm font-normal text-stone-600">（您的作答：${escapeHtml(userAnswer)}）</span>`;
+      }
+
+      // 高亮顯示完整原句中的填空關鍵詞（含注音）
+      document.getElementById('fb-id').textContent = q.quoteObj.id;
+      if (q.cloze) {
+        document.getElementById('fb-full-quote').innerHTML =
+          `${annotateClassicalQuote(q.cloze.prefix, '', q.quoteObj.quote)}<span class="px-1.5 py-0.5 rounded bg-amber-200/80 text-cinnabar underline decoration-cinnabar/60">${annotateClassicalQuote(q.cloze.answer, '', q.quoteObj.quote)}</span>${annotateClassicalQuote(q.cloze.suffix, '', q.quoteObj.quote)}`;
+      } else {
+        document.getElementById('fb-full-quote').innerHTML = annotateClassicalQuote(q.quoteObj.quote);
+      }
+
+      document.getElementById('fb-meaning').textContent = q.quoteObj.meaning;
+      document.getElementById('fb-category').textContent = q.quoteObj.category;
+      document.getElementById('fb-source').textContent = q.quoteObj.source;
+
+      const isLast = session.currentIndex === session.questions.length - 1;
+      document.getElementById('q-next-btn-text').textContent = isLast ? '查看測驗成績' : '下一題 (Enter)';
+    }
+
+    function nextQuestion() {
+      const session = state.quizSession;
+      if (!session) return;
+      if (session.currentIndex < session.questions.length - 1) {
+        session.currentIndex += 1;
+        renderCurrentQuestion();
+      } else {
+        showQuizResults();
+      }
+    }
+
+    function showQuizResults() {
+      const session = state.quizSession;
+      if (!session) return;
+
+      document.getElementById('quiz-active-panel').classList.add('hidden');
+      document.getElementById('quiz-result-panel').classList.remove('hidden');
+
+      const total = session.questions.length;
+      const correct = session.scoreCount;
+      const pct = Math.round((correct / total) * 100);
+      const score = pct;
+
+      document.getElementById('res-subtitle').textContent = `本次共測驗 ${total} 題，答對 ${correct} 題，答錯 ${total - correct} 題。`;
+      document.getElementById('res-score').textContent = score;
+      document.getElementById('res-correct-count').textContent = `${correct} / ${total}`;
+      document.getElementById('res-accuracy').textContent = `${pct}%`;
+
+      // 印章評語
+      const sealTitle = document.getElementById('res-seal-title');
+      const sealSub = document.getElementById('res-seal-sub');
+      if (pct === 100) {
+        sealTitle.textContent = '學貫古今';
+        sealSub.textContent = '滿分登科';
+      } else if (pct >= 80) {
+        sealTitle.textContent = '博學篤行';
+        sealSub.textContent = '成績斐然';
+      } else if (pct >= 60) {
+        sealTitle.textContent = '溫故知新';
+        sealSub.textContent = '穩步精進';
+      } else {
+        sealTitle.textContent = '勤能補拙';
+        sealSub.textContent = '再接再厲';
+      }
+
+      // 計算各主題統計
+      const catStats = {};
+      session.questions.forEach(q => {
+        const c = q.quoteObj.category;
+        if (!catStats[c]) catStats[c] = { total: 0, correct: 0 };
+        catStats[c].total += 1;
+        if (q.isCorrect) catStats[c].correct += 1;
+      });
+
+      const barsEl = document.getElementById('res-category-bars');
+      barsEl.innerHTML = Object.entries(catStats).map(([cat, st]) => {
+        const rate = Math.round((st.correct / st.total) * 100);
+        return `
+          <div class="bg-paper rounded-xl p-3.5 border border-borderWarm">
+            <div class="flex items-center justify-between text-xs font-bold mb-1.5">
+              <span class="text-ink">${cat}</span>
+              <span class="text-stone-600">${st.correct} / ${st.total} (${rate}%)</span>
+            </div>
+            <div class="w-full h-2 bg-stone-200 rounded-full overflow-hidden">
+              <div class="h-full bg-ink rounded-full" style="width: ${rate}%"></div>
+            </div>
+          </div>
+        `;
+      }).join('');
+
+      // 重練錯題按鈕
+      const retryBtn = document.getElementById('res-retry-wrong-btn');
+      if (session.wrongItems.length > 0) {
+        retryBtn.classList.remove('hidden');
+        document.getElementById('res-wrong-num').textContent = session.wrongItems.length;
+      } else {
+        retryBtn.classList.add('hidden');
+      }
+
+      // 題目回顧清單
+      const reviewEl = document.getElementById('res-review-list');
+      reviewEl.innerHTML = session.questions.map((q, idx) => {
+        const isFav = state.favorites.has(q.quoteObj.id);
+        return `
+          <div class="p-4 rounded-xl border ${q.isCorrect ? 'border-emerald-200 bg-emerald-50/30' : 'border-cinnabar/30 bg-cinnabarLight/30'} space-y-2">
+            <div class="flex items-center justify-between gap-2">
+              <div class="flex items-center gap-2">
+                <span class="text-xs font-bold px-2 py-0.5 rounded ${q.isCorrect ? 'bg-emerald-600 text-white' : 'bg-cinnabar text-white'}">
+                  ${q.isCorrect ? '✓ 答對' : '✕ 答錯'}
+                </span>
+                <span class="text-xs text-stone-500">第 ${idx + 1} 題 ・ ${q.typeLabel} ・ #${q.quoteObj.id}</span>
+              </div>
+              <button onclick="toggleFavorite('${q.quoteObj.id}'); showQuizResults();" class="text-xs px-2.5 py-1 rounded-lg border border-borderWarm bg-white hover:border-amber-400 ${isFav ? 'text-amber-600 font-bold' : 'text-stone-500'}">
+                ${isFav ? '★ 已收藏' : '☆ 收藏'}
+              </button>
+            </div>
+            <div class="font-classical text-base sm:text-lg font-bold text-ink leading-[2.15]">${annotateClassicalQuote(q.quoteObj.quote)}</div>
+            <p class="text-xs sm:text-sm text-stone-600 leading-relaxed">${escapeHtml(q.quoteObj.meaning)}</p>
+            ${!q.isCorrect ? `<div class="text-xs text-cinnabar font-medium">您的作答：${escapeHtml(q.userAnswer)}</div>` : ''}
+          </div>
+        `;
+      }).join('');
+    }
+
+    function retrySessionWrong() {
+      if (!state.quizSession || state.quizSession.wrongItems.length === 0) return;
+      const uniqueWrong = [];
+      const seen = new Set();
+      state.quizSession.wrongItems.forEach(item => {
+        if (!seen.has(item.id)) {
+          seen.add(item.id);
+          uniqueWrong.push(item);
+        }
+      });
+      startQuiz(uniqueWrong);
+    }
+
+    // 鍵盤快捷鍵監聽（1-4 選選項、Enter 下一題）
+    document.addEventListener('keydown', (e) => {
+      if (state.activeTab !== 'quiz' || !state.quizSession) return;
+      const q = state.quizSession.questions[state.quizSession.currentIndex];
+      if (!q) return;
+
+      const activeTag = document.activeElement ? document.activeElement.tagName.toLowerCase() : '';
+      const isTyping = activeTag === 'input' || activeTag === 'textarea';
+
+      if (q.isCorrect === null) {
+        if (!isTyping && ['1', '2', '3', '4'].includes(e.key)) {
+          const idx = Number(e.key) - 1;
+          if (idx < q.options.length) {
+            e.preventDefault();
+            submitMcAnswer(idx);
+          }
+        }
+      } else {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          nextQuestion();
+        }
+      }
+    });
+
+    // =========================================================================
+    // 七、分類文庫與即時查詢（含背誦遮蔽模式）
+    // =========================================================================
+    function highlightKeyword(text, keyword) {
+      const safeText = escapeHtml(text);
+      if (!keyword) return safeText;
+      const safeKw = escapeHtml(keyword).replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      const regex = new RegExp(`(${safeKw})`, 'gi');
+      return safeText.replace(regex, '<mark class="bg-amber-200/90 text-ink px-0.5 rounded font-semibold">$1</mark>');
+    }
+
+    function setLibraryCategory(cat) {
+      state.library.category = cat;
+      renderLibrary();
+    }
+
+    function handleLibrarySearch(val) {
+      state.library.search = val.trim();
+      const clearBtn = document.getElementById('lib-clear-search');
+      if (state.library.search) clearBtn.classList.remove('hidden');
+      else clearBtn.classList.add('hidden');
+      renderLibrary();
+    }
+
+    function clearLibrarySearch() {
+      const input = document.getElementById('lib-search-input');
+      input.value = '';
+      handleLibrarySearch('');
+    }
+
+    function resetLibraryFilters() {
+      state.library.category = 'all';
+      clearLibrarySearch();
+    }
+
+    function setMaskMode(mode) {
+      state.library.maskMode = mode;
+      state.library.revealedIds.clear();
+
+      document.querySelectorAll('.mask-btn').forEach(btn => {
+        const isMatch = btn.dataset.mask === mode;
+        if (isMatch) {
+          btn.classList.add('bg-ink', 'text-white', 'shadow-sm');
+          btn.classList.remove('text-stone-700', 'hover:text-ink');
+        } else {
+          btn.classList.remove('bg-ink', 'text-white', 'shadow-sm');
+          btn.classList.add('text-stone-700', 'hover:text-ink');
+        }
+      });
+
+      const hint = document.getElementById('lib-mask-hint');
+      const resetBtn = document.getElementById('lib-reset-reveals-btn');
+      if (mode === 'none') {
+        hint.classList.add('hidden');
+        resetBtn.classList.add('hidden');
+      } else {
+        hint.classList.remove('hidden');
+        resetBtn.classList.remove('hidden');
+      }
+
+      renderLibrary();
+    }
+
+    function toggleCardReveal(id) {
+      if (state.library.maskMode === 'none') return;
+      if (state.library.revealedIds.has(id)) {
+        state.library.revealedIds.delete(id);
+      } else {
+        state.library.revealedIds.add(id);
+      }
+      renderLibrary();
+    }
+
+    function resetIndividualReveals() {
+      state.library.revealedIds.clear();
+      renderLibrary();
+    }
+
+    function renderLibrary() {
+      // 1. 渲染分類頁籤
+      const tabs = [
+        { key: 'all', label: '全部', count: QUOTES_DATA.length },
+        { key: '修身律己', label: '修身律己', count: 80 },
+        { key: '勤學篤行', label: '勤學篤行', count: 66 },
+        { key: '待人處世', label: '待人處世', count: 20 },
+        { key: '家國情懷', label: '家國情懷', count: 31 },
+        { key: 'fav', label: '★ 已收藏', count: state.favorites.size }
+      ];
+
+      document.getElementById('lib-category-tabs').innerHTML = tabs.map(t => {
+        const active = state.library.category === t.key;
+        return `
+          <button
+            type="button"
+            onclick="setLibraryCategory('${t.key}')"
+            class="px-3.5 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all border ${
+              active
+                ? 'bg-ink text-white border-ink shadow-xs'
+                : 'bg-paper text-stone-700 border-borderWarm hover:border-gold hover:text-ink'
+            }"
+          >
+            ${t.label} <span class="opacity-80 text-xs">(${t.count})</span>
+          </button>
+        `;
+      }).join('');
+
+      // 2. 過濾資料
+      const kw = state.library.search.toLowerCase();
+      const filtered = QUOTES_DATA.filter(item => {
+        if (state.library.category === 'fav' && !state.favorites.has(item.id)) return false;
+        if (state.library.category !== 'all' && state.library.category !== 'fav' && item.category !== state.library.category) return false;
+        if (!kw) return true;
+        return (
+          item.id.includes(kw) ||
+          item.quote.toLowerCase().includes(kw) ||
+          item.meaning.toLowerCase().includes(kw) ||
+          item.source.toLowerCase().includes(kw)
+        );
+      });
+
+      document.getElementById('lib-result-count').textContent = filtered.length;
+
+      const gridEl = document.getElementById('lib-cards-grid');
+      const emptyEl = document.getElementById('lib-empty-state');
+
+      if (filtered.length === 0) {
+        gridEl.innerHTML = '';
+        emptyEl.classList.remove('hidden');
+        return;
+      }
+      emptyEl.classList.add('hidden');
+
+      const maskMode = state.library.maskMode;
+      const revealedIds = state.library.revealedIds;
+
+      gridEl.innerHTML = filtered.map(item => {
+        const isFav = state.favorites.has(item.id);
+        const isRevealed = revealedIds.has(item.id);
+        const hideQuote = maskMode === 'quote' && !isRevealed;
+        const hideMeaning = maskMode === 'meaning' && !isRevealed;
+
+        return `
+          <article class="bg-white rounded-2xl border border-borderWarm p-5 shadow-xs hover:shadow-md transition-all flex flex-col justify-between gap-3.5">
+            <div class="space-y-3">
+              <!-- 頂部編號、分類徽章與星號收藏 -->
+              <div class="flex items-center justify-between gap-2">
+                <div class="flex items-center gap-2">
+                  <span class="font-mono text-xs font-bold text-stone-400">#${item.id}</span>
+                  <span class="text-xs px-2.5 py-0.5 rounded-full border font-semibold ${getCategoryBadgeClass(item.category)}">
+                    ${item.category}
+                  </span>
+                </div>
+                <button
+                  type="button"
+                  onclick="toggleFavorite('${item.id}'); renderLibrary();"
+                  class="w-8 h-8 rounded-lg border flex items-center justify-center text-base transition-all ${
+                    isFav
+                      ? 'border-amber-300 bg-amber-50 text-amber-500'
+                      : 'border-borderWarm bg-paper/60 text-stone-400 hover:text-amber-500 hover:border-amber-300'
+                  }"
+                  title="${isFav ? '取消收藏' : '加入收藏'}"
+                >
+                  ${isFav ? '★' : '☆'}
+                </button>
+              </div>
+
+              <!-- 古文名言區 -->
+              ${hideQuote ? `
+                <div onclick="toggleCardReveal('${item.id}')" class="cursor-pointer rounded-xl bg-ink/5 border border-dashed border-ink/30 p-4 text-center hover:bg-ink/10 transition-colors select-none">
+                  <span class="text-xs font-bold text-ink">👁️ 已遮蔽古文原句（點擊揭曉背誦結果）</span>
+                </div>
+              ` : `
+                <div ${maskMode === 'quote' ? `onclick="toggleCardReveal('${item.id}')" class="cursor-pointer"` : ''}>
+                  <h3 class="font-classical text-lg sm:text-xl font-bold text-ink leading-[2.15] tracking-wide">
+                    ${annotateClassicalQuote(item.quote, state.library.search, item.quote)}
+                  </h3>
+                  <div class="text-xs text-stone-400 mt-1">—— ${highlightKeyword(item.source, state.library.search)}</div>
+                </div>
+              `}
+            </div>
+
+            <!-- 白話釋義（本意與引申意） -->
+            <div class="pt-3 border-t border-borderWarm/70">
+              ${hideMeaning ? `
+                <div onclick="toggleCardReveal('${item.id}')" class="cursor-pointer rounded-xl bg-goldLight/80 border border-dashed border-gold/40 py-2.5 px-3 text-center hover:bg-goldLight transition-colors select-none">
+                  <span class="text-xs font-semibold text-gold">👁️ 已遮蔽白話釋義（點擊查看本意與引申意）</span>
+                </div>
+              ` : `
+                <p ${maskMode === 'meaning' ? `onclick="toggleCardReveal('${item.id}')" class="cursor-pointer text-xs sm:text-sm text-stone-600 leading-relaxed"` : 'class="text-xs sm:text-sm text-stone-600 leading-relaxed"'}>
+                  ${highlightKeyword(item.meaning, state.library.search)}
+                </p>
+              `}
+            </div>
+          </article>
+        `;
+      }).join('');
+    }
+
+    // =========================================================================
+    // 八、錯題與收藏本管理
+    // =========================================================================
+    function toggleFavorite(id) {
+      if (state.favorites.has(id)) {
+        state.favorites.delete(id);
+        showToast(`已將 #${id} 移出收藏本`);
+      } else {
+        state.favorites.add(id);
+        showToast(`已將 #${id} 加入收藏本 ★`, 'success');
+      }
+      savePersistedData();
+    }
+
+    function recordWrongQuote(id) {
+      if (!state.wrongs[id]) {
+        state.wrongs[id] = { count: 1, lastTime: Date.now() };
+      } else {
+        state.wrongs[id].count += 1;
+        state.wrongs[id].lastTime = Date.now();
+      }
+      savePersistedData();
+    }
+
+    function removeWrongQuote(id) {
+      delete state.wrongs[id];
+      savePersistedData();
+      showToast(`已將 #${id} 標記為已掌握並移出錯題本`, 'success');
+      renderNotebook();
+    }
+
+    function switchNotebookSubtab(subtab) {
+      state.notebook.subtab = subtab;
+      cancelClearNotebook();
+      renderNotebook();
+    }
+
+    function requestClearNotebook(type) {
+      if (type === 'wrong' && Object.keys(state.wrongs).length === 0) {
+        showToast('錯題本目前已經是空的囉！');
+        return;
+      }
+      state.notebook.pendingClearType = type;
+      const bar = document.getElementById('nb-confirm-bar');
+      document.getElementById('nb-confirm-text').textContent = '確定要清空全部錯題紀錄嗎？';
+      bar.classList.remove('hidden');
+      bar.classList.add('flex');
+    }
+
+    function cancelClearNotebook() {
+      state.notebook.pendingClearType = null;
+      const bar = document.getElementById('nb-confirm-bar');
+      bar.classList.add('hidden');
+      bar.classList.remove('flex');
+    }
+
+    function executeClearNotebook() {
+      if (state.notebook.pendingClearType === 'wrong') {
+        state.wrongs = {};
+        savePersistedData();
+        showToast('已清空所有錯題紀錄');
+      }
+      cancelClearNotebook();
+      renderNotebook();
+    }
+
+    function startNotebookQuiz(type) {
+      const items = type === 'wrong'
+        ? QUOTES_DATA.filter(q => Boolean(state.wrongs[q.id]))
+        : QUOTES_DATA.filter(q => state.favorites.has(q.id));
+
+      if (items.length === 0) {
+        showToast(type === 'wrong' ? '錯題本目前沒有題目' : '收藏本目前沒有題目', 'warn');
+        return;
+      }
+
+      state.quizConfig.scope = type;
+      switchTab('quiz');
+      startQuiz(items);
+    }
+
+    function copyFavoritesText() {
+      const favItems = QUOTES_DATA.filter(q => state.favorites.has(q.id));
+      if (favItems.length === 0) {
+        showToast('目前尚未收藏任何名言喔！', 'warn');
+        return;
+      }
+      const text = favItems.map(q => `【${q.id}｜${q.category}】${q.quote}（${q.source}）\n釋義：${q.meaning}`).join('\n\n');
+      const ta = document.createElement('textarea');
+      ta.value = text;
+      ta.style.position = 'fixed';
+      ta.style.opacity = '0';
+      document.body.appendChild(ta);
+      ta.select();
+      try {
+        document.execCommand('copy');
+        showToast(`已複製 ${favItems.length} 則收藏名言至剪貼簿！`, 'success');
+      } catch (e) {
+        showToast('複製失敗，請手動選取文字', 'warn');
+      }
+      ta.remove();
+    }
+
+    function renderNotebook() {
+      const wrongIds = Object.keys(state.wrongs).sort((a, b) => state.wrongs[b].lastTime - state.wrongs[a].lastTime);
+      const favIds = [...state.favorites].sort();
+
+      document.getElementById('nb-wrong-total').textContent = wrongIds.length;
+      document.getElementById('nb-fav-total').textContent = favIds.length;
+      document.getElementById('nb-subtab-wrong-count').textContent = wrongIds.length;
+      document.getElementById('nb-subtab-fav-count').textContent = favIds.length;
+
+      document.getElementById('nb-quiz-wrong-btn').disabled = wrongIds.length === 0;
+      document.getElementById('nb-quiz-fav-btn').disabled = favIds.length === 0;
+
+      // 子頁籤樣式
+      const btnWrong = document.getElementById('nb-subtab-wrong');
+      const btnFav = document.getElementById('nb-subtab-fav');
+      if (state.notebook.subtab === 'wrong') {
+        btnWrong.className = 'px-4 py-2 rounded-lg text-xs sm:text-sm font-bold bg-ink text-white shadow-sm transition-all';
+        btnFav.className = 'px-4 py-2 rounded-lg text-xs sm:text-sm font-bold text-stone-700 hover:text-ink transition-all';
+      } else {
+        btnFav.className = 'px-4 py-2 rounded-lg text-xs sm:text-sm font-bold bg-ink text-white shadow-sm transition-all';
+        btnWrong.className = 'px-4 py-2 rounded-lg text-xs sm:text-sm font-bold text-stone-700 hover:text-ink transition-all';
+      }
+
+      const listEl = document.getElementById('nb-list-container');
+      const emptyEl = document.getElementById('nb-empty-state');
+
+      const targetIds = state.notebook.subtab === 'wrong' ? wrongIds : favIds;
+
+      if (targetIds.length === 0) {
+        listEl.innerHTML = '';
+        emptyEl.classList.remove('hidden');
+        if (state.notebook.subtab === 'wrong') {
+          document.getElementById('nb-empty-icon').textContent = '✨';
+          document.getElementById('nb-empty-title').textContent = '目前尚無錯題紀錄';
+          document.getElementById('nb-empty-desc').textContent = '前往「互動測驗」開始練習，答錯的題目會自動整理在這裡。';
+        } else {
+          document.getElementById('nb-empty-icon').textContent = '⭐';
+          document.getElementById('nb-empty-title').textContent = '目前尚未收藏任何文句';
+          document.getElementById('nb-empty-desc').textContent = '在「分類文庫」或測驗詳解點擊星號，即可建立個人專屬座右銘集。';
+        }
+        return;
+      }
+
+      emptyEl.classList.add('hidden');
+      listEl.innerHTML = targetIds.map(id => {
+        const item = QUOTE_MAP.get(id);
+        if (!item) return '';
+        const wrongInfo = state.wrongs[id];
+        const isFav = state.favorites.has(id);
+
+        return `
+          <div class="bg-paper/70 rounded-2xl border border-borderWarm p-5 flex flex-col justify-between gap-3">
+            <div class="space-y-2.5">
+              <div class="flex items-center justify-between gap-2">
+                <div class="flex items-center gap-2">
+                  <span class="font-mono text-xs font-bold text-stone-400">#${item.id}</span>
+                  <span class="text-xs px-2.5 py-0.5 rounded-full border font-semibold ${getCategoryBadgeClass(item.category)}">
+                    ${item.category}
+                  </span>
+                  ${wrongInfo ? `<span class="text-[11px] px-2 py-0.5 rounded-full bg-cinnabarLight text-cinnabar font-bold">累計答錯 ${wrongInfo.count} 次</span>` : ''}
+                </div>
+                <div class="flex items-center gap-1.5">
+                  <button
+                    onclick="toggleFavorite('${item.id}'); renderNotebook();"
+                    class="px-2.5 py-1 rounded-lg border border-borderWarm bg-white text-xs ${isFav ? 'text-amber-600 font-bold' : 'text-stone-500'}"
+                    title="收藏切換"
+                  >
+                    ${isFav ? '★ 已收藏' : '☆ 收藏'}
+                  </button>
+                  ${state.notebook.subtab === 'wrong' ? `
+                    <button
+                      onclick="removeWrongQuote('${item.id}')"
+                      class="px-2.5 py-1 rounded-lg bg-emerald-700 hover:bg-emerald-800 text-white text-xs font-semibold transition-colors"
+                    >
+                      ✓ 已掌握
+                    </button>
+                  ` : ''}
+                </div>
+              </div>
+
+              <h4 class="font-classical text-lg font-bold text-ink leading-[2.15]">${annotateClassicalQuote(item.quote)}</h4>
+              <div class="text-xs text-stone-400">—— ${escapeHtml(item.source)}</div>
+            </div>
+
+            <p class="pt-2.5 border-t border-borderWarm/70 text-xs sm:text-sm text-stone-600 leading-relaxed">
+              ${escapeHtml(item.meaning)}
+            </p>
+          </div>
+        `;
+      }).join('');
+    }
+
+    // =========================================================================
+    // 九、初始化與捲動監聽
+    // =========================================================================
+    window.addEventListener('scroll', () => {
+      const btn = document.getElementById('scroll-top-btn');
+      if (window.scrollY > 360) btn.classList.remove('hidden');
+      else btn.classList.add('hidden');
+    });
+
+    window.addEventListener('DOMContentLoaded', () => {
+      loadPersistedData();
+      updateGlobalBadges();
+      renderQuizSetupScopes();
+    });
+  </script>
+</body>
+</html>
